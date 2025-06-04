@@ -16,26 +16,22 @@
     }
 
     .container {
-      display: flex;
-      flex-wrap: wrap;
-      max-width: 1000px;
-      margin: 0 auto;
-      gap: 40px;
-    }
+  display: block; /* flex 대신 block으로 전환 */
+  max-width: 1000px;
+  margin: 0 auto;
+}
 
-    .image-box {
-      flex: 1 1 40%;
-    }
+.image-box {
+  margin-bottom: 20px; /* 이미지 간 간격 */
+}
 
-    .image-box img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-    }
+.text-box {
+  font-size: 0.9rem;
+  color: #888;
+  text-align: left;
+  margin-top: 10px; /* 이미지와 텍스트 간격 */
+}
 
-    .text-box {
-      flex: 1 1 40%;
-    }
 
     h1 {
       font-size: 1.8rem;
