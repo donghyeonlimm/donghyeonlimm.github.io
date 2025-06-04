@@ -1,84 +1,79 @@
-<title>instruments for wheels - Donghyeon Lim</title>
-<h1>instruments for wheels</h1>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>instruments for line - Donghyeon Lim</title>
+  <title>Instruments For Wheels - Donghyeon Lim</title>
   <style>
     body {
       font-family: 'Helvetica Neue', sans-serif;
       background-color: #fff;
       color: #000;
-      margin: 40px;
-      line-height: 1.8;
+      margin: 20px;
+      line-height: 1.6;
     }
 
-    .container {
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .image-row {
       display: flex;
+      justify-content: center;
+      gap: 20px;
       flex-wrap: wrap;
-      max-width: 1000px;
-      margin: 0 auto;
-      gap: 40px;
+      margin-bottom: 30px;
     }
 
     .image-box {
-      flex: 1 2 40%;
+      flex: 1 1 45%;
+      max-width: 45%;
     }
 
     .image-box img {
-      max-width: 100%;
+      width: 100%;
       height: auto;
       display: block;
     }
 
     .text-box {
-      flex: 1 1 40%;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: left;
+      font-size: 0.9rem;
+      color: #555;
     }
 
-    h1 {
-      font-size: 1.8rem;
-      margin-bottom: 20px;
-    }
-
-    p {
-      margin-bottom: 20px;
-    }
-
-    a {
+    .text-box a {
       color: #555;
       text-decoration: underline;
     }
 
     @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-      }
-
-      .image-box, .text-box {
+      .image-box {
+        max-width: 100%;
         flex: 1 1 100%;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- 왼쪽: 이미지 -->
-    <div class="image-box">
-      <img src="../images/img_iw.png" alt="instruments for wheels, 2025">
-    </div>
- <div class="image-box">
-      <img src="../images/img_iw2.png" alt="instruments for wheels, 2025">
-    </div>
+  <h1>Instruments For Wheels</h1>
 
-    <!-- 오른쪽: 텍스트 -->
-    <div class="text-box">
-      <p><strong></strong> 2025, 알루미늄, DC 모터</p>
-    
-      </p>
-      <p><a href="../index.html">← return</a></p>
+  <div class="image-row">
+    <div class="image-box">
+      <img src="../images/img_iw.png" alt="instruments for wheels, 2025" />
     </div>
+    <div class="image-box">
+      <img src="../images/img_iw2.png" alt="instruments for wheels, 2025" />
+    </div>
+  </div>
+
+  <div class="text-box">
+    <p>2025, 알루미늄, DC 모터</p>
+    <p><a href="../index.html">← return</a></p>
   </div>
 </body>
 </html>
