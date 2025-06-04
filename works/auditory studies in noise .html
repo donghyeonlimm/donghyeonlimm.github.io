@@ -1,5 +1,3 @@
-<title>Auditory Studies In Noise - Donghyeon Lim</title>
-<h1>Auditory Studies In Noise</h1>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -12,75 +10,70 @@
       background-color: #fff;
       color: #000;
       margin: 20px;
-      line-height: 0.8;
+      line-height: 1.6;
     }
 
-    .container {
-  display: block; /* flex 대신 block으로 전환 */
-  max-width: 1000px;
-  margin: 0 auto;
-}
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 30px;
+      text-align: center;
+    }
 
+    .image-row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
 
-   .image-box {
-  margin-bottom: 20px; /* 이미지 간 간격 */
-}
+    .image-box {
+      flex: 1 1 45%;
+      max-width: 45%;
+    }
 
     .image-box img {
-      max-width: 100%;
+      width: 100%;
       height: auto;
       display: block;
     }
 
     .text-box {
-      flex: 1 1 40%;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: left;
+      font-size: 0.9rem;
+      color: #555;
     }
 
-    h1 {
-      font-size: 1.8rem;
-      margin-bottom: 20px;
-    }
-
-    p {
-      margin-bottom: 20px;
-    }
-
-    a {
+    .text-box a {
       color: #555;
       text-decoration: underline;
     }
 
     @media (max-width: 768px) {
-      .container {
-        flex-direction: column;
-      }
-
-      .image-box, .text-box {
+      .image-box {
+        max-width: 100%;
         flex: 1 1 100%;
       }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <!-- 왼쪽: 이미지 -->
-      <div class="image-box">
-      <img src="../images/img_an.png" alt="auditory studies in noise, 2025">
-    </div>
+  <h1>Auditory Studies In Noise</h1>
 
+  <div class="image-row">
     <div class="image-box">
-      <img src="../images/img_an2.png" alt="auditory studies in noise, 2025">
+      <img src="../images/img_an.png" alt="auditory studies in noise, 2025" />
     </div>
-
-
-    <!-- 오른쪽: 텍스트 -->
-    <div class="text-box"><footer style="margin-top: 60px; text-align: left; font-size: 0.9rem; color: #888;">
-
-      <p><strong></strong> 2025, 월넛, 반생, DC 모터</p>
-    
-      </p>
-      <p><a href="../index.html">← return</a></p>
+    <div class="image-box">
+      <img src="../images/img_an2.png" alt="auditory studies in noise, 2025" />
     </div>
+  </div>
+
+  <div class="text-box">
+    <p>2025, 월넛, 반생, DC 모터</p>
+    <p><a href="../index.html">← return</a></p>
   </div>
 </body>
 </html>
