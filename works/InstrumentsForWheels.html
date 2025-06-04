@@ -30,6 +30,14 @@
     .image-box {
       flex: 1 1 45%;
       max-width: 45%;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1.2s ease, transform 1.2s ease;
+    }
+
+    .image-box.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .image-box img {
