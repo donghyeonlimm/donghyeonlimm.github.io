@@ -22,15 +22,15 @@
 
     .image-row {
   display: flex;
-  flex-direction: column; /* 세로 정렬 */
-  align-items: center;     /* 가운데 정렬 */
+  justify-content: center; /* 세로 정렬 */
   gap: 20px;
+  flex-wrap: wrap;
   margin-bottom: 30px;
 }
 
 .image-box {
-  width: 100%;
-  max-width: 500px; /* 이미지 최대 크기 제한 */
+     flex: 1 1 45%;
+     max-width: 45%;
 }
 
 .image-box img {
@@ -42,7 +42,7 @@
 
     .text-box {
       max-width: 800px;
-      margin: 0 0;
+      margin: 0 auto;
       text-align: left;
       font-size: 0.9rem;
       color: #555;
@@ -55,7 +55,8 @@
 
     @media (max-width: 768px) {
       .image-box {
-        width: 100%;
+        max-width: 100%;
+        flex: 1 1 100%;
       }
     }
   </style>
