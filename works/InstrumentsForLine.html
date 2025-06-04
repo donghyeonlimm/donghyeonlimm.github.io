@@ -21,15 +21,15 @@
 
     .image-row {
       display: flex;
-      justify-content: center;
+      flex-direction: colume;
+      align-items: center;
       gap: 20px;
-      flex-wrap: wrap;
       margin-bottom: 30px;
     }
 
     .image-box {
-      flex: 1 1 45%;
-      max-width: 45%;
+      flex: 80%;
+      max-width: 600%;
     }
 
     .image-box img {
@@ -41,7 +41,7 @@
     .text-box {
       max-width: 800px;
       margin: 0 auto;
-      text-align: left;
+      text-align: center;
       font-size: 0.9rem;
       color: #555;
     }
@@ -53,8 +53,7 @@
 
     @media (max-width: 768px) {
       .image-box {
-        max-width: 100%;
-        flex: 1 1 100%;
+        width: 100%;
       }
     }
   </style>
