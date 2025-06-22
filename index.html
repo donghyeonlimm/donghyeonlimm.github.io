@@ -123,6 +123,17 @@
       color: #888;
       margin-top: 120px;
     }
+
+    /* ✅ 고정 이미지 스타일 */
+    .fixed-image {
+      position: fixed;
+      top: 100px;
+      right: 20px;
+      width: 300px;
+      opacity: 0.5;
+      z-index: 0;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body id="top">
@@ -157,13 +168,12 @@
       </div>
     </section>
 
-   <section id="text">
-  <h2>text</h2>
-  <div class="text-links">
-    <a href="texts/ResonantChamber.pdf">Touchless Yet Touched, 2025 - Eunhee Kim</a>
-  </div>
-</section>
-
+    <section id="text">
+      <h2>text</h2>
+      <div class="text-links">
+        <a href="texts/ResonantChamber.pdf">Touchless Yet Touched, 2025 - Eunhee Kim</a>
+      </div>
+    </section>
 
     <section id="cv">
       <h2>CV</h2>
@@ -187,25 +197,27 @@
     </section>
 
     <footer style="margin-top: 60px; text-align: left; font-size: 0.9rem; color: #888;">
-  <p>&copy; 2025 dong hyeon lim. All rights reserved.</p>
-  <div style="margin-top: 10px;">
-    <a href="https://www.instagram.com/limeastring" target="_blank" style="margin-right: 15px; text-decoration: none; color: #000;">
-      Instagram
-    </a>
-    <a href="https://www.youtube.com/@Donghyeonlim" target="_blank" style="margin-right: 15px; text-decoration: none; color: #000;">
-      Video
-    </a>
-    <a href="texts/portfolio.pdf" target="_blank" style="text-decoration: none; color: #000;">
-      Portfolio
-    </a>
-  </div>
-</footer>
-
+      <p>&copy; 2025 dong hyeon lim. All rights reserved.</p>
+      <div style="margin-top: 10px;">
+        <a href="https://www.instagram.com/limeastring" target="_blank" style="margin-right: 15px; text-decoration: none; color: #000;">
+          Instagram
+        </a>
+        <a href="https://www.youtube.com/@Donghyeonlim" target="_blank" style="margin-right: 15px; text-decoration: none; color: #000;">
+          Video
+        </a>
+        <a href="texts/portfolio.pdf" target="_blank" style="text-decoration: none; color: #000;">
+          Portfolio
+        </a>
+      </div>
+    </footer>
 
     <!-- 맨 위로 이동 링크 -->
     <div style="text-align: left; margin-top: 20px;">
       <a href="#top" style="font-size: 0.8rem; text-decoration: underline; color: #888;">Top ↑</a>
     </div>
+
+    <!-- ✅ 오른쪽 고정 이미지 삽입 -->
+    <img src="images/무제-2.png" class="fixed-image" alt="drawing" />
   </main>
 </body>
 </html>
