@@ -17,11 +17,6 @@
 
     body {
       font-family: 'Helvetica Neue', sans-serif;
-      background-image: url('images/무제-2.png');
-      background-repeat: no-repeat;
-      background-position: right top;
-      background-size: 700px auto;
-      background-attachment: fixed;
       background-color: #fff;
       color: #000;
       line-height: 1.6;
@@ -128,6 +123,17 @@
       color: #888;
       margin-top: 120px;
     }
+
+    /* ✅ 고정 이미지 스타일 */
+    .fixed-image {
+      position: fixed;
+      top: 10px;
+      right: 200px;
+      width: 600px;
+      opacity: 0.5;
+      z-index: 0;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body id="top">
@@ -209,6 +215,9 @@
     <div style="text-align: left; margin-top: 20px;">
       <a href="#top" style="font-size: 0.8rem; text-decoration: underline; color: #888;">Top ↑</a>
     </div>
+
+    <!-- ✅ 오른쪽 고정 이미지 삽입 -->
+    <img src="images/무제-2.png" class="fixed-image" alt="drawing" />
   </main>
 </body>
 </html>
