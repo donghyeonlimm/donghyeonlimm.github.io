@@ -17,26 +17,20 @@
       font-size: 1.8rem;
       margin-bottom: 30px;
       text-align: left;
-      margin-left :0;
     }
 
-    .image-row {
-      display: flex;
-      justify-content: center;
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 20px;
-      flex-wrap: wrap;
       margin-bottom: 30px;
     }
 
-    .image-box {
-      flex: 1 1 45%;
-      max-width: 45%;
-    }
-
-    .image-box img {
+    .gallery-item img {
       width: 100%;
       height: auto;
       display: block;
+      border-radius: 8px;
     }
 
     .text-box {
@@ -51,24 +45,17 @@
       color: #555;
       text-decoration: underline;
     }
-
-    @media (max-width: 768px) {
-      .image-box {
-        max-width: 100%;
-        flex: 1 1 100%;
-      }
-    }
   </style>
 </head>
 <body>
   <h1>Instruments For Satellite</h1>
 
-  <div class="image-row">
-    <div class="image-box">
-      <img src="../images/img_st2.png" alt="instruments for st, 2025" />
+  <div class="gallery">
+    <div class="gallery-item">
+      <img src="../images/img_st2.png" alt="instruments for satellite, 2025" />
     </div>
-    <div class="image-box">
-      <img src="../images/img_st.png" alt="instruments for st, 2025" />
+    <div class="gallery-item">
+      <img src="../images/img_st.png" alt="instruments for satellite, 2025" />
     </div>
   </div>
 
