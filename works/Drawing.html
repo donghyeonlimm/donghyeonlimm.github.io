@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Drawing - Donghyeon Lim</title>
+  <style>
+    body {
+      font-family: 'Helvetica Neue', sans-serif;
+      background-color: #fff;
+      color: #000;
+      margin: 20px;
+      line-height: 1.6;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 30px;
+      text-align: left;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 0px;
+    }
+
+    .video-box {
+      max-width: 100%;
+      margin-bottom: 30px;
+    }
+
+    .video-box iframe {
+      width: 100%;
+      height: 500px;
+      border: none;
+      border-radius: 0px;
+    }
+
+    .text-box {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: left;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .text-box a {
+      color: #555;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .video-box iframe {
+        height: 250px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Drawing</h1>
+
+  <div class="gallery">
+    <div class="gallery-item">
+      <img src="../images/img_m1.png" alt="Drawing, 2025" />
+    </div>
+    <div class="gallery-item">
+      <img src="../images/img_m2.png" alt="Drawing, 2025" />
+    </div>
+  </div>
+     <div class="gallery-item">
+      <img src="../images/img_m3.png" alt="Maste, 2025" />
+    </div>
+
+  </div>
+
+  <div class="text-box">
+    <p>2025, Drawing, pen on tracing paper, digital print </p>
+    <p><a href="../index.html">← return</a></p>
+  </div>
+</body>
+</html>
