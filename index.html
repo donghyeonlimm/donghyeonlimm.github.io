@@ -6,15 +6,8 @@
   <title>Donghyeon Lim</title>
 
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Helvetica Neue', sans-serif;
@@ -25,38 +18,31 @@
       font-size: 0.8rem;
     }
 
-    /* ===============================
-       Background
-    =============================== */
+    /* Background */
     .background-image {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
       background-image: url('images/bg.png');
       background-repeat: no-repeat;
       background-position: center center;
       background-size: cover;
       z-index: -1;
       pointer-events: none;
+
       opacity: 0;
       transform: scale(1.05);
       transition: opacity 2s ease-out, transform 2.5s ease-out;
     }
-
     .background-image.is-visible {
       opacity: 0.4;
       transform: scale(1);
     }
 
-    /* ===============================
-       Header
-    =============================== */
+    /* Header */
     header {
       position: fixed;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
       width: 100%;
       background-color: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(3px);
@@ -65,20 +51,16 @@
       transition: background-color 0.3s, backdrop-filter 0.3s;
     }
 
+    nav { margin-top: 10px; }
     nav a {
       display: inline-block;
       text-decoration: none;
       color: #000;
       margin-right: 15px;
     }
+    nav a.is-active { text-decoration: underline; }
 
-    nav a.is-active {
-      text-decoration: underline;
-    }
-
-    /* ===============================
-       Main
-    =============================== */
+    /* Main */
     main {
       position: relative;
       z-index: 1;
@@ -87,25 +69,17 @@
       padding: 120px 20px 20px 20px;
     }
 
-    /* ===============================
-       Sections (Menu Toggle)
-    =============================== */
+    /* Sections (toggle + enter animation) */
     section {
-      display: none; /* 기본 숨김 */
+      display: none;              /* 기본 숨김 */
       margin-bottom: 120px;
+      scroll-margin-top: 80px;
       opacity: 0;
       transform: translateY(30px);
       transition: all 0.8s ease;
     }
-
-    section.is-active {
-      display: block;
-    }
-
-    section.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    section.is-active { display: block; }
+    section.is-visible { opacity: 1; transform: translateY(0); }
 
     h2 {
       font-size: 1rem;
@@ -114,6 +88,7 @@
       margin-bottom: 10px;
     }
 
+    /* Link list style (WORK/DOC/MEDIA/PORTFOLIO 공통) */
     .text-links a {
       display: block;
       text-decoration: none;
@@ -121,15 +96,12 @@
       font-size: 1rem;
       margin-bottom: 3px;
     }
-
     .text-links a:hover {
       text-decoration: underline;
       color: #666;
     }
 
-    /* ===============================
-       Fixed Footer (우측 하단 고정)
-    =============================== */
+    /* Fixed footer */
     .fixed-footer {
       position: fixed;
       bottom: 20px;
@@ -144,7 +116,6 @@
 </head>
 
 <body>
-
   <div class="background-image"></div>
 
   <header>
@@ -158,7 +129,6 @@
   </header>
 
   <main>
-
     <!-- WORK -->
     <section id="works">
       <h2>work</h2>
@@ -167,8 +137,8 @@
         <a href="works/Mast.html">Mast</a>
         <a href="works/PlumblingSystem.html">Plumbling System</a>
         <a href="works/InstrumentsForSatellite.html">Instruments For Satellite</a>
-        <a href="works/InstrumentsForWheels.html">Instruments For Wheels</a>
-        <a href="works/InstrumentsForLine.html">Instruments For Line</a>
+        <a href="works/InstrumentsForWheels.html">Instruments For wheels</a>
+        <a href="works/InstrumentsForLine.html">Instruments For line</a>
         <a href="works/AuditoryStudiesInNoise.html">Auditory Studies In Noise</a>
         <a href="works/Gong.html">Gong</a>
         <a href="works/PreludeInAMonsoonSeason.html">Prelude In A Monsoon Season</a>
@@ -189,7 +159,7 @@
     <section id="document">
       <h2>Document</h2>
       <div class="text-links">
-        <a href="texts/rp.pdf">Research Presentation 2025, Edit Donghyeon Lim</a>
+        <a href="texts/rp.pdf">Research Presentaion 2025, Edit Donghyeon Lim</a>
         <a href="texts/ResonantChamber.pdf">Touchless Yet Touched, 2025 - Eunhee Kim</a>
       </div>
     </section>
@@ -197,48 +167,52 @@
     <!-- CV -->
     <section id="cv">
       <h2>CV</h2>
-      <div style="margin-top: 20px; font-size: 0.9rem; color: #545353;">
+      <div style="margin-top: 20px; text-align: left; font-size: 0.9rem; color: #545353; font-weight: normal;">
         <p>b.1999</p>
         <p>B.F.A. in Sculpture, College of Fine Arts, Kyung Hee University</p>
         <p>M.F.A. candidate in Fine Arts, Graduate School, Kyung Hee University</p>
         <p>-</p>
-        <p><em>2025 IBK THE ART PLAZA : Eulji Poly, Seoul</em></p>
-        <p><em>Spectra Of Light 2025, Seoul</em></p>
-        <p><em>Paradox, Artrium Mori</em></p>
-        <p><em>Resonant Chamber, Gonggan HYEONG</em></p>
+        <p><em>2025 IBK THE ART PLAZA : Eulji Poly, Seoul, Korea, 2025</em></p>
+        <p><em>Spectra Of Light 2025, Seoul, Korea, 2025</em></p>
+        <p><em>Paradox, Artrium Mori, Seongju, Korea, 2025</em></p>
+        <p><em>Resonant Chamber, Gonggan HYEONG, Seoul, Korea, 2025</em></p>
+        <p><em>Your Office 2024, Art Space Areum, Suwon, Korea, 2024</em></p>
+        <p><em>The Fabulous Stories to Save the Green Planet, Gyeongpo Beach, Gangneung, Korea, 2024</em></p>
+        <p><em>Cracked Eggs and Well-Tied Ropes, Pier Contemporary, Seoul, Korea, 2023</em></p>
+        <p><em>Defamiliarization, Hello Museum, Seoul, Korea, 2023</em></p>
       </div>
     </section>
 
-    <!-- MEDIA -->
+    <!-- MEDIA (✅ text-links 적용) -->
     <section id="media">
       <h2>MEDIA</h2>
-      <div style="margin-top: 20px;">
-        <p><a href="mailto:tecuhn@gmail.com">E-mail</a></p>
-        <p><a href="https://www.instagram.com" target="_blank">Instagram</a></p>
-        <p><a href="https://www.youtube.com" target="_blank">Video</a></p>
-        <p><a href="https://soundcloud.com" target="_blank">Soundcloud</a></p>
+      <div class="text-links" style="margin-top: 20px;">
+        <a href="mailto:tecuhn@gmail.com">E-mail</a>
+        <a href="https://www.instagram.com" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.youtube.com" target="_blank" rel="noopener">Video</a>
+        <a href="https://soundcloud.com" target="_blank" rel="noopener">Soundcloud</a>
       </div>
     </section>
 
-    <!-- PORTFOLIO -->
+    <!-- PORTFOLIO (✅ text-links 적용) -->
     <section id="portfolio">
       <h2>PORTFOLIO</h2>
-      <div style="margin-top: 20px;">
-        <p><a href="texts/portfolio2.pdf" target="_blank">KR</a></p>
+      <div class="text-links" style="margin-top: 20px;">
+        <a href="texts/portfolio2.pdf" target="_blank" rel="noopener">KR</a>
       </div>
     </section>
-
   </main>
 
-  <!-- 우측 하단 고정 -->
+  <!-- Fixed footer -->
   <div class="fixed-footer">
     © 2025 dong hyeon lim. All rights reserved.
   </div>
 
   <script>
-    // 배경 등장
+    // 배경 이미지 등장
     window.addEventListener('DOMContentLoaded', () => {
-      document.querySelector('.background-image').classList.add('is-visible');
+      const bg = document.querySelector('.background-image');
+      bg.classList.add('is-visible');
     });
 
     // 헤더 스크롤 효과
@@ -253,31 +227,33 @@
       }
     });
 
-    // 섹션 토글
+    // 섹션 토글 (hash 기반)
     const sectionIds = ["works", "document", "cv", "media", "portfolio"];
     const sections = sectionIds.map(id => document.getElementById(id));
     const navLinks = Array.from(document.querySelectorAll("header nav a"));
 
     function activateSection(id) {
       sections.forEach(sec => {
-        const active = sec.id === id;
-        sec.classList.toggle("is-active", active);
-        if (active) {
+        const isActive = sec && sec.id === id;
+        sec.classList.toggle("is-active", isActive);
+
+        if (isActive) {
           requestAnimationFrame(() => sec.classList.add("is-visible"));
         } else {
           sec.classList.remove("is-visible");
         }
       });
 
-      navLinks.forEach(link => {
-        link.classList.toggle("is-active", link.dataset.target === id);
+      navLinks.forEach(a => {
+        const target = a.getAttribute("data-target") || a.getAttribute("href")?.replace("#", "");
+        a.classList.toggle("is-active", target === id);
       });
 
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     function getSectionFromHash() {
-      const hash = location.hash.replace("#", "");
+      const hash = (location.hash || "#works").replace("#", "");
       return sectionIds.includes(hash) ? hash : "works";
     }
 
@@ -286,9 +262,15 @@
     });
 
     window.addEventListener("DOMContentLoaded", () => {
+      // data-target 안전장치
+      navLinks.forEach(a => {
+        if (!a.hasAttribute("data-target")) {
+          a.setAttribute("data-target", a.getAttribute("href").replace("#", ""));
+        }
+      });
+
       activateSection(getSectionFromHash());
     });
   </script>
-
 </body>
 </html>
