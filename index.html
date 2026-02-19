@@ -166,79 +166,118 @@
 
     <!-- CV -->
     <section id="cv">
-      <h2>CV</h2>
-      <div style="margin-top: 20px; text-align: left; font-size: 0.9rem; color: #545353; font-weight: normal;">
-<!-- KOREAN -->
+  <h2>CV</h2>
 
-<p><strong>출생</strong><br>
-1999</p>
+  <style>
+    /* CV 전용 스타일 (기존 디자인 유지 + 줄간격 정리) */
+    .cv-wrap{
+      margin-top: 20px;
+      text-align: left;
+      font-size: 0.9rem;
+      color: #545353;
+      font-weight: normal;
+    }
 
-<p><strong>학력</strong><br>
-2024 경희대학교 미술대학 조소과 졸업<br>
-2024–현재 경희대학교 일반대학원 미술학과 석·박사 통합과정 재학
-</p>
+    .cv-wrap p { 
+      margin: 0 0 10px 0;       /* 문단 간격 */
+    }
 
-<p><strong>주요 전시</strong></p>
+    .cv-wrap .spacer {
+      height: 18px;            /* 섹션 간 간격 */
+    }
 
-<p><strong>2026</strong><br>
-〈몸은 기억을 닮는다〉, 갤러리인, 서울, 한국
-</p>
+    .cv-wrap strong{
+      color: #111;
+      font-weight: 600;
+    }
 
-<p><strong>2025</strong><br>
-〈IBK THE ART PLAZA: 을지폴리〉, IBK 기업은행 지하, 서울, 한국<br>
-〈서울 빛섬 축제: 빛의 스펙트라〉, 뚝섬 한강공원 일대, 서울, 한국<br>
-〈Paradox〉, 아트리움 모리, 성주, 한국<br>
-〈Resonant Chamber〉, 공간형, 서울, 한국
-</p>
+    .cv-wrap em{
+      font-style: italic;
+    }
 
-<p><strong>2024</strong><br>
-〈Your Office 2024〉, 아트스페이스 아름, 수원, 한국<br>
-〈지구를 구하는 멋진 이야기들〉, 경포해변, 강릉, 한국
-</p>
+    .cv-wrap hr{
+      margin: 26px 0;
+      border: none;
+      border-top: 1px solid #ddd;
+    }
+  </style>
 
-<p><strong>2023</strong><br>
-〈금이 간 계란과 잘 꼬인 밧줄〉, 피어 컨템포러리, 서울, 한국<br>
-〈Defamiliarization〉, 헬로우 뮤지움, 서울, 한국
-</p>
+  <div class="cv-wrap">
 
-<hr>
+    <!-- KOREAN -->
+    <p><strong>출생</strong><br>1999</p>
 
-<!-- ENGLISH -->
+    <div class="spacer"></div>
 
-<p><strong>Born</strong><br>
-1999</p>
+    <p><strong>학력</strong><br>
+      2024 경희대학교 미술대학 조소과 졸업<br>
+      2024–현재 경희대학교 일반대학원 미술학과 석·박사 통합과정 재학
+    </p>
 
-<p><strong>Education</strong><br>
-2024 BFA in Sculpture, College of Fine Arts, Kyung Hee University, Seoul, Korea<br>
-2024–Present Integrated M.A./Ph.D. Program in Fine Arts, Graduate School, Kyung Hee University, Seoul, Korea
-</p>
+    <div class="spacer"></div>
 
-<p><strong>Selected Exhibitions</strong></p>
+    <p><strong>주요 전시</strong></p>
 
-<p><strong>2026</strong><br>
-<em>Body Resembles Memory</em>, Gallery IN, Seoul, Korea
-</p>
+    <p><strong>2026</strong><br>
+      〈몸은 기억을 닮는다〉, 갤러리인, 서울, 한국
+    </p>
 
-<p><strong>2025</strong><br>
-<em>IBK THE ART PLAZA: Eulji Poly</em>, IBK Industrial Bank of Korea (B1), Seoul, Korea<br>
-<em>Seoul Light Seom Festival: Spectra of Light</em>, Ttukseom Hangang Park, Seoul, Korea<br>
-<em>Paradox</em>, Atrium Mori, Seongju, Korea<br>
-<em>Resonant Chamber</em>, Space Hyeong, Seoul, Korea
-</p>
+    <p><strong>2025</strong><br>
+      〈IBK THE ART PLAZA: 을지폴리〉, IBK 기업은행 지하, 서울, 한국<br>
+      〈서울 빛섬 축제: 빛의 스펙트라〉, 뚝섬 한강공원 일대, 서울, 한국<br>
+      〈Paradox〉, 아트리움 모리, 성주, 한국<br>
+      〈Resonant Chamber〉, 공간형, 서울, 한국
+    </p>
 
-<p><strong>2024</strong><br>
-<em>Your Office 2024</em>, Art Space Areum, Suwon, Korea<br>
-<em>Wonderful Stories to Save the Earth</em>, Gyeongpo Beach, Gangneung, Korea
-</p>
+    <p><strong>2024</strong><br>
+      〈Your Office 2024〉, 아트스페이스 아름, 수원, 한국<br>
+      〈지구를 구하는 멋진 이야기들〉, 경포해변, 강릉, 한국
+    </p>
 
-<p><strong>2023</strong><br>
-<em>Cracked Egg and Tightly Twisted Rope</em>, Pier Contemporary, Seoul, Korea<br>
-<em>Defamiliarization</em>, Hello Museum, Seoul, Korea
-</p>
+    <p><strong>2023</strong><br>
+      〈금이 간 계란과 잘 꼬인 밧줄〉, 피어 컨템포러리, 서울, 한국<br>
+      〈Defamiliarization〉, 헬로우 뮤지움, 서울, 한국
+    </p>
 
-       
-      </div>
-    </section>
+    <hr>
+
+    <!-- ENGLISH -->
+    <p><strong>Born</strong><br>1999</p>
+
+    <div class="spacer"></div>
+
+    <p><strong>Education</strong><br>
+      2024 BFA in Sculpture, College of Fine Arts, Kyung Hee University, Seoul, Korea<br>
+      2024–Present Integrated M.A./Ph.D. Program in Fine Arts, Graduate School, Kyung Hee University, Seoul, Korea
+    </p>
+
+    <div class="spacer"></div>
+
+    <p><strong>Selected Exhibitions</strong></p>
+
+    <p><strong>2026</strong><br>
+      <em>Body Resembles Memory</em>, Gallery IN, Seoul, Korea
+    </p>
+
+    <p><strong>2025</strong><br>
+      <em>IBK THE ART PLAZA: Eulji Poly</em>, IBK Industrial Bank of Korea (B1), Seoul, Korea<br>
+      <em>Seoul Light Seom Festival: Spectra of Light</em>, Ttukseom Hangang Park, Seoul, Korea<br>
+      <em>Paradox</em>, Atrium Mori, Seongju, Korea<br>
+      <em>Resonant Chamber</em>, Space Hyeong, Seoul, Korea
+    </p>
+
+    <p><strong>2024</strong><br>
+      <em>Your Office 2024</em>, Art Space Areum, Suwon, Korea<br>
+      <em>Wonderful Stories to Save the Earth</em>, Gyeongpo Beach, Gangneung, Korea
+    </p>
+
+    <p><strong>2023</strong><br>
+      <em>Cracked Egg and Tightly Twisted Rope</em>, Pier Contemporary, Seoul, Korea<br>
+      <em>Defamiliarization</em>, Hello Museum, Seoul, Korea
+    </p>
+
+  </div>
+</section>
 
     <!-- MEDIA (✅ text-links 적용) -->
     <section id="media">
