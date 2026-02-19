@@ -24,35 +24,25 @@ body{
   margin: 0 auto;
 }
 
-/* ✅ 전체 2컬럼: 왼쪽(이미지/썸네일/비디오) + 오른쪽(텍스트) */
-.layout{
+/* 🔥 메인 + 썸네일/영상 2열 구조 */
+.image-layout{
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 260px; /* 왼쪽 넓게, 오른쪽 텍스트 */
+  grid-template-columns: 1fr 220px; /* 오른쪽 열 폭 */
   gap: var(--gap);
-  align-items: start;
+  align-items: start; /* 윗라인 정확히 맞춤 */
 }
 
-/* ✅ 왼쪽 컬럼: 메인/썸네일/비디오가 같은 왼쪽 시작선 + 같은 폭 */
-.left-col{
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
-/* 메인 이미지: 살짝 더 크게 */
+/* 메인 이미지 */
 .main-frame{
   width: 100%;
-  aspect-ratio: 16 / 8.3; /* 이전보다 살짝 키움 */
+  aspect-ratio: 16 / 8.3;
   overflow: hidden;
-  background: #fff;
 }
 .main-frame img{
   width: 100%;
   height: 100%;
   object-fit: contain;
   display:block;
-
-  /* 썸네일 클릭 페이드 */
   opacity: 1;
   transition: opacity .35s ease;
 }
@@ -60,17 +50,16 @@ body{
   opacity: 0;
 }
 
-/* ✅ 썸네일: 메인과 같은 "왼쪽 선상" + 같은 컨테이너 폭 안에서 정렬 */
-.thumbs{
-  width: 100%;
-  margin-top: 18px;
+/* 🔥 오른쪽 썸네일 + 유튜브 묶음 */
+.side-media{
   display: flex;
-  gap: 16px;
-  justify-content: flex-start;
+  flex-direction: column;
+  gap: 18px;
 }
 
+/* 썸네일 */
 .thumb{
-  width: 160px;           /* 썸네일 크기 (원하면 140~180 조절) */
+  width: 100%;
   aspect-ratio: 4 / 3;
   overflow: hidden;
   cursor: pointer;
@@ -86,44 +75,35 @@ body{
   transform: scale(1.03);
 }
 
-/* ✅ 유튜브도 같은 왼쪽 선상 + 폭 살짝 줄이기 */
-.video-box{
-  width: 92%;             /* 메인(100%)보다 살짝 줄여서 “크기 살짝 줄임” */
-  margin-top: 22px;
-}
-.video-box iframe{
+/* 🔥 유튜브도 썸네일 열에 편입 */
+.video-thumb{
   width: 100%;
-  height: 440px;          /* 높이도 살짝 줄임 */
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+.video-thumb iframe{
+  width: 100%;
+  height: 100%;
   border: none;
   display:block;
 }
 
-/* 리턴 */
-.return{
-  margin-top: 14px;
-  font-size: 0.95rem;
-}
-.return a{
-  color: var(--muted);
-  text-decoration: underline;
+/* 텍스트 영역 */
+.info{
+  margin-top: 40px;
+  max-width: 900px;
 }
 
-/* 오른쪽 텍스트 */
-.side{
-  padding-top: 6px;
-}
-.side h1{
+.info h1{
   font-size: 2.4rem;
-  font-weight: 500;
-  margin: 0 0 18px 0;
+  margin-bottom: 16px;
 }
-.side .meta{
+.info .meta{
   font-size: 0.9rem;
   color: var(--muted);
-  margin: 0;
 }
 
-/* ===== 스크롤 페이드업 ===== */
+/* 페이드업 */
 .fade-up{
   opacity: 0;
   transform: translateY(40px);
@@ -135,18 +115,17 @@ body{
 }
 
 /* 반응형 */
-@media (max-width: 900px){
-  .layout{
+@media (max-width: 1000px){
+  .image-layout{
     grid-template-columns: 1fr;
   }
-  .thumb{
-    width: 120px;
+  .side-media{
+    flex-direction: row;
+    flex-wrap: wrap;
   }
-  .video-box{
-    width: 100%;
-  }
-  .video-box iframe{
-    height: 260px;
+  .thumb,
+  .video-thumb{
+    width: 48%;
   }
 }
 </style>
@@ -155,59 +134,58 @@ body{
 <body>
 <div class="work-page">
 
-  <section class="layout fade-up">
+<section class="image-layout fade-up">
 
-    <!-- ✅ 왼쪽 컬럼: 메인 + 썸네일 + 유튜브 (전부 같은 선상) -->
-    <div class="left-col">
-      <div class="main-frame">
-        <img id="mainImage" src="../images/img_m1.png" alt="Mast, 2025" />
-      </div>
+  <!-- 메인 -->
+  <div class="main-frame">
+    <img id="mainImage" src="../images/img_m1.png" alt="Mast, 2025" />
+  </div>
 
-      <div class="thumbs" aria-label="thumbnails">
-        <div class="thumb" data-src="../images/img_m1.png" data-alt="Mast, 2025 image 1">
-          <img src="../images/img_m1.png" alt="Mast thumbnail 1" />
-        </div>
-        <div class="thumb" data-src="../images/img_m2.png" data-alt="Mast, 2025 image 2">
-          <img src="../images/img_m2.png" alt="Mast thumbnail 2" />
-        </div>
-        <div class="thumb" data-src="../images/img_m3.png" data-alt="Mast, 2025 image 3">
-          <img src="../images/img_m3.png" alt="Mast thumbnail 3" />
-        </div>
-      </div>
+  <!-- 오른쪽 썸네일 + 유튜브 -->
+  <div class="side-media">
 
-      <div class="video-box">
-        <iframe
-          src="https://www.youtube.com/embed/AgcC2_O8L0E"
-          title="YouTube video player"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen></iframe>
-      </div>
-
-      <div class="return">
-        <a href="../index.html">← return</a>
-      </div>
+    <div class="thumb" data-src="../images/img_m1.png">
+      <img src="../images/img_m1.png" />
     </div>
 
-    <!-- ✅ 오른쪽 컬럼: 텍스트 -->
-    <aside class="side">
-      <h1>Mast</h1>
-      <p class="meta">2025, aluminium, motor, pipe, wire, sound controller, 300×60×60cm</p>
-    </aside>
+    <div class="thumb" data-src="../images/img_m2.png">
+      <img src="../images/img_m2.png" />
+    </div>
 
-  </section>
+    <div class="thumb" data-src="../images/img_m3.png">
+      <img src="../images/img_m3.png" />
+    </div>
+
+    <!-- 유튜브를 썸네일 열에 편입 -->
+    <div class="video-thumb">
+      <iframe
+        src="https://www.youtube.com/embed/AgcC2_O8L0E"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+  </div>
+
+</section>
+
+<section class="info fade-up">
+  <h1>Mast</h1>
+  <p class="meta">
+2025, aluminium, motor, pipe, wire, sound controller, 300×60×60cm
+  </p>
+  <p><a href="../index.html">← return</a></p>
+</section>
 
 </div>
 
 <script>
-/* 썸네일 클릭 -> 메인 이미지 교체 + 페이드인 */
+/* 썸네일 클릭 → 메인 이미지 교체 + 페이드 */
 const mainImage = document.getElementById("mainImage");
 const thumbs = document.querySelectorAll(".thumb");
 
-function swapMainImage(newSrc, newAlt){
+function swapMainImage(newSrc){
   if (!newSrc) return;
-
-  // 같은 이미지면 스킵(환경에 따라 mainImage.src가 절대경로라 endsWith로 체크)
-  if (mainImage.src && mainImage.src.endsWith(newSrc)) return;
+  if (mainImage.src.endsWith(newSrc)) return;
 
   mainImage.classList.add("is-fading");
 
@@ -215,8 +193,6 @@ function swapMainImage(newSrc, newAlt){
     const img = new Image();
     img.onload = () => {
       mainImage.src = newSrc;
-      if (newAlt) mainImage.alt = newAlt;
-
       requestAnimationFrame(() => {
         mainImage.classList.remove("is-fading");
       });
@@ -227,7 +203,7 @@ function swapMainImage(newSrc, newAlt){
 
 thumbs.forEach(t => {
   t.addEventListener("click", () => {
-    swapMainImage(t.getAttribute("data-src"), t.getAttribute("data-alt"));
+    swapMainImage(t.getAttribute("data-src"));
   });
 });
 
