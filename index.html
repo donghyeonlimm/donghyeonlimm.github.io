@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Donghyeon Lim</title>
+
   <style>
     * {
       margin: 0;
@@ -17,14 +18,16 @@
 
     body {
       font-family: 'Helvetica Neue', sans-serif;
-      background-color: #fff; /* 배경 이미지 로드 전 기본색 */
+      background-color: #fff;
       color: #000;
       line-height: 1.6;
       padding: 0 20px 40px 20px;
       font-size: 0.8rem;
     }
 
-    /* 배경 이미지 초기 상태 */
+    /* ===============================
+       Background
+    =============================== */
     .background-image {
       position: fixed;
       top: 0;
@@ -42,34 +45,14 @@
       transition: opacity 2s ease-out, transform 2.5s ease-out;
     }
 
-    /* 배경이 나타날 때 상태 */
     .background-image.is-visible {
       opacity: 0.4;
       transform: scale(1);
     }
 
-    /* 섹션 기본 스타일 (기존 등장 효과 유지) */
-    section {
-      margin-bottom: 120px;
-      scroll-margin-top: 80px;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 1s ease-out;
-    }
-
-    section.is-visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ✅ [추가] 메뉴 클릭으로 섹션 토글 */
-    section {
-      display: none;               /* 기본은 전부 숨김 */
-    }
-    section.is-active {
-      display: block;              /* 선택된 섹션만 노출 */
-    }
-
+    /* ===============================
+       Header
+    =============================== */
     header {
       position: fixed;
       top: 0;
@@ -82,8 +65,6 @@
       transition: background-color 0.3s, backdrop-filter 0.3s;
     }
 
-    header h1 { font-size: 2rem; font-weight: normal; }
-    nav { margin-top: 10px; }
     nav a {
       display: inline-block;
       text-decoration: none;
@@ -91,17 +72,39 @@
       margin-right: 15px;
     }
 
-    /* ✅ [추가] 활성 메뉴 표시 */
     nav a.is-active {
       text-decoration: underline;
     }
 
+    /* ===============================
+       Main
+    =============================== */
     main {
       position: relative;
       z-index: 1;
       max-width: 960px;
       margin: 0 auto;
       padding: 120px 20px 20px 20px;
+    }
+
+    /* ===============================
+       Sections (Menu Toggle)
+    =============================== */
+    section {
+      display: none; /* 기본 숨김 */
+      margin-bottom: 120px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+
+    section.is-active {
+      display: block;
+    }
+
+    section.is-visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     h2 {
@@ -124,15 +127,24 @@
       color: #666;
     }
 
-    footer {
-      text-align: left;
+    /* ===============================
+       Fixed Footer (우측 하단 고정)
+    =============================== */
+    .fixed-footer {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
       font-size: 0.9rem;
       color: #888;
+      z-index: 20;
+      pointer-events: none;
+      opacity: 0.7;
     }
   </style>
 </head>
 
-<body id="top">
+<body>
+
   <div class="background-image"></div>
 
   <header>
@@ -146,6 +158,8 @@
   </header>
 
   <main>
+
+    <!-- WORK -->
     <section id="works">
       <h2>work</h2>
       <div class="text-links">
@@ -153,8 +167,8 @@
         <a href="works/Mast.html">Mast</a>
         <a href="works/PlumblingSystem.html">Plumbling System</a>
         <a href="works/InstrumentsForSatellite.html">Instruments For Satellite</a>
-        <a href="works/InstrumentsForWheels.html">Instruments For wheels</a>
-        <a href="works/InstrumentsForLine.html">Instruments For line</a>
+        <a href="works/InstrumentsForWheels.html">Instruments For Wheels</a>
+        <a href="works/InstrumentsForLine.html">Instruments For Line</a>
         <a href="works/AuditoryStudiesInNoise.html">Auditory Studies In Noise</a>
         <a href="works/Gong.html">Gong</a>
         <a href="works/PreludeInAMonsoonSeason.html">Prelude In A Monsoon Season</a>
@@ -171,59 +185,60 @@
       </div>
     </section>
 
+    <!-- DOCUMENT -->
     <section id="document">
       <h2>Document</h2>
       <div class="text-links">
-        <a href="texts/rp.pdf">Research Presentaion 2025, Edit Donghyeon Lim</a>
+        <a href="texts/rp.pdf">Research Presentation 2025, Edit Donghyeon Lim</a>
         <a href="texts/ResonantChamber.pdf">Touchless Yet Touched, 2025 - Eunhee Kim</a>
       </div>
     </section>
 
+    <!-- CV -->
     <section id="cv">
       <h2>CV</h2>
-      <div style="margin-top: 20px; text-align: left; font-size: 0.9rem; color: #545353; font-weight: normal;">
+      <div style="margin-top: 20px; font-size: 0.9rem; color: #545353;">
         <p>b.1999</p>
         <p>B.F.A. in Sculpture, College of Fine Arts, Kyung Hee University</p>
         <p>M.F.A. candidate in Fine Arts, Graduate School, Kyung Hee University</p>
         <p>-</p>
-        <p><em>2025 IBK THE ART PLAZA : Eulji Poly, Seoul, Korea, 2025</em></p>
-        <p><em>Spectra Of Light 2025, Seoul, Korea, 2025</em></p>
-        <p><em>Paradox, Artrium Mori, Seongju, Korea, 2025</em></p>
-        <p><em>Resonant Chamber, Gonggan HYEONG, Seoul, Korea, 2025</em></p>
-        <p><em>Your Office 2024, Art Space Areum, Suwon, Korea, 2024</em></p>
-        <p><em>The Fabulous Stories to Save the Green Planet, Gyeongpo Beach, Gangneung, Korea, 2024</em></p>
-        <p><em>Cracked Eggs and Well-Tied Ropes, Pier Contemporary, Seoul, Korea, 2023</em></p>
-        <p><em>Defamiliarization, Hello Museum, Seoul, Korea, 2023</em></p>
+        <p><em>2025 IBK THE ART PLAZA : Eulji Poly, Seoul</em></p>
+        <p><em>Spectra Of Light 2025, Seoul</em></p>
+        <p><em>Paradox, Artrium Mori</em></p>
+        <p><em>Resonant Chamber, Gonggan HYEONG</em></p>
       </div>
     </section>
 
+    <!-- MEDIA -->
     <section id="media">
       <h2>MEDIA</h2>
-      <div style="margin-top: 20px; text-align: left; font-size: 1rem; color: #000000; font-weight: normal;">
-        <p><a href="mailto:tecuhn@gmail.com" style="text-decoration: none; color: inherit;">E-mail</a></p>
-        <p><a href="https://www.instagram.com" target="_blank" style="text-decoration: none; color: inherit;">Instagram</a></p>
-        <p><a href="https://www.youtube.com" target="_blank" style="text-decoration: none; color: inherit;">Video</a></p>
-        <p><a href="https://soundcloud.com" target="_blank" style="text-decoration: none; color: inherit;">Soundcloud</a></p>
+      <div style="margin-top: 20px;">
+        <p><a href="mailto:tecuhn@gmail.com">E-mail</a></p>
+        <p><a href="https://www.instagram.com" target="_blank">Instagram</a></p>
+        <p><a href="https://www.youtube.com" target="_blank">Video</a></p>
+        <p><a href="https://soundcloud.com" target="_blank">Soundcloud</a></p>
       </div>
     </section>
 
+    <!-- PORTFOLIO -->
     <section id="portfolio">
       <h2>PORTFOLIO</h2>
-      <div style="margin-top: 20px; text-align: left; font-size: 1rem; color: #000000; font-weight: normal;">
-        <p><a href="texts/portfolio2.pdf" target="_blank" style="text-decoration: none; color: #000;">KR</a></p>
+      <div style="margin-top: 20px;">
+        <p><a href="texts/portfolio2.pdf" target="_blank">KR</a></p>
       </div>
     </section>
 
-    <footer style="margin-top: 60px; text-align: left; font-size: 0.9rem; color: #888;">
-      <p>&copy; 2025 dong hyeon lim. All rights reserved.</p>
-    </footer>
   </main>
 
+  <!-- 우측 하단 고정 -->
+  <div class="fixed-footer">
+    © 2025 dong hyeon lim. All rights reserved.
+  </div>
+
   <script>
-    // 배경 이미지 등장
+    // 배경 등장
     window.addEventListener('DOMContentLoaded', () => {
-      const bg = document.querySelector('.background-image');
-      bg.classList.add('is-visible');
+      document.querySelector('.background-image').classList.add('is-visible');
     });
 
     // 헤더 스크롤 효과
@@ -238,55 +253,42 @@
       }
     });
 
-    // ✅ 메뉴 클릭 시 섹션 토글 (hash 기반: 딥링크/뒤로가기 지원)
+    // 섹션 토글
     const sectionIds = ["works", "document", "cv", "media", "portfolio"];
     const sections = sectionIds.map(id => document.getElementById(id));
     const navLinks = Array.from(document.querySelectorAll("header nav a"));
 
     function activateSection(id) {
       sections.forEach(sec => {
-        const isActive = sec && sec.id === id;
-        sec.classList.toggle("is-active", isActive);
-
-        // 섹션 등장 애니메이션: 활성화될 때 한 번 실행
-        if (isActive) {
+        const active = sec.id === id;
+        sec.classList.toggle("is-active", active);
+        if (active) {
           requestAnimationFrame(() => sec.classList.add("is-visible"));
         } else {
           sec.classList.remove("is-visible");
         }
       });
 
-      // 메뉴 활성 표시
-      navLinks.forEach(a => {
-        const target = a.getAttribute("data-target") || a.getAttribute("href")?.replace("#", "");
-        a.classList.toggle("is-active", target === id);
+      navLinks.forEach(link => {
+        link.classList.toggle("is-active", link.dataset.target === id);
       });
 
-      // 상단으로 이동 (헤더 겹침 방지 + 보기 좋게)
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
     function getSectionFromHash() {
-      const hash = (location.hash || "#works").replace("#", "");
+      const hash = location.hash.replace("#", "");
       return sectionIds.includes(hash) ? hash : "works";
     }
 
-    // hash 변경(뒤로가기 포함) 반영
     window.addEventListener("hashchange", () => {
       activateSection(getSectionFromHash());
     });
 
-    // 첫 진입
     window.addEventListener("DOMContentLoaded", () => {
-      // nav에 data-target이 없으면 자동 채우기(안전장치)
-      navLinks.forEach(a => {
-        if (!a.hasAttribute("data-target")) {
-          a.setAttribute("data-target", a.getAttribute("href").replace("#", ""));
-        }
-      });
-
       activateSection(getSectionFromHash());
     });
   </script>
+
 </body>
 </html>
