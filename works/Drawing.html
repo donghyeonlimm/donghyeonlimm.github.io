@@ -99,3 +99,25 @@
   </div>
 </body>
 </html>
+  <!-- [추가] 자바스크립트: 스크롤 감지 및 클래스 부여 -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const observerOptions = {
+        threshold: 0.1 // 이미지의 10%가 보이면 실행
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, observerOptions);
+
+      // 관찰할 대상 설정
+      const images = document.querySelectorAll('.gallery-row img');
+      images.forEach(img => observer.observe(img));
+    });
+  </script>
+</body>
+</html>
