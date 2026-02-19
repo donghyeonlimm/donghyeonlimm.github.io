@@ -6,140 +6,121 @@
 <title>Mast - Donghyeon Lim</title>
 
 <style>
-:root{
-  --gap: 22px;
+:root {
+  --gap: 15px; /* 사진과 썸네일 사이 간격 */
+  --thumb-width: 80px; /* 썸네일 너비 - 더 작게 조절 가능 */
   --muted: #555;
 }
 
-body{
-  font-family: "Helvetica Neue", sans-serif;
-  background:#fff;
-  color:#000;
-  margin: 24px;
+body {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  background: #fff;
+  color: #000;
+  margin: 40px;
   line-height: 1.6;
 }
 
-.work-page{
-  max-width: 1600px;
+.work-page {
+  max-width: 1800px; /* 전체 폭 확장 */
   margin: 0 auto;
 }
 
-/* ✅ 메인(큼) / 썸네일(90px) / 텍스트 */
-.hero{
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 90px 320px; /* 🔥 썸네일 폭 90px */
+/* 컨테이너: 메인사진 | 썸네일 | 정보 */
+.hero {
+  display: flex;
+  align-items: flex-start;
   gap: var(--gap);
-  align-items: start; /* 윗라인 맞춤 */
 }
 
-/* 메인 */
-.main-frame{
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
+/* 1. 메인 사진 영역 (가장 크게) */
+.main-frame {
+  flex: 1; /* 남은 공간 다 차지 */
   background: #fff;
 }
 
-.main-frame img{
+.main-frame img {
   width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display:block;
+  height: auto; /* 비율 유지 */
+  display: block;
   opacity: 1;
-  transition: opacity .35s ease;
+  transition: opacity 0.3s ease;
 }
-.main-frame img.is-fading{
+
+.main-frame img.is-fading {
   opacity: 0;
 }
 
-/* ✅ 썸네일/유튜브: 메인 높이 안에 4칸이 다 들어가게 */
-.side-stack{
-  height: 100%;
-  display: grid;
-  grid-template-rows: repeat(4, 1fr); /* 3 thumbs + 1 video */
-  gap: 10px; /* 촘촘하게 */
+/* 2. 썸네일 스택 (메인 바로 옆에 작게 붙음) */
+.side-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: var(--thumb-width);
+  flex-shrink: 0; /* 크기 고정 */
 }
 
-.thumb, .video-box{
+.thumb, .video-box {
   width: 100%;
+  aspect-ratio: 1 / 1; /* 썸네일은 정사가각형이 깔끔함 */
+  cursor: pointer;
   overflow: hidden;
-  background:#fff;
+  border: 1px solid #eee;
 }
 
-/* 썸네일 */
-.thumb{
-  cursor: pointer;
-}
-.thumb img{
+.thumb img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display:block;
-  transition: transform .25s ease;
-}
-.thumb:hover img{
-  transform: scale(1.03);
 }
 
-/* 유튜브도 “썸네일 박스”처럼 */
-.video-box iframe{
+.video-box iframe {
   width: 100%;
   height: 100%;
   border: none;
-  display:block;
 }
 
-/* 텍스트 */
-.side-info{
-  padding-top: 6px;
+/* 3. 정보 영역 */
+.side-info {
+  width: 280px;
+  margin-left: 20px;
+  flex-shrink: 0;
 }
-.side-info h1{
-  font-size: 2.4rem;
+
+.side-info h1 {
+  font-size: 1.8rem;
   font-weight: 500;
-  margin: 0 0 14px 0;
+  margin: 0 0 10px 0;
 }
-.side-info .meta{
-  font-size: 0.95rem;
+
+.side-info .meta {
+  font-size: 0.85rem;
   color: var(--muted);
-  margin: 0;
-  white-space: pre-line;
+  line-height: 1.5;
 }
 
-.return{
-  margin-top: 18px;
-  font-size: 0.95rem;
+.return {
+  margin-top: 30px;
 }
-.return a{
+
+.return a {
   color: var(--muted);
-  text-decoration: underline;
+  text-decoration: none;
+  font-size: 0.9rem;
 }
 
-/* 페이드업(원하면 유지) */
-.fade-up{
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 1s ease, transform 1s ease;
-}
-.fade-up.visible{
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* 반응형 */
-@media (max-width: 1100px){
-  .hero{
-    grid-template-columns: 1fr;
+/* 반응형: 화면이 좁아지면 아래로 쌓임 */
+@media (max-width: 1000px) {
+  .hero {
+    flex-direction: column;
   }
-
-  .side-stack{
-    height: auto;
-    grid-template-rows: none;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 10px;
+  .side-stack {
+    flex-direction: row;
+    width: 100%;
   }
-
-  .thumb, .video-box{
-    aspect-ratio: 4 / 3;
+  .side-info {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 20px;
   }
 }
 </style>
@@ -147,93 +128,55 @@ body{
 
 <body>
 <div class="work-page">
-
-  <section class="hero fade-up">
-    <!-- 메인 -->
+  <section class="hero">
     <div class="main-frame">
       <img id="mainImage" src="../images/img_m1.png" alt="Mast, 2025" />
     </div>
 
-    <!-- ✅ 썸네일(90px) + 유튜브(편입) -->
-    <div class="side-stack" aria-label="thumbnails and video">
-      <div class="thumb" data-src="../images/img_m1.png" data-alt="Mast, 2025 image 1">
-        <img src="../images/img_m1.png" alt="Mast thumbnail 1" />
+    <div class="side-stack">
+      <div class="thumb" data-src="../images/img_m1.png">
+        <img src="../images/img_m1.png" alt="thumb 1" />
       </div>
-
-      <div class="thumb" data-src="../images/img_m2.png" data-alt="Mast, 2025 image 2">
-        <img src="../images/img_m2.png" alt="Mast thumbnail 2" />
+      <div class="thumb" data-src="../images/img_m2.png">
+        <img src="../images/img_m2.png" alt="thumb 2" />
       </div>
-
-      <div class="thumb" data-src="../images/img_m3.png" data-alt="Mast, 2025 image 3">
-        <img src="../images/img_m3.png" alt="Mast thumbnail 3" />
+      <div class="thumb" data-src="../images/img_m3.png">
+        <img src="../images/img_m3.png" alt="thumb 3" />
       </div>
-
-      <div class="video-box" aria-label="video">
-        <iframe
-          src="https://www.youtube.com/embed/AgcC2_O8L0E"
-          title="YouTube video player"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen></iframe>
+      <div class="video-box">
+        <iframe src="https://www.youtube.com/embed/AgcC2_O8L0E" title="video" allowfullscreen></iframe>
       </div>
     </div>
 
-    <!-- 텍스트 -->
     <aside class="side-info">
       <h1>Mast</h1>
-      <p class="meta">2025, aluminium, motor, pipe, wire, sound controller, 300×60×60cm</p>
+      <p class="meta">2025<br>aluminium, motor, pipe, wire, sound controller<br>300×60×60cm</p>
       <div class="return">
         <a href="../index.html">← return</a>
       </div>
     </aside>
   </section>
-
 </div>
 
 <script>
 const mainImage = document.getElementById("mainImage");
 const thumbs = document.querySelectorAll(".thumb");
 
-function swapMainImage(newSrc, newAlt){
-  if (!newSrc) return;
-
-  // mainImage.src는 보통 절대경로라 endsWith로 비교
-  try{
-    if (mainImage.src && mainImage.src.endsWith(newSrc)) return;
-  }catch(e){}
-
-  // 페이드아웃
-  mainImage.classList.add("is-fading");
-
-  // 프리로드 후 교체 + 페이드인
-  setTimeout(() => {
-    const pre = new Image();
-    pre.onload = () => {
-      mainImage.src = newSrc;
-      if (newAlt) mainImage.alt = newAlt;
-      requestAnimationFrame(() => mainImage.classList.remove("is-fading"));
-    };
-    pre.src = newSrc;
-  }, 180);
-}
-
 thumbs.forEach(t => {
   t.addEventListener("click", () => {
-    swapMainImage(t.getAttribute("data-src"), t.getAttribute("data-alt"));
+    const newSrc = t.getAttribute("data-src");
+    if (mainImage.src.endsWith(newSrc)) return;
+
+    mainImage.classList.add("is-fading");
+    
+    setTimeout(() => {
+      mainImage.src = newSrc;
+      mainImage.onload = () => {
+        mainImage.classList.remove("is-fading");
+      };
+    }, 200);
   });
 });
-
-/* 스크롤 페이드업 */
-document.addEventListener("DOMContentLoaded", function () {
-  const elements = document.querySelectorAll(".fade-up");
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add("visible");
-    });
-  }, { threshold: 0.15 });
-
-  elements.forEach(el => observer.observe(el));
-});
 </script>
-
 </body>
 </html>
