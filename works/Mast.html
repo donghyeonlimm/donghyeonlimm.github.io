@@ -24,15 +24,15 @@ body{
   margin: 0 auto;
 }
 
-/* ✅ 스케치 구조: 큰 메인 + (작은) 썸네일 스택 + 텍스트 */
+/* ✅ 메인(큼) / 썸네일(90px) / 텍스트 */
 .hero{
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 150px 320px; /* 썸네일 폭을 확 줄임 */
+  grid-template-columns: minmax(0, 1fr) 90px 320px; /* 🔥 썸네일 폭 90px */
   gap: var(--gap);
-  align-items: start; /* 상단 라인 맞춤 */
+  align-items: start; /* 윗라인 맞춤 */
 }
 
-/* ✅ 메인이 제일 크게 보이게: 비율 고정 + 높이 확보 */
+/* 메인 */
 .main-frame{
   width: 100%;
   aspect-ratio: 16 / 9;
@@ -40,13 +40,11 @@ body{
   background: #fff;
 }
 
-/* 메인 이미지 */
 .main-frame img{
   width: 100%;
   height: 100%;
   object-fit: contain;
   display:block;
-
   opacity: 1;
   transition: opacity .35s ease;
 }
@@ -54,15 +52,14 @@ body{
   opacity: 0;
 }
 
-/* ✅ 오른쪽 썸네일/유튜브: 메인 높이를 4등분해서 “항상 안에 다 들어가게” */
+/* ✅ 썸네일/유튜브: 메인 높이 안에 4칸이 다 들어가게 */
 .side-stack{
   height: 100%;
   display: grid;
-  grid-template-rows: repeat(4, 1fr); /* 3썸네일 + 유튜브 = 4칸 */
-  gap: 14px;                          /* 칸 사이 간격 */
+  grid-template-rows: repeat(4, 1fr); /* 3 thumbs + 1 video */
+  gap: 10px; /* 촘촘하게 */
 }
 
-/* ✅ 각 박스가 메인 높이 안에서 자동으로 맞춰짐 */
 .thumb, .video-box{
   width: 100%;
   overflow: hidden;
@@ -92,7 +89,7 @@ body{
   display:block;
 }
 
-/* 오른쪽 텍스트 */
+/* 텍스트 */
 .side-info{
   padding-top: 6px;
 }
@@ -128,7 +125,7 @@ body{
   transform: translateY(0);
 }
 
-/* ✅ 반응형: 좁아지면 스택이 아래로 */
+/* 반응형 */
 @media (max-width: 1100px){
   .hero{
     grid-template-columns: 1fr;
@@ -138,6 +135,7 @@ body{
     height: auto;
     grid-template-rows: none;
     grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 10px;
   }
 
   .thumb, .video-box{
@@ -156,8 +154,8 @@ body{
       <img id="mainImage" src="../images/img_m1.png" alt="Mast, 2025" />
     </div>
 
-    <!-- ✅ 메인 높이 안에 4칸(썸네일3+유튜브) 모두 들어가는 스택 -->
-    <div class="side-stack" aria-label="side thumbnails and video">
+    <!-- ✅ 썸네일(90px) + 유튜브(편입) -->
+    <div class="side-stack" aria-label="thumbnails and video">
       <div class="thumb" data-src="../images/img_m1.png" data-alt="Mast, 2025 image 1">
         <img src="../images/img_m1.png" alt="Mast thumbnail 1" />
       </div>
@@ -192,16 +190,21 @@ body{
 </div>
 
 <script>
-/* 썸네일 클릭 -> 메인 이미지 교체 + 페이드 */
 const mainImage = document.getElementById("mainImage");
 const thumbs = document.querySelectorAll(".thumb");
 
 function swapMainImage(newSrc, newAlt){
   if (!newSrc) return;
-  if (mainImage.src && mainImage.src.endsWith(newSrc)) return;
 
+  // mainImage.src는 보통 절대경로라 endsWith로 비교
+  try{
+    if (mainImage.src && mainImage.src.endsWith(newSrc)) return;
+  }catch(e){}
+
+  // 페이드아웃
   mainImage.classList.add("is-fading");
 
+  // 프리로드 후 교체 + 페이드인
   setTimeout(() => {
     const pre = new Image();
     pre.onload = () => {
