@@ -35,10 +35,20 @@
       flex-direction: column;
     }
 
+    /* [수정] 이미지 기본 상태: 투명하고 30px 아래에 위치 */
     .gallery-row img {
       width: 100%;
       height: auto;
       display: block;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 1.2s ease-out; /* 등장 속도 조절 가능 */
+    }
+
+    /* [추가] 스크롤 시 나타날 때 적용될 클래스 */
+    .gallery-row img.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .gallery-row.two img {
@@ -104,7 +114,7 @@
   </div>
 
   <div class="video-box">
-    <iframe src="https://www.youtube.com/embed/wHC3nVghmgs"
+    <iframe src="https://www.youtube.com"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen></iframe>
@@ -114,5 +124,26 @@
     <p>2026, pipe, polycarbonate plate, exicter, audio mixer, amp, variable installation,</p>
     <p><a href="../index.html">← return</a></p>
   </div>
+
+  <!-- [추가] 자바스크립트: 스크롤 감지 및 클래스 부여 -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const observerOptions = {
+        threshold: 0.1 // 이미지의 10%가 보이면 실행
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, observerOptions);
+
+      // 관찰할 대상 설정
+      const images = document.querySelectorAll('.gallery-row img');
+      images.forEach(img => observer.observe(img));
+    });
+  </script>
 </body>
 </html>
