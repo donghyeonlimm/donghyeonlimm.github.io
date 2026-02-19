@@ -7,11 +7,10 @@
 
 <style>
 :root{
-  --gap: 24px;
+  --gap: 22px;
   --muted: #555;
 }
 
-/* 기본 */
 body{
   font-family: "Helvetica Neue", sans-serif;
   background:#fff;
@@ -25,21 +24,23 @@ body{
   margin: 0 auto;
 }
 
-/* ✅ 스케치처럼: 메인 / 썸네일컬럼 / 텍스트컬럼 */
+/* ✅ 스케치 구조: 큰 메인 + (작은) 썸네일 스택 + 텍스트 */
 .hero{
   display: grid;
-  grid-template-columns: 1fr 220px 320px; /* 메인 / 썸네일 / 텍스트 */
+  grid-template-columns: minmax(0, 1fr) 150px 320px; /* 썸네일 폭을 확 줄임 */
   gap: var(--gap);
-  align-items: start; /* 윗 라인 정확히 맞춤 */
+  align-items: start; /* 상단 라인 맞춤 */
 }
 
-/* 메인 */
+/* ✅ 메인이 제일 크게 보이게: 비율 고정 + 높이 확보 */
 .main-frame{
   width: 100%;
   aspect-ratio: 16 / 9;
   overflow: hidden;
   background: #fff;
 }
+
+/* 메인 이미지 */
 .main-frame img{
   width: 100%;
   height: 100%;
@@ -53,19 +54,24 @@ body{
   opacity: 0;
 }
 
-/* 썸네일 세로 */
-.side-media{
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
+/* ✅ 오른쪽 썸네일/유튜브: 메인 높이를 4등분해서 “항상 안에 다 들어가게” */
+.side-stack{
+  height: 100%;
+  display: grid;
+  grid-template-rows: repeat(4, 1fr); /* 3썸네일 + 유튜브 = 4칸 */
+  gap: 14px;                          /* 칸 사이 간격 */
 }
 
-.thumb{
+/* ✅ 각 박스가 메인 높이 안에서 자동으로 맞춰짐 */
+.thumb, .video-box{
   width: 100%;
-  aspect-ratio: 4 / 3;
   overflow: hidden;
+  background:#fff;
+}
+
+/* 썸네일 */
+.thumb{
   cursor: pointer;
-  background: #fff;
 }
 .thumb img{
   width: 100%;
@@ -78,14 +84,8 @@ body{
   transform: scale(1.03);
 }
 
-/* ✅ 유튜브를 “썸네일 칸”처럼 편입 */
-.video-thumb{
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-  background:#fff;
-}
-.video-thumb iframe{
+/* 유튜브도 “썸네일 박스”처럼 */
+.video-box iframe{
   width: 100%;
   height: 100%;
   border: none;
@@ -128,20 +128,20 @@ body{
   transform: translateY(0);
 }
 
-/* 반응형 */
+/* ✅ 반응형: 좁아지면 스택이 아래로 */
 @media (max-width: 1100px){
   .hero{
     grid-template-columns: 1fr;
   }
-  .side-media{
-    flex-direction: row;
-    flex-wrap: wrap;
+
+  .side-stack{
+    height: auto;
+    grid-template-rows: none;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
-  .thumb, .video-thumb{
-    width: 48%;
-  }
-  .side-info{
-    padding-top: 0;
+
+  .thumb, .video-box{
+    aspect-ratio: 4 / 3;
   }
 }
 </style>
@@ -156,19 +156,21 @@ body{
       <img id="mainImage" src="../images/img_m1.png" alt="Mast, 2025" />
     </div>
 
-    <!-- 가운데: 썸네일 3 + 유튜브(편입) -->
-    <div class="side-media">
+    <!-- ✅ 메인 높이 안에 4칸(썸네일3+유튜브) 모두 들어가는 스택 -->
+    <div class="side-stack" aria-label="side thumbnails and video">
       <div class="thumb" data-src="../images/img_m1.png" data-alt="Mast, 2025 image 1">
         <img src="../images/img_m1.png" alt="Mast thumbnail 1" />
       </div>
+
       <div class="thumb" data-src="../images/img_m2.png" data-alt="Mast, 2025 image 2">
         <img src="../images/img_m2.png" alt="Mast thumbnail 2" />
       </div>
+
       <div class="thumb" data-src="../images/img_m3.png" data-alt="Mast, 2025 image 3">
         <img src="../images/img_m3.png" alt="Mast thumbnail 3" />
       </div>
 
-      <div class="video-thumb" aria-label="video">
+      <div class="video-box" aria-label="video">
         <iframe
           src="https://www.youtube.com/embed/AgcC2_O8L0E"
           title="YouTube video player"
@@ -177,7 +179,7 @@ body{
       </div>
     </div>
 
-    <!-- 오른쪽: 텍스트 -->
+    <!-- 텍스트 -->
     <aside class="side-info">
       <h1>Mast</h1>
       <p class="meta">2025, aluminium, motor, pipe, wire, sound controller, 300×60×60cm</p>
@@ -225,6 +227,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (entry.isIntersecting) entry.target.classList.add("visible");
     });
   }, { threshold: 0.15 });
+
   elements.forEach(el => observer.observe(el));
 });
 </script>
