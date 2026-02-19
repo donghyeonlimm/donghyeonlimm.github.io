@@ -24,7 +24,7 @@
       font-size: 0.8rem;
     }
 
-    /* [수정] 배경 이미지 초기 상태: 투명도 0, 약간 확대된 상태 */
+    /* 배경 이미지 초기 상태 */
     .background-image {
       position: fixed;
       top: 0;
@@ -37,19 +37,18 @@
       background-size: cover;
       z-index: -1;
       pointer-events: none;
-      
-      opacity: 0; 
-      transform: scale(1.05); /* 살짝 커진 상태에서 시작 */
-      transition: opacity 2s ease-out, transform 2.5s ease-out; /* 부드러운 등장 */
+      opacity: 0;
+      transform: scale(1.05);
+      transition: opacity 2s ease-out, transform 2.5s ease-out;
     }
 
-    /* [추가] 배경이 나타날 때 상태 */
+    /* 배경이 나타날 때 상태 */
     .background-image.is-visible {
-      opacity: 0.4; /* 기존에 설정하신 0.4 투명도 */
-      transform: scale(1); /* 원래 크기로 복귀 */
+      opacity: 0.4;
+      transform: scale(1);
     }
 
-    /* [기존] 섹션 등장 효과 */
+    /* 섹션 기본 스타일 (기존 등장 효과 유지) */
     section {
       margin-bottom: 120px;
       scroll-margin-top: 80px;
@@ -61,6 +60,14 @@
     section.is-visible {
       opacity: 1;
       transform: translateY(0);
+    }
+
+    /* ✅ [추가] 메뉴 클릭으로 섹션 토글 */
+    section {
+      display: none;               /* 기본은 전부 숨김 */
+    }
+    section.is-active {
+      display: block;              /* 선택된 섹션만 노출 */
     }
 
     header {
@@ -77,7 +84,17 @@
 
     header h1 { font-size: 2rem; font-weight: normal; }
     nav { margin-top: 10px; }
-    nav a { display: inline-block; text-decoration: none; color: #000; margin-right: 15px; }
+    nav a {
+      display: inline-block;
+      text-decoration: none;
+      color: #000;
+      margin-right: 15px;
+    }
+
+    /* ✅ [추가] 활성 메뉴 표시 */
+    nav a.is-active {
+      text-decoration: underline;
+    }
 
     main {
       position: relative;
@@ -87,22 +104,44 @@
       padding: 120px 20px 20px 20px;
     }
 
-    h2 { font-size: 1rem; font-weight: bold; text-transform: uppercase; margin-bottom: 10px; }
-    .text-links a { display: block; text-decoration: none; color: inherit; font-size: 1rem; margin-bottom: 3px; }
-    .text-links a:hover { text-decoration: underline; color: #666; }
-    footer { text-align: left; font-size: 0.9rem; color: #888; }
+    h2 {
+      font-size: 1rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .text-links a {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      font-size: 1rem;
+      margin-bottom: 3px;
+    }
+
+    .text-links a:hover {
+      text-decoration: underline;
+      color: #666;
+    }
+
+    footer {
+      text-align: left;
+      font-size: 0.9rem;
+      color: #888;
+    }
   </style>
 </head>
+
 <body id="top">
   <div class="background-image"></div>
 
   <header>
     <nav>
-      <a href="#works">WORK</a>
-      <a href="#document">DOCUMENT</a>
-      <a href="#cv">CV</a>
-      <a href="#media">MEDIA</a>
-      <a href="#portfolio">PORTFOLIO</a>
+      <a href="#works" data-target="works">WORK</a>
+      <a href="#document" data-target="document">DOCUMENT</a>
+      <a href="#cv" data-target="cv">CV</a>
+      <a href="#media" data-target="media">MEDIA</a>
+      <a href="#portfolio" data-target="portfolio">PORTFOLIO</a>
     </nav>
   </header>
 
@@ -132,49 +171,48 @@
       </div>
     </section>
 
-       <section id="document">
+    <section id="document">
       <h2>Document</h2>
       <div class="text-links">
         <a href="texts/rp.pdf">Research Presentaion 2025, Edit Donghyeon Lim</a>
         <a href="texts/ResonantChamber.pdf">Touchless Yet Touched, 2025 - Eunhee Kim</a>
       </div>
     </section>
-    
 
     <section id="cv">
-        <h2>CV</h2>
-        <div style="margin-top: 20px; text-align: left; font-size: 0.9rem; color: #545353; font-weight: normal;">
-          <p>b.1999</p>
-          <p>B.F.A. in Sculpture, College of Fine Arts, Kyung Hee University</p>
-          <p>M.F.A. candidate in Fine Arts, Graduate School, Kyung Hee University</p>
-          <p>-</p>
-          <p><em>2025 IBK THE ART PLAZA : Eulji Poly, Seoul, Korea, 2025</em></p>
-          <p><em>Spectra Of Light 2025, Seoul, Korea, 2025</em></p>
-          <p><em>Paradox, Artrium Mori, Seongju, Korea, 2025</em></p>
-          <p><em>Resonant Chamber, Gonggan HYEONG, Seoul, Korea, 2025</em></p>
-          <p><em>Your Office 2024, Art Space Areum, Suwon, Korea, 2024</em></p>
-          <p><em>The Fabulous Stories to Save the Green Planet, Gyeongpo Beach, Gangneung, Korea, 2024</em></p>
-          <p><em>Cracked Eggs and Well-Tied Ropes, Pier Contemporary, Seoul, Korea, 2023</em></p>
-          <p><em>Defamiliarization, Hello Museum, Seoul, Korea, 2023</em></p>
-        </div>
-      </section>
-  
-      <section id="media">
-        <h2>MEDIA</h2>
-        <div style="margin-top: 20px; text-align: left; font-size: 1rem; color: #000000; font-weight: normal;">
-          <p><a href="mailto:tecuhn@gmail.com" style="text-decoration: none; color: inherit;">E-mail</a></p>
-          <p><a href="https://www.instagram.com" target="_blank" style="text-decoration: none; color: inherit;">Instagram</a></p>
-          <p><a href="https://www.youtube.com" target="_blank" style="text-decoration: none; color: inherit;">Video</a></p>
-          <p><a href="https://soundcloud.com" target="_blank" style="text-decoration: none; color: inherit;">Soundcloud</a></p>
-        </div>
-      </section>
-  
-      <section id="portfolio">
-        <h2>PORTFOLIO</h2>
-        <div style="margin-top: 20px; text-align: left; font-size: 1rem; color: #000000; font-weight: normal;">
-         <p><a href="texts/portfolio2.pdf" target="_blank" style="text-decoration: none; color: #000;">KR</a></p>
-        </div>
-      </section>
+      <h2>CV</h2>
+      <div style="margin-top: 20px; text-align: left; font-size: 0.9rem; color: #545353; font-weight: normal;">
+        <p>b.1999</p>
+        <p>B.F.A. in Sculpture, College of Fine Arts, Kyung Hee University</p>
+        <p>M.F.A. candidate in Fine Arts, Graduate School, Kyung Hee University</p>
+        <p>-</p>
+        <p><em>2025 IBK THE ART PLAZA : Eulji Poly, Seoul, Korea, 2025</em></p>
+        <p><em>Spectra Of Light 2025, Seoul, Korea, 2025</em></p>
+        <p><em>Paradox, Artrium Mori, Seongju, Korea, 2025</em></p>
+        <p><em>Resonant Chamber, Gonggan HYEONG, Seoul, Korea, 2025</em></p>
+        <p><em>Your Office 2024, Art Space Areum, Suwon, Korea, 2024</em></p>
+        <p><em>The Fabulous Stories to Save the Green Planet, Gyeongpo Beach, Gangneung, Korea, 2024</em></p>
+        <p><em>Cracked Eggs and Well-Tied Ropes, Pier Contemporary, Seoul, Korea, 2023</em></p>
+        <p><em>Defamiliarization, Hello Museum, Seoul, Korea, 2023</em></p>
+      </div>
+    </section>
+
+    <section id="media">
+      <h2>MEDIA</h2>
+      <div style="margin-top: 20px; text-align: left; font-size: 1rem; color: #000000; font-weight: normal;">
+        <p><a href="mailto:tecuhn@gmail.com" style="text-decoration: none; color: inherit;">E-mail</a></p>
+        <p><a href="https://www.instagram.com" target="_blank" style="text-decoration: none; color: inherit;">Instagram</a></p>
+        <p><a href="https://www.youtube.com" target="_blank" style="text-decoration: none; color: inherit;">Video</a></p>
+        <p><a href="https://soundcloud.com" target="_blank" style="text-decoration: none; color: inherit;">Soundcloud</a></p>
+      </div>
+    </section>
+
+    <section id="portfolio">
+      <h2>PORTFOLIO</h2>
+      <div style="margin-top: 20px; text-align: left; font-size: 1rem; color: #000000; font-weight: normal;">
+        <p><a href="texts/portfolio2.pdf" target="_blank" style="text-decoration: none; color: #000;">KR</a></p>
+      </div>
+    </section>
 
     <footer style="margin-top: 60px; text-align: left; font-size: 0.9rem; color: #888;">
       <p>&copy; 2025 dong hyeon lim. All rights reserved.</p>
@@ -182,7 +220,7 @@
   </main>
 
   <script>
-    // 페이지 로드 시 배경 이미지 등장
+    // 배경 이미지 등장
     window.addEventListener('DOMContentLoaded', () => {
       const bg = document.querySelector('.background-image');
       bg.classList.add('is-visible');
@@ -200,17 +238,54 @@
       }
     });
 
-    // 섹션 스크롤 등장 감지
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
+    // ✅ 메뉴 클릭 시 섹션 토글 (hash 기반: 딥링크/뒤로가기 지원)
+    const sectionIds = ["works", "document", "cv", "media", "portfolio"];
+    const sections = sectionIds.map(id => document.getElementById(id));
+    const navLinks = Array.from(document.querySelectorAll("header nav a"));
+
+    function activateSection(id) {
+      sections.forEach(sec => {
+        const isActive = sec && sec.id === id;
+        sec.classList.toggle("is-active", isActive);
+
+        // 섹션 등장 애니메이션: 활성화될 때 한 번 실행
+        if (isActive) {
+          requestAnimationFrame(() => sec.classList.add("is-visible"));
+        } else {
+          sec.classList.remove("is-visible");
         }
       });
-    }, { threshold: 0.1 });
 
-    document.querySelectorAll('section').forEach(section => {
-      observer.observe(section);
+      // 메뉴 활성 표시
+      navLinks.forEach(a => {
+        const target = a.getAttribute("data-target") || a.getAttribute("href")?.replace("#", "");
+        a.classList.toggle("is-active", target === id);
+      });
+
+      // 상단으로 이동 (헤더 겹침 방지 + 보기 좋게)
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function getSectionFromHash() {
+      const hash = (location.hash || "#works").replace("#", "");
+      return sectionIds.includes(hash) ? hash : "works";
+    }
+
+    // hash 변경(뒤로가기 포함) 반영
+    window.addEventListener("hashchange", () => {
+      activateSection(getSectionFromHash());
+    });
+
+    // 첫 진입
+    window.addEventListener("DOMContentLoaded", () => {
+      // nav에 data-target이 없으면 자동 채우기(안전장치)
+      navLinks.forEach(a => {
+        if (!a.hasAttribute("data-target")) {
+          a.setAttribute("data-target", a.getAttribute("href").replace("#", ""));
+        }
+      });
+
+      activateSection(getSectionFromHash());
     });
   </script>
 </body>
