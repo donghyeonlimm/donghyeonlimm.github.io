@@ -20,21 +20,21 @@ body{
 }
 
 .work-page{
-  max-width: 1600px; /* 전체 영역 약간 확대 */
+  max-width: 1600px;
   margin: 0 auto;
 }
 
-/* 🔥 메인 영역 확대 */
+/* 위 영역: 왼쪽 정렬 + 메인 더 크게 */
 .top{
   display: grid;
-  grid-template-columns: 1fr 260px; /* 오른쪽 텍스트 폭 줄임 */
+  grid-template-columns: 1fr 260px;
   gap: var(--gap);
   align-items: start;
 }
 
-/* 메인 이미지 크게 */
+/* 메인 이미지 더 크게: 비율 유지하면서 높이 확보 */
 .main-frame{
-  aspect-ratio: 16 / 9; /* 조금 더 넓은 화면 비율 */
+  aspect-ratio: 16 / 8.5; /* 이전(16/9)보다 살짝 더 크게 보이게 */
   overflow: hidden;
   background: #fff;
 }
@@ -43,6 +43,13 @@ body{
   height: 100%;
   object-fit: contain;
   display:block;
+
+  /* 메인 이미지 교체 시 페이드용 */
+  opacity: 1;
+  transition: opacity .35s ease;
+}
+.main-frame img.is-fading{
+  opacity: 0;
 }
 
 /* 오른쪽 텍스트 */
@@ -60,40 +67,46 @@ body{
   margin: 0;
 }
 
-/* 🔥 썸네일 크기 축소 */
+/* 썸네일: 전체 왼쪽 정렬(기본) */
 .thumbs{
   margin-top: 22px;
   display: flex;
   gap: 18px;
-  justify-content: flex-start;
+  justify-content: flex-start; /* 왼쪽 정렬 */
 }
 
 .thumb{
-  width: 180px; /* 👈 썸네일 고정 크기 */
+  width: 180px;
   aspect-ratio: 4 / 3;
   overflow: hidden;
   cursor: pointer;
 }
-
 .thumb img{
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display:block;
   transition: transform .25s ease;
 }
 .thumb:hover img{
   transform: scale(1.03);
 }
 
+/* 비디오도 왼쪽 정렬: margin auto 제거 */
 .bottom{
   margin-top: 32px;
   max-width: 1000px;
 }
 
+.video-box{
+  width: 100%;
+  margin-top: 20px;
+}
 .video-box iframe{
   width: 100%;
   height: 520px;
   border: none;
+  display:block;
 }
 
 .return{
@@ -105,7 +118,7 @@ body{
   text-decoration: underline;
 }
 
-/* ===== 페이드업 ===== */
+/* ===== 스크롤 페이드업 ===== */
 .fade-up{
   opacity: 0;
   transform: translateY(40px);
@@ -134,56 +147,84 @@ body{
 <body>
 <div class="work-page">
 
-<section class="top fade-up">
-  <div class="main-frame">
-    <img id="mainImage" src="../images/img_m1.png" alt="Mast, 2025" />
-  </div>
+  <section class="top fade-up">
+    <div class="main-frame">
+      <img id="mainImage" src="../images/img_m1.png" alt="Mast, 2025" />
+    </div>
 
-  <aside class="side">
-    <h1>Mast</h1>
-    <p class="meta">
+    <aside class="side">
+      <h1>Mast</h1>
+      <p class="meta">
 2025, aluminium, motor, pipe, wire, sound controller, 300×60×60cm
-    </p>
-  </aside>
-</section>
+      </p>
+    </aside>
+  </section>
 
-<section class="thumbs fade-up">
-  <div class="thumb" data-src="../images/img_m1.png">
-    <img src="../images/img_m1.png" />
-  </div>
-  <div class="thumb" data-src="../images/img_m2.png">
-    <img src="../images/img_m2.png" />
-  </div>
-  <div class="thumb" data-src="../images/img_m3.png">
-    <img src="../images/img_m3.png" />
-  </div>
-</section>
+  <section class="thumbs fade-up" aria-label="thumbnails">
+    <div class="thumb" data-src="../images/img_m1.png" data-alt="Mast, 2025 image 1">
+      <img src="../images/img_m1.png" alt="Mast thumbnail 1" />
+    </div>
+    <div class="thumb" data-src="../images/img_m2.png" data-alt="Mast, 2025 image 2">
+      <img src="../images/img_m2.png" alt="Mast thumbnail 2" />
+    </div>
+    <div class="thumb" data-src="../images/img_m3.png" data-alt="Mast, 2025 image 3">
+      <img src="../images/img_m3.png" alt="Mast thumbnail 3" />
+    </div>
+  </section>
 
-<section class="bottom fade-up">
-  <div class="video-box">
-    <iframe
-      src="https://www.youtube.com/embed/AgcC2_O8L0E"
-      allowfullscreen></iframe>
-  </div>
+  <section class="bottom fade-up">
+    <div class="video-box">
+      <iframe
+        src="https://www.youtube.com/embed/AgcC2_O8L0E"
+        title="YouTube video player"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+    </div>
 
-  <div class="return">
-    <a href="../index.html">← return</a>
-  </div>
-</section>
+    <div class="return">
+      <a href="../index.html">← return</a>
+    </div>
+  </section>
 
 </div>
 
 <script>
+/* 썸네일 클릭 -> 메인 이미지 교체 + 페이드인 */
 const mainImage = document.getElementById("mainImage");
 const thumbs = document.querySelectorAll(".thumb");
 
+function swapMainImage(newSrc, newAlt){
+  if (!newSrc || mainImage.src.endsWith(newSrc)) return;
+
+  // 1) 페이드아웃
+  mainImage.classList.add("is-fading");
+
+  // 2) 트랜지션 시간 후 src 교체, 로드되면 페이드인
+  setTimeout(() => {
+    // 새 이미지 로드가 끝난 뒤에 페이드인
+    const img = new Image();
+    img.onload = () => {
+      mainImage.src = newSrc;
+      if (newAlt) mainImage.alt = newAlt;
+
+      // 다음 프레임에서 페이드인
+      requestAnimationFrame(() => {
+        mainImage.classList.remove("is-fading");
+      });
+    };
+    img.src = newSrc;
+  }, 180);
+}
+
 thumbs.forEach(t => {
   t.addEventListener("click", () => {
-    mainImage.src = t.getAttribute("data-src");
+    const src = t.getAttribute("data-src");
+    const alt = t.getAttribute("data-alt") || "work image";
+    swapMainImage(src, alt);
   });
 });
 
-// 스크롤 페이드업
+/* 스크롤 시 자연스럽게 페이드업 등장 */
 document.addEventListener("DOMContentLoaded", function () {
   const elements = document.querySelectorAll(".fade-up");
 
