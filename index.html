@@ -6,6 +6,7 @@
   <title>Donghyeon Lim</title>
 
   <style>
+    /* 기본 설정: 미니멀한 폰트 크기 유지 */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
 
@@ -15,7 +16,7 @@
       color: #000;
       line-height: 1.6;
       padding: 0 20px 40px 20px;
-      font-size: 0.75rem; /* 전체 기본 폰트 크기 축소 */
+      font-size: 0.75rem;
     }
 
     /* Background */
@@ -38,7 +39,7 @@
       transform: scale(1);
     }
 
-    /* Header: 상단 공백 최소화 */
+    /* Header: 상단 밀착형 디자인 */
     header {
       position: fixed;
       top: 0; left: 0;
@@ -46,7 +47,7 @@
       background-color: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(3px);
       z-index: 10;
-      padding: 20px 20px 15px 20px; /* 위쪽 여백을 40px에서 20px로 대폭 축소 */
+      padding: 20px 20px 15px 20px;
       transition: background-color 0.3s, backdrop-filter 0.3s;
     }
 
@@ -60,20 +61,20 @@
     nav a {
       text-decoration: none;
       color: #000;
-      font-size: 0.7rem; /* 메뉴 글자 크기 축소 (기존 0.85rem) */
+      font-size: 0.7rem;
       font-weight: 500;
       letter-spacing: 0.05em;
     }
     nav a.is-active { opacity: 0.3; }
     nav a:hover { opacity: 0.5; }
 
-    /* Main: 헤더 여백 축소에 따른 상단 패딩 조정 */
+    /* Main */
     main {
       position: relative;
       z-index: 1;
       max-width: 960px;
       margin: 0 auto;
-      padding: 100px 0 20px 0; /* 헤더가 올라간 만큼 본문 시작점도 150px에서 100px로 상향 */
+      padding: 100px 0 20px 0;
     }
 
     /* Sections */
@@ -88,7 +89,7 @@
     section.is-visible { opacity: 1; transform: translateY(0); }
 
     h2 {
-      font-size: 0.85rem; /* 섹션 타이틀 크기 축소 */
+      font-size: 0.85rem;
       font-weight: bold;
       text-transform: uppercase;
       margin-bottom: 20px;
@@ -99,7 +100,7 @@
       display: block;
       text-decoration: none;
       color: inherit;
-      font-size: 0.85rem; /* 리스트 글자 크기 축소 (기존 1rem) */
+      font-size: 0.85rem;
       margin-bottom: 5px;
     }
     .text-links a:hover {
@@ -107,8 +108,13 @@
       color: #666;
     }
 
-    /* CV 내 세부 텍스트 크기 조정 */
-    .cv-wrap { font-size: 0.8rem; }
+    /* CV 내 세부 스타일 */
+    .cv-wrap { margin-top: 15px; text-align: left; font-size: 0.8rem; color: #545353; font-weight: normal; }
+    .cv-wrap p { margin: 0 0 8px 0; }
+    .cv-wrap .spacer { height: 15px; }
+    .cv-wrap strong { color: #111; font-weight: 600; }
+    .cv-wrap em { font-style: italic; }
+    .cv-wrap hr { margin: 25px 0; border: none; border-top: 1px solid #ddd; }
 
     /* Fixed footer */
     .fixed-footer {
@@ -179,14 +185,6 @@
 
     <section id="cv">
       <h2>CV</h2>
-      <style>
-        .cv-wrap{ margin-top: 15px; text-align: left; font-size: 0.8rem; color: #545353; font-weight: normal; }
-        .cv-wrap p { margin: 0 0 8px 0; }
-        .cv-wrap .spacer { height: 15px; }
-        .cv-wrap strong{ color: #111; font-weight: 600; }
-        .cv-wrap em{ font-style: italic; }
-        .cv-wrap hr{ margin: 20px 0; border: none; border-top: 1px solid #ddd; }
-      </style>
       <div class="cv-wrap">
         <p><strong>출생</strong><br>1999</p>
         <div class="spacer"></div>
@@ -197,14 +195,18 @@
         <p><strong>2025</strong><br>〈IBK THE ART PLAZA: 을지폴리〉, IBK 기업은행 지하, 서울, 한국<br>〈서울 빛섬 축제: 빛의 스펙트라〉, 뚝섬 한강공원 일대, 서울, 한국<br>〈Paradox〉, 아트리움 모리, 성주, 한국<br>〈Resonant Chamber〉, 공간형, 서울, 한국</p>
         <p><strong>2024</strong><br>〈Your Office 2024〉, 아트스페이스 아름, 수원, 한국<br>〈지구를 구하는 멋진 이야기들〉, 경포해변, 강릉, 한국</p>
         <p><strong>2023</strong><br>〈금이 간 계란과 잘 꼬인 밧줄〉, 피어 컨템포러리, 서울, 한국<br>〈Defamiliarization〉, 헬로우 뮤지움, 서울, 한국</p>
+        
         <hr>
+
         <p><strong>Born</strong><br>1999</p>
         <div class="spacer"></div>
         <p><strong>Education</strong><br>2024 BFA in Sculpture, College of Fine Arts, Kyung Hee University, Seoul, Korea<br>2024–Present Integrated M.A./Ph.D. Program in Fine Arts, Graduate School, Kyung Hee University, Seoul, Korea</p>
         <div class="spacer"></div>
         <p><strong>Selected Exhibitions</strong></p>
         <p><strong>2026</strong><br><em>Body Resembles Memory</em>, Gallery IN, Seoul, Korea</p>
-        <p><strong>2025</strong><br><em>2025 IBK THE ART PLAZA: Eulji Poly</em>, IBK Industrial Bank of Korea (B1), Seoul, Korea<br><em>Seoul Light : Spectra of Light</em>, Ttukseom Hangang Park, Seoul, Korea<br><em>Paradox</em>, Atrium Mori, Seoul, Korea<br><em>Resonant Chamber</em>, Space Hyeong, Seoul, Korea</p>
+        <p><strong>2025</strong><br><em>2025 IBK THE ART PLAZA: Eulji Poly</em>, IBK Industrial Bank of Korea (B1), Seoul, Korea<br><em>Seoul Light : Spectra of Light</em>, Ttukseom Hangang Park, Seoul, Korea<br><em>Paradox</em>, Atrium Mori, Seongju, Korea<br><em>Resonant Chamber</em>, Space Hyeong, Seoul, Korea</p>
+        <p><strong>2024</strong><br><em>Your Office 2024</em>, Art Space Areum, Suwon, Korea<br><em>Wonderful Stories to Save the Earth</em>, Gyeongpo Beach, Gangneung, Korea</p>
+        <p><strong>2023</strong><br><em>Cracked Egg and Tightly Twisted Rope</em>, Pier Contemporary, Seoul, Korea<br><em>Defamiliarization</em>, Hello Museum, Seoul, Korea</p>
       </div>
     </section>
 
@@ -231,11 +233,13 @@
   </div>
 
   <script>
+    // 배경 이미지 애니메이션
     window.addEventListener('DOMContentLoaded', () => {
       const bg = document.querySelector('.background-image');
       bg.classList.add('is-visible');
     });
 
+    // 스크롤 시 헤더 블러 효과
     window.addEventListener('scroll', () => {
       const header = document.querySelector('header');
       if (window.scrollY > 30) {
