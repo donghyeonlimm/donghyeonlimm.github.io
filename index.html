@@ -21,12 +21,12 @@
       overflow: hidden; 
     }
 
-    /* Background (기존 메인 콘텐츠 배경) */
+    /* Background (메인 콘텐츠 배경) */
     .background-image {
       position: fixed;
       top: 0; left: 0;
       width: 100vw; height: 100vh;
-      background-image: url('images/bg.png'); /* 메인 배경 이미지 */
+      background-image: url('images/bg.png'); 
       background-repeat: no-repeat;
       background-position: center center;
       background-size: cover;
@@ -46,36 +46,46 @@
       position: fixed;
       top: 0; left: 0;
       width: 100vw; height: 100vh;
-      background-color: #000; /* 인트로 배경색 (원하는 색으로 변경 가능) */
+      background-color: #fff; /* 드로잉 이미지와 어울리도록 흰색 배경 설정 */
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 9999; /* 다른 요소들 위에 오도록 높은 z-index */
+      z-index: 9999;
       cursor: pointer;
       opacity: 1;
-      transition: opacity 1s ease-out; /* 페이드 아웃 효과 */
+      transition: opacity 1.2s ease-in-out;
     }
 
     #intro-overlay.hidden {
       opacity: 0;
-      pointer-events: none; /* 사라진 후 클릭 방지 */
+      pointer-events: none;
     }
 
     #intro-overlay img {
-      max-width: 80%; /* 이미지 크기 조절 */
-      max-height: 80%;
+      max-width: 90%; /* 드로잉의 섬세한 선을 위해 크기를 넉넉히 설정 */
+      max-height: 85%;
       object-fit: contain;
-      animation: fadeIn 1.5s ease-out forwards; /* 이미지 페이드인 애니메이션 */
+      animation: fadeInDraw 2s ease-out forwards;
     }
 
-    /* 인트로 이미지 페이드인 애니메이션 */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
+    @keyframes fadeInDraw {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     /* ------------------------------ */
 
-    /* Header: 상단 밀착형 디자인 */
+    /* Header & Main Visibility Control */
+    header, main, .fixed-footer {
+      visibility: hidden; 
+      opacity: 0;
+      transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+    }
+    header.is-visible, main.is-visible, .fixed-footer.is-visible {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    /* Header */
     header {
       position: fixed;
       top: 0; left: 0;
@@ -84,15 +94,6 @@
       backdrop-filter: blur(3px);
       z-index: 10;
       padding: 20px 20px 15px 20px;
-      transition: background-color 0.3s, backdrop-filter 0.3s;
-      /* 인트로 화면 동안은 숨겨져 있다가 나타남 */
-      visibility: hidden; 
-      opacity: 0;
-      transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
-    }
-    header.is-visible {
-      visibility: visible;
-      opacity: 1;
     }
 
     nav { 
@@ -119,14 +120,6 @@
       max-width: 960px;
       margin: 0 auto;
       padding: 120px 0 40px 0;
-      /* 인트로 화면 동안은 숨겨져 있다가 나타남 */
-      visibility: hidden;
-      opacity: 0;
-      transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
-    }
-    main.is-visible {
-      visibility: visible;
-      opacity: 1;
     }
 
     /* Sections */
@@ -140,7 +133,6 @@
     section.is-active { display: block; }
     section.is-visible { opacity: 1; transform: translateY(0); }
 
-    /* 섹션 제목 크기 키움 */
     h2 {
       font-size: 1.1rem;
       font-weight: bold;
@@ -149,7 +141,6 @@
       letter-spacing: 0.02em;
     }
 
-    /* 작품 리스트 폰트 크기 키움 */
     .text-links a {
       display: block;
       text-decoration: none;
@@ -163,21 +154,17 @@
       color: #666;
     }
 
-    /* CV 내 세부 스타일 폰트 크기 키움 */
     .cv-wrap { 
       margin-top: 20px; 
       text-align: left; 
       font-size: 1rem; 
       color: #333; 
-      font-weight: normal; 
     }
     .cv-wrap p { margin: 0 0 12px 0; }
     .cv-wrap .spacer { height: 20px; }
     .cv-wrap strong { color: #000; font-weight: 600; }
-    .cv-wrap em { font-style: italic; }
     .cv-wrap hr { margin: 30px 0; border: none; border-top: 1px solid #eee; }
 
-    /* Fixed footer */
     .fixed-footer {
       position: fixed;
       bottom: 20px;
@@ -185,16 +172,6 @@
       font-size: 0.8rem;
       color: #888;
       z-index: 20;
-      pointer-events: none;
-      opacity: 0.7;
-      /* 인트로 화면 동안은 숨겨져 있다가 나타남 */
-      visibility: hidden;
-      opacity: 0;
-      transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
-    }
-    .fixed-footer.is-visible {
-      visibility: visible;
-      opacity: 1;
     }
 
     @media (max-width: 768px) {
@@ -202,14 +179,15 @@
       nav a { font-size: 0.65rem; }
       main { padding-top: 100px; }
       .text-links a { font-size: 0.95rem; }
-      .cv-wrap { font-size: 0.9rem; }
     }
   </style>
 </head>
 
 <body>
+  
   <div id="intro-overlay">
-    <img src="images/intro_image.jpg" alt="Intro Image"> </div>
+    <img src="드로잉1.jpg" alt="Intro Drawing"> 
+  </div>
 
   <div class="background-image"></div>
 
@@ -252,7 +230,7 @@
     <section id="document">
       <h2>Document</h2>
       <div class="text-links">
-        <a href="texts/rp.pdf">Research Presentaion 2025, Edit Donghyeon Lim</a>
+        <a href="texts/rp.pdf">Research Presentation 2025, Edit Donghyeon Lim</a>
         <a href="texts/ResonantChamber.pdf">Touchless Yet Touched, 2025 - Eunhee Kim</a>
       </div>
     </section>
@@ -263,25 +241,7 @@
         <p><strong>출생</strong><br>1999</p>
         <div class="spacer"></div>
         <p><strong>학력</strong><br>2024 경희대학교 미술대학 조소과 졸업<br>2024–현재 경희대학교 일반대학원 미술학과 석·박사 통합과정 재학</p>
-        <div class="spacer"></div>
-        <p><strong>주요 전시</strong></p>
-        <p><strong>2026</strong><br>〈몸은 기억을 닮는다〉, 갤러리인, 서울, 한국</p>
-        <p><strong>2025</strong><br>〈IBK THE ART PLAZA: 을지폴리〉, IBK 기업은행 지하, 서울, 한국<br>〈서울 빛섬 축제: 빛의 스펙트라〉, 뚝섬 한강공원 일대, 서울, 한국<br>〈Paradox〉, 아트리움 모리, 성주, 한국<br>〈Resonant Chamber〉, 공간형, 서울, 한국</p>
-        <p><strong>2024</strong><br>〈Your Office 2024〉, 아트스페이스 아름, 수원, 한국<br>〈지구를 구하는 멋진 이야기들〉, 경포해변, 강릉, 한국</p>
-        <p><strong>2023</strong><br>〈금이 간 계란과 잘 꼬인 밧줄〉, 피어 컨템포러리, 서울, 한국<br>〈Defamiliarization〉, 헬로우 뮤지움, 서울, 한국</p>
-        
-        <hr>
-
-        <p><strong>Born</strong><br>1999</p>
-        <div class="spacer"></div>
-        <p><strong>Education</strong><br>2024 BFA in Sculpture, College of Fine Arts, Kyung Hee University, Seoul, Korea<br>2024–Present Integrated M.A./Ph.D. Program in Fine Arts, Graduate School, Kyung Hee University, Seoul, Korea</p>
-        <div class="spacer"></div>
-        <p><strong>Selected Exhibitions</strong></p>
-        <p><strong>2026</strong><br><em>Body Resembles Memory</em>, Gallery IN, Seoul, Korea</p>
-        <p><strong>2025</strong><br><em>2025 IBK THE ART PLAZA: Eulji Poly</em>, IBK Industrial Bank of Korea (B1), Seoul, Korea<br><em>Seoul Light : Spectra of Light</em>, Ttukseom Hangang Park, Seoul, Korea<br><em>Paradox</em>, Atrium Mori, Seongju, Korea<br><em>Resonant Chamber</em>, Space Hyeong, Seoul, Korea</p>
-        <p><strong>2024</strong><br><em>Your Office 2024</em>, Art Space Areum, Suwon, Korea<br><em>Wonderful Stories to Save the Earth</em>, Gyeongpo Beach, Gangneung, Korea</p>
-        <p><strong>2023</strong><br><em>Cracked Egg and Tightly Twisted Rope</em>, Pier Contemporary, Seoul, Korea<br><em>Defamiliarization</em>, Hello Museum, Seoul, Korea</p>
-      </div>
+        </div>
     </section>
 
     <section id="media">
@@ -289,8 +249,6 @@
       <div class="text-links" style="margin-top: 15px;">
         <a href="mailto:tecuhn@gmail.com">E-mail</a>
         <a href="https://www.instagram.com" target="_blank" rel="noopener">Instagram</a>
-        <a href="https://www.youtube.com" target="_blank" rel="noopener">Video</a>
-        <a href="https://soundcloud.com" target="_blank" rel="noopener">Soundcloud</a>
       </div>
     </section>
 
@@ -309,43 +267,28 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const introOverlay = document.getElementById("intro-overlay");
-      const mainHeader = document.querySelector("header");
-      const mainContent = document.querySelector("main");
-      const mainFooter = document.querySelector(".fixed-footer");
+      const mainElements = [
+        document.querySelector("header"),
+        document.querySelector("main"),
+        document.querySelector(".fixed-footer")
+      ];
       const bgImage = document.querySelector('.background-image');
 
-      // -----------------------------------------------------------
-      // 인트로 화면 클릭 시 메인 콘텐츠 나타내기
+      // 인트로 클릭 이벤트
       introOverlay.addEventListener("click", () => {
-        introOverlay.classList.add("hidden"); // 인트로 화면 페이드 아웃
+        introOverlay.classList.add("hidden"); 
         
-        // 인트로 화면 완전히 사라진 후 메인 콘텐츠 나타내기
         introOverlay.addEventListener('transitionend', () => {
-          document.body.style.overflow = 'auto'; // 스크롤 다시 활성화
-          bgImage.classList.add('is-visible'); // 메인 배경 이미지 애니메이션
-          mainHeader.classList.add("is-visible");
-          mainContent.classList.add("is-visible");
-          mainFooter.classList.add("is-visible");
+          document.body.style.overflow = 'auto'; 
+          bgImage.classList.add('is-visible'); 
           
-          // 기존 섹션 활성화 로직 실행 (인트로 화면 이후)
+          mainElements.forEach(el => el.classList.add("is-visible"));
+          
           activateSection(getSectionFromHash());
         }, { once: true });
       });
-      // -----------------------------------------------------------
 
-
-      // 스크롤 시 헤더 블러 효과 (기존 코드 유지)
-      window.addEventListener('scroll', () => {
-        const header = document.querySelector('header');
-        if (window.scrollY > 30) {
-          header.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
-          header.style.backdropFilter = 'blur(6px)';
-        } else {
-          header.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
-          header.style.backdropFilter = 'blur(3px)';
-        }
-      });
-
+      // 섹션 활성화 로직
       const sectionIds = ["works", "document", "cv", "media", "portfolio"];
       const sections = sectionIds.map(id => document.getElementById(id));
       const navLinks = Array.from(document.querySelectorAll("header nav a"));
@@ -364,11 +307,7 @@
           const target = a.getAttribute("data-target") || a.getAttribute("href")?.replace("#", "");
           a.classList.toggle("is-active", target === id);
         });
-        // 인트로 화면 이후에만 스크롤 이동
-        if (!introOverlay.classList.contains("hidden")) {
-          // 인트로 화면이 아직 활성화되어 있다면 스크롤 이동 방지
-          // (DOMContentLoaded에서 초기 호출될 때 스크롤되는 것을 막기 위함)
-        } else {
+        if (introOverlay.classList.contains("hidden")) {
           window.scrollTo({ top: 0, behavior: "smooth" });
         }
       }
@@ -379,14 +318,10 @@
       }
 
       window.addEventListener("hashchange", () => {
-        // 인트로 화면 이후에만 섹션 활성화
         if (introOverlay.classList.contains("hidden")) {
           activateSection(getSectionFromHash());
         }
       });
-
-      // DOMContentLoaded에서는 인트로 화면만 보여주고, 메인 콘텐츠는 숨김
-      // activateSection() 호출은 인트로 화면 클릭 이후로 이동
     });
   </script>
 </body>
