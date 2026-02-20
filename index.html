@@ -6,7 +6,7 @@
   <title>Donghyeon Lim</title>
 
   <style>
-    /* 기본 설정 */
+    /* 기본 레이아웃 및 폰트 설정 */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
 
@@ -17,10 +17,10 @@
       line-height: 1.6;
       padding: 0 20px 40px 20px;
       font-size: 0.95rem; 
-      overflow: hidden; 
+      overflow: hidden; /* 인트로 전까지 스크롤 방지 */
     }
 
-    /* Background */
+    /* 메인 배경 이미지 */
     .background-image {
       position: fixed;
       top: 0; left: 0;
@@ -40,14 +40,14 @@
       transform: scale(1);
     }
 
-    /* --- 인트로 오버레이 스타일 --- */
+    /* 인트로 오버레이 */
     #intro-overlay {
       position: fixed;
       top: 0; left: 0;
       width: 100vw; height: 100vh;
       background-color: #fff;
       display: flex;
-      flex-direction: column; /* 이미지와 텍스트 세로 정렬 */
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       z-index: 9999;
@@ -68,7 +68,6 @@
       animation: fadeInDraw 2s ease-out forwards;
     }
 
-    /* 클릭 유도 텍스트 스타일 */
     .click-guide {
       margin-top: 30px;
       font-size: 0.65rem;
@@ -76,16 +75,15 @@
       color: #999;
       text-transform: uppercase;
       opacity: 0;
-      animation: fadeInDraw 2s ease-out 1s forwards; /* 이미지보다 1초 늦게 등장 */
+      animation: fadeInDraw 2s ease-out 1s forwards;
     }
 
     @keyframes fadeInDraw {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
-    /* ------------------------------ */
 
-    /* Header & Main Visibility Control */
+    /* 메인 콘텐츠 숨김/표시 제어 */
     header, main, .fixed-footer {
       visibility: hidden; 
       opacity: 0;
@@ -157,11 +155,9 @@
       margin-bottom: 10px; 
       font-weight: 400;
     }
-    .text-links a:hover {
-      text-decoration: underline;
-      color: #666;
-    }
+    .text-links a:hover { text-decoration: underline; color: #666; }
 
+    /* CV 상세 스타일 */
     .cv-wrap { 
       margin-top: 20px; 
       text-align: left; 
@@ -187,6 +183,7 @@
       nav a { font-size: 0.65rem; }
       main { padding-top: 100px; }
       .text-links a { font-size: 0.95rem; }
+      .cv-wrap { font-size: 0.9rem; }
     }
   </style>
 </head>
@@ -275,14 +272,14 @@
       <h2>MEDIA</h2>
       <div class="text-links" style="margin-top: 15px;">
         <a href="mailto:tecuhn@gmail.com">E-mail</a>
-        <a href="https://www.instagram.com" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.instagram.com/limd0nghyeon" target="_blank">Instagram</a>
       </div>
     </section>
 
     <section id="portfolio">
       <h2>PORTFOLIO</h2>
       <div class="text-links" style="margin-top: 15px;">
-        <a href="texts/portfolio2.pdf" target="_blank" rel="noopener">KR</a>
+        <a href="texts/portfolio2.pdf" target="_blank">KR</a>
       </div>
     </section>
   </main>
@@ -300,41 +297,15 @@
         document.querySelector(".fixed-footer")
       ];
       const bgImage = document.querySelector('.background-image');
-
-      // 세션 스토리지 체크: 이미 봤다면 인트로 생략
-      const hasSeenIntro = sessionStorage.getItem("hasSeenIntro");
-
-      const showMainContent = () => {
-        document.body.style.overflow = 'auto'; 
-        bgImage.classList.add('is-visible'); 
-        mainElements.forEach(el => el.classList.add("is-visible"));
-        activateSection(getSectionFromHash());
-      };
-
-      if (hasSeenIntro) {
-        // 이미 봤으면 인트로 즉시 숨김
-        introOverlay.style.display = "none";
-        showMainContent();
-      } else {
-        // 처음이면 클릭 이벤트 대기
-        introOverlay.addEventListener("click", () => {
-          sessionStorage.setItem("hasSeenIntro", "true"); // 봤다고 기록
-          introOverlay.classList.add("hidden"); 
-          
-          introOverlay.addEventListener('transitionend', () => {
-            showMainContent();
-          }, { once: true });
-        });
-      }
-
-      // 섹션 활성화 로직
       const sectionIds = ["works", "document", "cv", "media", "portfolio"];
       const sections = sectionIds.map(id => document.getElementById(id));
       const navLinks = Array.from(document.querySelectorAll("header nav a"));
 
+      // 섹션 활성화 함수
       function activateSection(id) {
         sections.forEach(sec => {
-          const isActive = sec && sec.id === id;
+          if (!sec) return;
+          const isActive = sec.id === id;
           sec.classList.toggle("is-active", isActive);
           if (isActive) {
             requestAnimationFrame(() => sec.classList.add("is-visible"));
@@ -346,11 +317,6 @@
           const target = a.getAttribute("data-target") || a.getAttribute("href")?.replace("#", "");
           a.classList.toggle("is-active", target === id);
         });
-        
-        // 인트로가 숨겨진 상태에서만 스크롤 제어
-        if (introOverlay.classList.contains("hidden") || hasSeenIntro) {
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        }
       }
 
       function getSectionFromHash() {
@@ -358,10 +324,36 @@
         return sectionIds.includes(hash) ? hash : "works";
       }
 
+      const showMainContent = () => {
+        document.body.style.overflow = 'auto'; 
+        bgImage.classList.add('is-visible'); 
+        mainElements.forEach(el => el.classList.add("is-visible"));
+        // 진입 시 현재 해시에 맞는 섹션 강제 로드
+        activateSection(getSectionFromHash());
+      };
+
+      // 세션 스토리지: 인트로 노출 여부 확인
+      const hasSeenIntro = sessionStorage.getItem("hasSeenIntro");
+
+      if (hasSeenIntro) {
+        // 이미 본 적 있다면 인트로 즉시 제거 후 본문 활성화
+        introOverlay.style.display = "none";
+        showMainContent();
+      } else {
+        // 처음이라면 클릭 대기
+        introOverlay.addEventListener("click", () => {
+          sessionStorage.setItem("hasSeenIntro", "true");
+          introOverlay.classList.add("hidden"); 
+          introOverlay.addEventListener('transitionend', () => {
+            showMainContent();
+          }, { once: true });
+        });
+      }
+
+      // 메뉴 클릭 및 뒤로가기 대응
       window.addEventListener("hashchange", () => {
-        if (introOverlay.classList.contains("hidden") || hasSeenIntro) {
-          activateSection(getSectionFromHash());
-        }
+        activateSection(getSectionFromHash());
+        window.scrollTo({ top: 0, behavior: "smooth" });
       });
     });
   </script>
