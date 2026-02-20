@@ -15,7 +15,7 @@
       color: #000;
       line-height: 1.6;
       padding: 0 20px 40px 20px;
-      font-size: 0.8rem;
+      font-size: 0.75rem; /* 전체 기본 폰트 크기 축소 */
     }
 
     /* Background */
@@ -38,7 +38,7 @@
       transform: scale(1);
     }
 
-    /* Header */
+    /* Header: 상단 공백 최소화 */
     header {
       position: fixed;
       top: 0; left: 0;
@@ -46,53 +46,52 @@
       background-color: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(3px);
       z-index: 10;
-      padding: 40px 20px 20px 20px; /* 위쪽 여백 소폭 증가 */
+      padding: 20px 20px 15px 20px; /* 위쪽 여백을 40px에서 20px로 대폭 축소 */
       transition: background-color 0.3s, backdrop-filter 0.3s;
     }
 
-    /* 상단 메뉴 정렬 핵심 코드 */
     nav { 
-      max-width: 960px; /* 본문 main과 동일한 너비 */
-      margin: 0 auto;   /* 중앙 정렬 */
-      display: flex;    /* 가로 배치 */
-      justify-content: space-between; /* 5개 메뉴를 균등하게 좌우 끝까지 분할 */
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
     }
 
     nav a {
       text-decoration: none;
       color: #000;
-      font-size: 0.85rem;
+      font-size: 0.7rem; /* 메뉴 글자 크기 축소 (기존 0.85rem) */
       font-weight: 500;
       letter-spacing: 0.05em;
     }
     nav a.is-active { opacity: 0.3; }
     nav a:hover { opacity: 0.5; }
 
-    /* Main */
+    /* Main: 헤더 여백 축소에 따른 상단 패딩 조정 */
     main {
       position: relative;
       z-index: 1;
-      max-width: 960px; /* nav와 동일한 너비 기준점 */
+      max-width: 960px;
       margin: 0 auto;
-      padding: 150px 0 20px 0; /* 헤더 공간 확보 */
+      padding: 100px 0 20px 0; /* 헤더가 올라간 만큼 본문 시작점도 150px에서 100px로 상향 */
     }
 
     /* Sections */
     section {
       display: none;
-      margin-bottom: 120px;
+      margin-bottom: 100px;
       opacity: 0;
-      transform: translateY(30px);
+      transform: translateY(20px);
       transition: all 0.8s ease;
     }
     section.is-active { display: block; }
     section.is-visible { opacity: 1; transform: translateY(0); }
 
     h2 {
-      font-size: 1rem;
+      font-size: 0.85rem; /* 섹션 타이틀 크기 축소 */
       font-weight: bold;
       text-transform: uppercase;
-      margin-bottom: 25px; /* 타이틀과 리스트 사이 간격 */
+      margin-bottom: 20px;
     }
 
     /* Link list style */
@@ -100,20 +99,23 @@
       display: block;
       text-decoration: none;
       color: inherit;
-      font-size: 1rem;
-      margin-bottom: 6px; /* 줄간격 소폭 조정 */
+      font-size: 0.85rem; /* 리스트 글자 크기 축소 (기존 1rem) */
+      margin-bottom: 5px;
     }
     .text-links a:hover {
       text-decoration: underline;
       color: #666;
     }
 
+    /* CV 내 세부 텍스트 크기 조정 */
+    .cv-wrap { font-size: 0.8rem; }
+
     /* Fixed footer */
     .fixed-footer {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       color: #888;
       z-index: 20;
       pointer-events: none;
@@ -121,13 +123,9 @@
     }
 
     @media (max-width: 768px) {
-      nav {
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-      nav a {
-        font-size: 0.7rem;
-      }
+      header { padding: 15px 15px 10px 15px; }
+      nav a { font-size: 0.65rem; }
+      main { padding-top: 80px; }
     }
   </style>
 </head>
@@ -182,12 +180,12 @@
     <section id="cv">
       <h2>CV</h2>
       <style>
-        .cv-wrap{ margin-top: 20px; text-align: left; font-size: 0.9rem; color: #545353; font-weight: normal; }
-        .cv-wrap p { margin: 0 0 10px 0; }
-        .cv-wrap .spacer { height: 18px; }
+        .cv-wrap{ margin-top: 15px; text-align: left; font-size: 0.8rem; color: #545353; font-weight: normal; }
+        .cv-wrap p { margin: 0 0 8px 0; }
+        .cv-wrap .spacer { height: 15px; }
         .cv-wrap strong{ color: #111; font-weight: 600; }
         .cv-wrap em{ font-style: italic; }
-        .cv-wrap hr{ margin: 26px 0; border: none; border-top: 1px solid #ddd; }
+        .cv-wrap hr{ margin: 20px 0; border: none; border-top: 1px solid #ddd; }
       </style>
       <div class="cv-wrap">
         <p><strong>출생</strong><br>1999</p>
@@ -212,7 +210,7 @@
 
     <section id="media">
       <h2>MEDIA</h2>
-      <div class="text-links" style="margin-top: 20px;">
+      <div class="text-links" style="margin-top: 15px;">
         <a href="mailto:tecuhn@gmail.com">E-mail</a>
         <a href="https://www.instagram.com" target="_blank" rel="noopener">Instagram</a>
         <a href="https://www.youtube.com" target="_blank" rel="noopener">Video</a>
@@ -222,7 +220,7 @@
 
     <section id="portfolio">
       <h2>PORTFOLIO</h2>
-      <div class="text-links" style="margin-top: 20px;">
+      <div class="text-links" style="margin-top: 15px;">
         <a href="texts/portfolio2.pdf" target="_blank" rel="noopener">KR</a>
       </div>
     </section>
@@ -240,7 +238,7 @@
 
     window.addEventListener('scroll', () => {
       const header = document.querySelector('header');
-      if (window.scrollY > 50) {
+      if (window.scrollY > 30) {
         header.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
         header.style.backdropFilter = 'blur(6px)';
       } else {
