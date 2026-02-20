@@ -17,11 +17,10 @@
       line-height: 1.6;
       padding: 0 20px 40px 20px;
       font-size: 0.95rem; 
-      /* 인트로 화면이 끝나기 전까지 스크롤 막기 */
       overflow: hidden; 
     }
 
-    /* Background (메인 콘텐츠 배경) */
+    /* Background */
     .background-image {
       position: fixed;
       top: 0; left: 0;
@@ -46,8 +45,9 @@
       position: fixed;
       top: 0; left: 0;
       width: 100vw; height: 100vh;
-      background-color: #fff; /* 드로잉 이미지와 어울리도록 흰색 배경 설정 */
+      background-color: #fff;
       display: flex;
+      flex-direction: column; /* 이미지와 텍스트 세로 정렬 */
       justify-content: center;
       align-items: center;
       z-index: 9999;
@@ -62,10 +62,21 @@
     }
 
     #intro-overlay img {
-      max-width: 90%; /* 드로잉의 섬세한 선을 위해 크기를 넉넉히 설정 */
-      max-height: 85%;
+      max-width: 90%;
+      max-height: 80%;
       object-fit: contain;
       animation: fadeInDraw 2s ease-out forwards;
+    }
+
+    /* 클릭 유도 텍스트 스타일 */
+    .click-guide {
+      margin-top: 30px;
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: #999;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeInDraw 2s ease-out 1s forwards; /* 이미지보다 1초 늦게 등장 */
     }
 
     @keyframes fadeInDraw {
@@ -85,7 +96,6 @@
       opacity: 1;
     }
 
-    /* Header */
     header {
       position: fixed;
       top: 0; left: 0;
@@ -113,7 +123,6 @@
     nav a.is-active { opacity: 0.3; }
     nav a:hover { opacity: 0.5; }
 
-    /* Main */
     main {
       position: relative;
       z-index: 1;
@@ -122,7 +131,6 @@
       padding: 120px 0 40px 0;
     }
 
-    /* Sections */
     section {
       display: none;
       margin-bottom: 100px;
@@ -186,7 +194,8 @@
 <body>
   
   <div id="intro-overlay">
-    <img src="../images/draw2.png" alt=> 
+    <img src="../images/draw2.png" alt="Intro Drawing"> 
+    <div class="click-guide">Click to enter</div>
   </div>
 
   <div class="background-image"></div>
@@ -292,19 +301,31 @@
       ];
       const bgImage = document.querySelector('.background-image');
 
-      // 인트로 클릭 이벤트
-      introOverlay.addEventListener("click", () => {
-        introOverlay.classList.add("hidden"); 
-        
-        introOverlay.addEventListener('transitionend', () => {
-          document.body.style.overflow = 'auto'; 
-          bgImage.classList.add('is-visible'); 
+      // 세션 스토리지 체크: 이미 봤다면 인트로 생략
+      const hasSeenIntro = sessionStorage.getItem("hasSeenIntro");
+
+      const showMainContent = () => {
+        document.body.style.overflow = 'auto'; 
+        bgImage.classList.add('is-visible'); 
+        mainElements.forEach(el => el.classList.add("is-visible"));
+        activateSection(getSectionFromHash());
+      };
+
+      if (hasSeenIntro) {
+        // 이미 봤으면 인트로 즉시 숨김
+        introOverlay.style.display = "none";
+        showMainContent();
+      } else {
+        // 처음이면 클릭 이벤트 대기
+        introOverlay.addEventListener("click", () => {
+          sessionStorage.setItem("hasSeenIntro", "true"); // 봤다고 기록
+          introOverlay.classList.add("hidden"); 
           
-          mainElements.forEach(el => el.classList.add("is-visible"));
-          
-          activateSection(getSectionFromHash());
-        }, { once: true });
-      });
+          introOverlay.addEventListener('transitionend', () => {
+            showMainContent();
+          }, { once: true });
+        });
+      }
 
       // 섹션 활성화 로직
       const sectionIds = ["works", "document", "cv", "media", "portfolio"];
@@ -325,7 +346,9 @@
           const target = a.getAttribute("data-target") || a.getAttribute("href")?.replace("#", "");
           a.classList.toggle("is-active", target === id);
         });
-        if (introOverlay.classList.contains("hidden")) {
+        
+        // 인트로가 숨겨진 상태에서만 스크롤 제어
+        if (introOverlay.classList.contains("hidden") || hasSeenIntro) {
           window.scrollTo({ top: 0, behavior: "smooth" });
         }
       }
@@ -336,7 +359,7 @@
       }
 
       window.addEventListener("hashchange", () => {
-        if (introOverlay.classList.contains("hidden")) {
+        if (introOverlay.classList.contains("hidden") || hasSeenIntro) {
           activateSection(getSectionFromHash());
         }
       });
