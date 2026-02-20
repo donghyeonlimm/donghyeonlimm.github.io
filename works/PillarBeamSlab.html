@@ -10,14 +10,17 @@
   --gap: 30px;         /* 사진과 정보 사이의 여백 */
   --thumb-width: 80px;  /* 썸네일 너비 */
   --muted: #555;
+  --transition-speed: 0.8s;
+  --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body {
   font-family: "Helvetica Neue", Arial, sans-serif;
   margin: 0;
-  padding: 50px;       /* 전체적인 여백 */
+  padding: 50px;
   background: #fff;
   color: #000;
+  overflow-x: hidden;
 }
 
 .work-page {
@@ -25,6 +28,23 @@ body {
   max-width: 2200px;   
   margin: 0 auto;
 }
+
+/* --- 등장 애니메이션 설정 --- */
+.hero > div, .side-info {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--transition-speed) var(--transition-timing), 
+              transform var(--transition-speed) var(--transition-timing);
+}
+
+.hero.is-visible > div, .hero.is-visible .side-info {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 순차적 등장을 위한 딜레이 */
+.side-container { transition-delay: 0.2s !important; }
+.side-info { transition-delay: 0.4s !important; }
 
 .hero {
   display: flex;
@@ -40,20 +60,23 @@ body {
   min-height: 500px;   
 }
 
-.main-frame img {
+.main-frame img, .main-frame iframe {
   width: 100%;
   height: auto;        
   display: block;
   opacity: 1;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.5s ease; /* 페이드 전환 효과 */
 }
 
-/* 비디오 iframe 비율 유지 */
+/* 전환 애니메이션용 클래스 */
+.is-fading {
+  opacity: 0 !important;
+}
+
 .main-frame iframe {
-  width: 100%;
   aspect-ratio: 16 / 9; 
   border: none;
-  display: none;       /* 기본적으로 숨김 */
+  display: none;       
 }
 
 /* 썸네일 + 정보 영역 그룹 */
@@ -77,7 +100,10 @@ body {
   overflow: hidden;
   border: 1px solid #eee;
   position: relative;
+  transition: opacity 0.3s ease;
 }
+
+.thumb:hover { opacity: 0.7; }
 
 .thumb img, .video-thumb img {
   width: 100%;
@@ -115,7 +141,6 @@ body {
 .return { margin-top: 30px; }
 .return a { color: var(--muted); text-decoration: none; font-size: 0.9rem; border-bottom: 1px solid #eee; }
 
-/* 반응형 처리 */
 @media (max-width: 1200px) {
   body { padding: 20px; }
   .hero { flex-direction: column; }
@@ -126,7 +151,7 @@ body {
 
 <body>
 <div class="work-page">
-  <section class="hero">
+  <section class="hero" id="heroSection">
     <div class="main-frame" id="mainContainer">
       <img id="mainImage" src="../images/pbs1.png" alt="Pillar, Beam, Slab">
       <iframe id="mainVideo" src="" allowfullscreen></iframe>
@@ -165,27 +190,45 @@ body {
 </div>
 
 <script>
-const mainImage = document.getElementById("mainImage");
-const mainVideo = document.getElementById("mainVideo");
-const thumbs = document.querySelectorAll(".thumb");
+document.addEventListener("DOMContentLoaded", () => {
+  const hero = document.getElementById("heroSection");
+  const mainImage = document.getElementById("mainImage");
+  const mainVideo = document.getElementById("mainVideo");
+  const thumbs = document.querySelectorAll(".thumb");
 
-thumbs.forEach(t => {
-  t.addEventListener("click", () => {
-    const type = t.getAttribute("data-type");
-    const src = t.getAttribute("data-src");
+  // 1. 페이지 로드 시 자연스럽게 등장
+  requestAnimationFrame(() => {
+    hero.classList.add("is-visible");
+  });
 
-    // 초기화
-    mainImage.style.display = "none";
-    mainVideo.style.display = "none";
-    mainVideo.src = "";
+  // 2. 썸네일 클릭 시 페이드 전환 로직
+  thumbs.forEach(t => {
+    t.addEventListener("click", () => {
+      const type = t.getAttribute("data-type");
+      const src = t.getAttribute("data-src");
 
-    if (type === "image") {
-      mainImage.src = src;
-      mainImage.style.display = "block";
-    } else if (type === "video") {
-      mainVideo.src = src;
-      mainVideo.style.display = "block";
-    }
+      // 현재 활성화된 요소에 페이드 아웃 효과
+      const activeElement = mainImage.style.display !== "none" ? mainImage : mainVideo;
+      activeElement.classList.add("is-fading");
+
+      setTimeout(() => {
+        // 소스 변경 전 초기화
+        mainImage.style.display = "none";
+        mainVideo.style.display = "none";
+        mainVideo.src = "";
+
+        if (type === "image") {
+          mainImage.src = src;
+          mainImage.style.display = "block";
+          // 이미지가 로드된 후 페이드 인
+          mainImage.onload = () => mainImage.classList.remove("is-fading");
+        } else if (type === "video") {
+          mainVideo.src = src;
+          mainVideo.style.display = "block";
+          mainVideo.classList.remove("is-fading");
+        }
+      }, 300); // 페이드 아웃 시간 대기
+    });
   });
 });
 </script>

@@ -10,6 +10,8 @@
   --gap: 30px;         /* 사진과 정보 사이의 여백 */
   --thumb-width: 80px;  /* 썸네일 너비 */
   --muted: #555;
+  --transition-speed: 0.8s;
+  --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body {
@@ -18,6 +20,7 @@ body {
   padding: 50px;       /* 전체 여백 */
   background: #fff;
   color: #000;
+  overflow-x: hidden;
 }
 
 .work-page {
@@ -25,6 +28,23 @@ body {
   max-width: 2200px;   
   margin: 0 auto;
 }
+
+/* --- 등장 애니메이션 설정 --- */
+.hero > div, .side-info {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--transition-speed) var(--transition-timing), 
+              transform var(--transition-speed) var(--transition-timing);
+}
+
+.hero.is-visible > div, .hero.is-visible .side-info {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 순차적 등장을 위한 딜레이 */
+.side-container { transition-delay: 0.2s !important; }
+.side-info { transition-delay: 0.4s !important; }
 
 .hero {
   display: flex;
@@ -45,7 +65,12 @@ body {
   height: auto;        
   display: block;
   opacity: 1;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.5s ease; /* 전환 페이드 효과 */
+}
+
+/* 전환 애니메이션용 클래스 */
+.is-fading {
+  opacity: 0 !important;
 }
 
 /* 썸네일 + 정보 영역 그룹 */
@@ -69,7 +94,10 @@ body {
   overflow: hidden;
   border: 1px solid #eee;
   position: relative;
+  transition: opacity 0.3s ease;
 }
+
+.thumb:hover { opacity: 0.7; }
 
 .thumb img {
   width: 100%;
@@ -110,7 +138,7 @@ body {
 
 <body>
 <div class="work-page">
-  <section class="hero">
+  <section class="hero" id="heroSection">
     <div class="main-frame" id="mainContainer">
       <img id="mainImage" src="../images/img_oss.png" alt="Ossicle - N : 1">
     </div>
@@ -137,20 +165,34 @@ body {
 </div>
 
 <script>
-const mainImage = document.getElementById("mainImage");
-const thumbs = document.querySelectorAll(".thumb");
+document.addEventListener("DOMContentLoaded", () => {
+  const hero = document.getElementById("heroSection");
+  const mainImage = document.getElementById("mainImage");
+  const thumbs = document.querySelectorAll(".thumb");
 
-thumbs.forEach(t => {
-  t.addEventListener("click", () => {
-    const src = t.getAttribute("data-src");
-    
-    // 부드러운 전환 효과
-    mainImage.style.opacity = 0;
-    
-    setTimeout(() => {
-      mainImage.src = src;
-      mainImage.style.opacity = 1;
-    }, 200);
+  // 1. 페이지 로드 시 자연스럽게 등장
+  requestAnimationFrame(() => {
+    hero.classList.add("is-visible");
+  });
+
+  // 2. 썸네일 클릭 시 페이드 전환 로직
+  thumbs.forEach(t => {
+    t.addEventListener("click", () => {
+      const src = t.getAttribute("data-src");
+
+      // 현재 메인 이미지 페이드 아웃
+      mainImage.classList.add("is-fading");
+
+      setTimeout(() => {
+        // 이미지 소스 교체
+        mainImage.src = src;
+        
+        // 이미지가 로드된 후 페이드 인
+        mainImage.onload = () => {
+          mainImage.classList.remove("is-fading");
+        };
+      }, 300); // 0.3초 대기
+    });
   });
 });
 </script>

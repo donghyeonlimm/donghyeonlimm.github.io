@@ -7,9 +7,11 @@
 
 <style>
 :root {
-  --gap: 30px;
-  --thumb-width: 80px;
+  --gap: 30px;         /* 사진과 정보 사이의 여백 */
+  --thumb-width: 80px;  /* 썸네일 너비 */
   --muted: #555;
+  --transition-speed: 0.8s;
+  --transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 body {
@@ -18,6 +20,7 @@ body {
   padding: 50px;
   background: #fff;
   color: #000;
+  overflow-x: hidden;
 }
 
 .work-page {
@@ -25,6 +28,23 @@ body {
   max-width: 2200px;
   margin: 0 auto;
 }
+
+/* --- 등장 애니메이션 설정 --- */
+.hero > div, .side-info {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity var(--transition-speed) var(--transition-timing), 
+              transform var(--transition-speed) var(--transition-timing);
+}
+
+.hero.is-visible > div, .hero.is-visible .side-info {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 순차적 등장을 위한 딜레이 */
+.side-container { transition-delay: 0.2s !important; }
+.side-info { transition-delay: 0.4s !important; }
 
 .hero {
   display: flex;
@@ -40,25 +60,29 @@ body {
   min-height: 500px;
 }
 
-.main-frame img {
+.main-frame img, .main-frame iframe {
   width: 100%;
   height: auto;
   display: block;
+  opacity: 1;
+  transition: opacity 0.5s ease; /* 전환 페이드 효과 */
 }
 
-/* 비디오 및 오디오 프레임 공통 설정 */
+/* 전환 애니메이션용 클래스 */
+.is-fading {
+  opacity: 0 !important;
+}
+
+/* 비디오 및 오디오 프레임 설정 */
 .main-frame iframe {
-  width: 100%;
   border: none;
   display: none;
 }
 
-/* 비디오는 16:9 비율 */
 .main-frame iframe.video-content {
   aspect-ratio: 16 / 9;
 }
 
-/* 오디오는 고정 높이 */
 .main-frame iframe.audio-content {
   height: 166px;
 }
@@ -77,29 +101,33 @@ body {
   width: var(--thumb-width);
 }
 
-.thumb, .media-thumb {
+.thumb {
   width: 100%;
   aspect-ratio: 1 / 1;
   cursor: pointer;
   overflow: hidden;
   border: 1px solid #eee;
   position: relative;
+  transition: opacity 0.3s ease;
 }
 
-.thumb img, .media-thumb img {
+.thumb:hover { opacity: 0.7; }
+
+.thumb img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
 /* 미디어 타입 표시 아이콘 */
-.media-thumb::after {
+.thumb::after {
   position: absolute;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   color: white;
   font-size: 16px;
   text-shadow: 0 0 5px rgba(0,0,0,0.5);
+  pointer-events: none;
 }
 .thumb.video::after { content: '▶'; }
 .thumb.audio::after { content: '♬'; }
@@ -133,7 +161,7 @@ body {
 
 <body>
 <div class="work-page">
-  <section class="hero">
+  <section class="hero" id="heroSection">
     <div class="main-frame" id="mainContainer">
       <img id="mainImage" src="../images/img_st2.png" alt="Instruments For Satellite">
       <iframe id="mainVideo" class="video-content" allowfullscreen></iframe>
@@ -168,31 +196,55 @@ body {
 </div>
 
 <script>
-const mainImage = document.getElementById("mainImage");
-const mainVideo = document.getElementById("mainVideo");
-const mainAudio = document.getElementById("mainAudio");
-const thumbs = document.querySelectorAll(".thumb");
+document.addEventListener("DOMContentLoaded", () => {
+  const hero = document.getElementById("heroSection");
+  const mainImage = document.getElementById("mainImage");
+  const mainVideo = document.getElementById("mainVideo");
+  const mainAudio = document.getElementById("mainAudio");
+  const thumbs = document.querySelectorAll(".thumb");
 
-thumbs.forEach(t => {
-  t.addEventListener("click", () => {
-    const type = t.getAttribute("data-type");
-    const src = t.getAttribute("data-src");
+  // 1. 페이지 로드 시 자연스럽게 등장
+  requestAnimationFrame(() => {
+    hero.classList.add("is-visible");
+  });
 
-    // 모든 요소 초기 상태로 숨기기 및 소스 제거
-    [mainImage, mainVideo, mainAudio].forEach(el => el.style.display = "none");
-    mainVideo.src = "";
-    mainAudio.src = "";
+  // 2. 미디어 전환 로직 (페이드 효과 포함)
+  thumbs.forEach(t => {
+    t.addEventListener("click", () => {
+      const type = t.getAttribute("data-type");
+      const src = t.getAttribute("data-src");
 
-    if (type === "image") {
-      mainImage.src = src;
-      mainImage.style.display = "block";
-    } else if (type === "video") {
-      mainVideo.src = src;
-      mainVideo.style.display = "block";
-    } else if (type === "audio") {
-      mainAudio.src = src;
-      mainAudio.style.display = "block";
-    }
+      // 현재 보이는 요소 찾기
+      const currentActive = [mainImage, mainVideo, mainAudio].find(el => el.style.display === "block") || mainImage;
+      
+      // 페이드 아웃
+      currentActive.classList.add("is-fading");
+
+      setTimeout(() => {
+        // 모든 요소 숨기기 및 초기화
+        [mainImage, mainVideo, mainAudio].forEach(el => {
+          el.style.display = "none";
+          el.classList.add("is-fading"); // 새 요소도 일단 투명하게
+        });
+        mainVideo.src = "";
+        mainAudio.src = "";
+
+        if (type === "image") {
+          mainImage.src = src;
+          mainImage.style.display = "block";
+          mainImage.onload = () => mainImage.classList.remove("is-fading");
+        } else if (type === "video") {
+          mainVideo.src = src;
+          mainVideo.style.display = "block";
+          // iframe은 로드 완료 시점이 보장되지 않으므로 짧은 지연 후 페이드인
+          setTimeout(() => mainVideo.classList.remove("is-fading"), 100);
+        } else if (type === "audio") {
+          mainAudio.src = src;
+          mainAudio.style.display = "block";
+          setTimeout(() => mainAudio.classList.remove("is-fading"), 100);
+        }
+      }, 300); // 페이드 아웃 시간 대기
+    });
   });
 });
 </script>
