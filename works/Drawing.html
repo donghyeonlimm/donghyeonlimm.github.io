@@ -1,123 +1,167 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Drawing - Donghyeon Lim</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Drawing - Donghyeon Lim</title>
 
-  <style>
-    body {
-      font-family: 'Helvetica Neue', sans-serif;
-      background-color: #fff;
-      color: #000;
-      margin: 20px;
-      line-height: 1.6;
-    }
+<style>
+:root {
+  --gap: 30px;         /* 사진과 정보 사이의 여백 */
+  --thumb-width: 80px;  /* 썸네일 너비 */
+  --muted: #555;
+}
 
-    h1 {
-      font-size: 1.8rem;
-      margin-bottom: 30px;
-      text-align: left;
-    }
+body {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  margin: 0;
+  padding: 50px;       /* 전체 여백 */
+  background: #fff;
+  color: #000;
+}
 
-    .main-image {
-      width: 100%;
-      max-width: 960px;
-      margin: 0 auto 40px auto;
-    }
+.work-page {
+  width: 100%;         
+  max-width: 2200px;   
+  margin: 0 auto;
+}
 
-    .main-image img {
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: cover;
-    }
+.hero {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gap);
+}
 
-    .grid-gallery {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      max-width: 960px;
-      margin: 0 auto 40px auto;
-    }
+/* 메인 컨텐츠 영역 */
+.main-frame {
+  flex: 1;             
+  position: relative;
+  background: #fff;
+  min-height: 500px;   
+}
 
-    .grid-gallery img {
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-      display: block;
-    }
+.main-frame img {
+  width: 100%;
+  height: auto;        
+  display: block;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
 
-    .text-box {
-      max-width: 800px;
-      margin: 0 auto;
-      text-align: left;
-      font-size: 0.9rem;
-      color: #555;
-    }
+/* 썸네일 + 정보 영역 그룹 */
+.side-container {
+  display: flex;
+  gap: var(--gap);
+  flex-shrink: 0;
+}
 
-    .text-box a {
-      color: #555;
-      text-decoration: underline;
-    }
+/* 이미지가 많으므로 스택에 스크롤바 추가 가능 (선택 사항) */
+.side-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: var(--thumb-width);
+  max-height: 85vh;
+  overflow-y: auto;
+  padding-right: 5px;
+}
 
-    @media (max-width: 768px) {
-      .grid-gallery {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
+/* 스크롤바 디자인 (깔끔하게) */
+.side-stack::-webkit-scrollbar { width: 3px; }
+.side-stack::-webkit-scrollbar-thumb { background: #eee; }
 
-    @media (max-width: 480px) {
-      .grid-gallery {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+.thumb {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  cursor: pointer;
+  overflow: hidden;
+  border: 1px solid #eee;
+  flex-shrink: 0;
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 정보 영역 */
+.side-info {
+  width: 260px;
+}
+
+.side-info h1 { 
+  font-size: 1.8rem; 
+  font-weight: 500; 
+  margin: 0 0 10px 0; 
+  line-height: 1.1;
+}
+
+.side-info .meta { 
+  font-size: 0.85rem; 
+  color: var(--muted); 
+  white-space: pre-line; 
+  line-height: 1.6;
+}
+
+.return { margin-top: 30px; }
+.return a { color: var(--muted); text-decoration: none; font-size: 0.9rem; border-bottom: 1px solid #eee; }
+
+/* 반응형 처리 */
+@media (max-width: 1200px) {
+  body { padding: 20px; }
+  .hero { flex-direction: column; }
+  .side-container { width: 100%; }
+  .side-stack { flex-direction: row; width: 100%; overflow-x: auto; max-height: none; }
+  .thumb { width: 60px; }
+}
+</style>
 </head>
 
 <body>
-  <h1>Drawing</h1>
+<div class="work-page">
+  <section class="hero">
+    <div class="main-frame" id="mainContainer">
+      <img id="mainImage" src="../images/dr1.png" alt="Drawing">
+    </div>
 
-  <!-- 상단 큰 이미지 -->
-  <div class="main-image">
-    <img src="../images/dr1.png" alt="Drawing, 2025" />
-  </div>
+    <div class="side-container">
+      <div class="side-stack">
+        <div class="thumb" data-src="../images/dr1.png"><img src="../images/dr1.png" alt="dr1"></div>
+        <div class="thumb" data-src="../images/dr2.png"><img src="../images/dr2.png" alt="dr2"></div>
+        <div class="thumb" data-src="../images/dr3.png"><img src="../images/dr3.png" alt="dr3"></div>
+        <div class="thumb" data-src="../images/dr4.png"><img src="../images/dr4.png" alt="dr4"></div>
+        <div class="thumb" data-src="../images/dr5.png"><img src="../images/dr5.png" alt="dr5"></div>
+        <div class="thumb" data-src="../images/dr6.png"><img src="../images/dr6.png" alt="dr6"></div>
+        <div class="thumb" data-src="../images/dr7.png"><img src="../images/dr7.png" alt="dr7"></div>
+      </div>
 
-  <!-- 하단 그리드 이미지 -->
-  <div class="grid-gallery">
-    <img src="../images/dr2.png" alt="Drawing, 2024" />
-    <img src="../images/dr3.png" alt="Drawing, 2024" />
-    <img src="../images/dr4.png" alt="Drawing, 2024" />
-    <img src="../images/dr5.png" alt="Drawing, 2024" />
-    <img src="../images/dr6.png" alt="Drawing, 2024" />
-    <img src="../images/dr7.png" alt="Drawing, 2024" />
-  </div>
+      <aside class="side-info">
+        <h1>Drawing</h1>
+        <p class="meta">2024–2025
+        pen on tracing paper, digital print</p>
+        <div class="return"><a href="../index.html">← return</a></div>
+      </aside>
+    </div>
+  </section>
+</div>
 
-  <div class="text-box">
-    <p>2024–2025, Drawing, pen on tracing paper, digital print</p>
-    <p><a href="../index.html">← return</a></p>
-  </div>
-</body>
-</html>
-  <!-- [추가] 자바스크립트: 스크롤 감지 및 클래스 부여 -->
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const observerOptions = {
-        threshold: 0.1 // 이미지의 10%가 보이면 실행
-      };
+<script>
+const mainImage = document.getElementById("mainImage");
+const thumbs = document.querySelectorAll(".thumb");
 
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      }, observerOptions);
-
-      // 관찰할 대상 설정
-      const images = document.querySelectorAll('.gallery-row img');
-      images.forEach(img => observer.observe(img));
-    });
-  </script>
+thumbs.forEach(t => {
+  t.addEventListener("click", () => {
+    const src = t.getAttribute("data-src");
+    
+    mainImage.style.opacity = 0;
+    
+    setTimeout(() => {
+      mainImage.src = src;
+      mainImage.style.opacity = 1;
+    }, 200);
+  });
+});
+</script>
 </body>
 </html>
