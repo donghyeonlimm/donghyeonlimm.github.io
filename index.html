@@ -16,16 +16,17 @@
       color: #000;
       line-height: 1.6;
       padding: 0 20px 40px 20px;
-      /* 본문 기본 폰트 크기 상향 */
       font-size: 0.95rem; 
+      /* 인트로 화면이 끝나기 전까지 스크롤 막기 */
+      overflow: hidden; 
     }
 
-    /* Background */
+    /* Background (기존 메인 콘텐츠 배경) */
     .background-image {
       position: fixed;
       top: 0; left: 0;
       width: 100vw; height: 100vh;
-      background-image: url('images/bg.png');
+      background-image: url('images/bg.png'); /* 메인 배경 이미지 */
       background-repeat: no-repeat;
       background-position: center center;
       background-size: cover;
@@ -40,6 +41,40 @@
       transform: scale(1);
     }
 
+    /* --- 인트로 오버레이 스타일 --- */
+    #intro-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background-color: #000; /* 인트로 배경색 (원하는 색으로 변경 가능) */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999; /* 다른 요소들 위에 오도록 높은 z-index */
+      cursor: pointer;
+      opacity: 1;
+      transition: opacity 1s ease-out; /* 페이드 아웃 효과 */
+    }
+
+    #intro-overlay.hidden {
+      opacity: 0;
+      pointer-events: none; /* 사라진 후 클릭 방지 */
+    }
+
+    #intro-overlay img {
+      max-width: 80%; /* 이미지 크기 조절 */
+      max-height: 80%;
+      object-fit: contain;
+      animation: fadeIn 1.5s ease-out forwards; /* 이미지 페이드인 애니메이션 */
+    }
+
+    /* 인트로 이미지 페이드인 애니메이션 */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    /* ------------------------------ */
+
     /* Header: 상단 밀착형 디자인 */
     header {
       position: fixed;
@@ -50,6 +85,14 @@
       z-index: 10;
       padding: 20px 20px 15px 20px;
       transition: background-color 0.3s, backdrop-filter 0.3s;
+      /* 인트로 화면 동안은 숨겨져 있다가 나타남 */
+      visibility: hidden; 
+      opacity: 0;
+      transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+    }
+    header.is-visible {
+      visibility: visible;
+      opacity: 1;
     }
 
     nav { 
@@ -62,7 +105,6 @@
     nav a {
       text-decoration: none;
       color: #000;
-      /* 상단 메뉴 폰트는 요청대로 기존 미니멀 크기 유지 */
       font-size: 0.7rem;
       font-weight: 500;
       letter-spacing: 0.05em;
@@ -76,7 +118,15 @@
       z-index: 1;
       max-width: 960px;
       margin: 0 auto;
-      padding: 120px 0 40px 0; /* 본문이 커졌으므로 상단 여백 살짝 조정 */
+      padding: 120px 0 40px 0;
+      /* 인트로 화면 동안은 숨겨져 있다가 나타남 */
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+    }
+    main.is-visible {
+      visibility: visible;
+      opacity: 1;
     }
 
     /* Sections */
@@ -104,8 +154,8 @@
       display: block;
       text-decoration: none;
       color: inherit;
-      font-size: 1.05rem; /* 시원하게 잘 보이도록 조정 */
-      margin-bottom: 10px; /* 리스트 사이 간격 확보 */
+      font-size: 1.05rem; 
+      margin-bottom: 10px; 
       font-weight: 400;
     }
     .text-links a:hover {
@@ -117,7 +167,7 @@
     .cv-wrap { 
       margin-top: 20px; 
       text-align: left; 
-      font-size: 1rem; /* CV 가독성 확보 */
+      font-size: 1rem; 
       color: #333; 
       font-weight: normal; 
     }
@@ -137,6 +187,14 @@
       z-index: 20;
       pointer-events: none;
       opacity: 0.7;
+      /* 인트로 화면 동안은 숨겨져 있다가 나타남 */
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+    }
+    .fixed-footer.is-visible {
+      visibility: visible;
+      opacity: 1;
     }
 
     @media (max-width: 768px) {
@@ -150,6 +208,9 @@
 </head>
 
 <body>
+  <div id="intro-overlay">
+    <img src="images/intro_image.jpg" alt="Intro Image"> </div>
+
   <div class="background-image"></div>
 
   <header>
@@ -168,7 +229,7 @@
       <div class="text-links">
         <a href="works/PillarBeamSlab.html">Pillar, Beam, Slab</a>
         <a href="works/Mast.html">Mast</a>
-        <a href="works/PlumblingSystem.html">Plumbling System</a>
+        <a href="works/PlumbingSystem.html">Plumbing System</a>
         <a href="works/InstrumentsForSatellite.html">Instruments For Satellite</a>
         <a href="works/InstrumentsForWheels.html">Instruments For wheels</a>
         <a href="works/InstrumentsForLine.html">Instruments For line</a>
@@ -179,7 +240,7 @@
         <a href="works/Ossicle-N:1.html">Ossicle - N : 1</a>
         <a href="works/SoundScenery-Wind,Sea,Wave.html">Sound Scenery - Wind, Sea, Wave</a>
         <a href="works/WhenYourWordsAreVertical.html">When Your Words Are Vertical</a>
-        <a href="works/SoundScenery-Layerd.html">Sound Scenery - Layerd</a>
+        <a href="works/SoundScenery-Layerd.html">Sound Scenery - Layered</a>
         <a href="works/SoundScenery-EnergyFlow.html">Sound Scenery - Energy Flow</a>
         <a href="works/AtThePointThatDoesNotCrossTheLine.html">At The Point That Does Not Cross The Line</a>
         <a href="works/V.V.V.html">V.V.V</a>
@@ -246,61 +307,86 @@
   </div>
 
   <script>
-    // 배경 이미지 애니메이션
-    window.addEventListener('DOMContentLoaded', () => {
-      const bg = document.querySelector('.background-image');
-      bg.classList.add('is-visible');
-    });
+    document.addEventListener("DOMContentLoaded", () => {
+      const introOverlay = document.getElementById("intro-overlay");
+      const mainHeader = document.querySelector("header");
+      const mainContent = document.querySelector("main");
+      const mainFooter = document.querySelector(".fixed-footer");
+      const bgImage = document.querySelector('.background-image');
 
-    // 스크롤 시 헤더 블러 효과
-    window.addEventListener('scroll', () => {
-      const header = document.querySelector('header');
-      if (window.scrollY > 30) {
-        header.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
-        header.style.backdropFilter = 'blur(6px)';
-      } else {
-        header.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
-        header.style.backdropFilter = 'blur(3px)';
-      }
-    });
+      // -----------------------------------------------------------
+      // 인트로 화면 클릭 시 메인 콘텐츠 나타내기
+      introOverlay.addEventListener("click", () => {
+        introOverlay.classList.add("hidden"); // 인트로 화면 페이드 아웃
+        
+        // 인트로 화면 완전히 사라진 후 메인 콘텐츠 나타내기
+        introOverlay.addEventListener('transitionend', () => {
+          document.body.style.overflow = 'auto'; // 스크롤 다시 활성화
+          bgImage.classList.add('is-visible'); // 메인 배경 이미지 애니메이션
+          mainHeader.classList.add("is-visible");
+          mainContent.classList.add("is-visible");
+          mainFooter.classList.add("is-visible");
+          
+          // 기존 섹션 활성화 로직 실행 (인트로 화면 이후)
+          activateSection(getSectionFromHash());
+        }, { once: true });
+      });
+      // -----------------------------------------------------------
 
-    const sectionIds = ["works", "document", "cv", "media", "portfolio"];
-    const sections = sectionIds.map(id => document.getElementById(id));
-    const navLinks = Array.from(document.querySelectorAll("header nav a"));
 
-    function activateSection(id) {
-      sections.forEach(sec => {
-        const isActive = sec && sec.id === id;
-        sec.classList.toggle("is-active", isActive);
-        if (isActive) {
-          requestAnimationFrame(() => sec.classList.add("is-visible"));
+      // 스크롤 시 헤더 블러 효과 (기존 코드 유지)
+      window.addEventListener('scroll', () => {
+        const header = document.querySelector('header');
+        if (window.scrollY > 30) {
+          header.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+          header.style.backdropFilter = 'blur(6px)';
         } else {
-          sec.classList.remove("is-visible");
+          header.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+          header.style.backdropFilter = 'blur(3px)';
         }
       });
-      navLinks.forEach(a => {
-        const target = a.getAttribute("data-target") || a.getAttribute("href")?.replace("#", "");
-        a.classList.toggle("is-active", target === id);
-      });
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
 
-    function getSectionFromHash() {
-      const hash = (location.hash || "#works").replace("#", "");
-      return sectionIds.includes(hash) ? hash : "works";
-    }
+      const sectionIds = ["works", "document", "cv", "media", "portfolio"];
+      const sections = sectionIds.map(id => document.getElementById(id));
+      const navLinks = Array.from(document.querySelectorAll("header nav a"));
 
-    window.addEventListener("hashchange", () => {
-      activateSection(getSectionFromHash());
-    });
+      function activateSection(id) {
+        sections.forEach(sec => {
+          const isActive = sec && sec.id === id;
+          sec.classList.toggle("is-active", isActive);
+          if (isActive) {
+            requestAnimationFrame(() => sec.classList.add("is-visible"));
+          } else {
+            sec.classList.remove("is-visible");
+          }
+        });
+        navLinks.forEach(a => {
+          const target = a.getAttribute("data-target") || a.getAttribute("href")?.replace("#", "");
+          a.classList.toggle("is-active", target === id);
+        });
+        // 인트로 화면 이후에만 스크롤 이동
+        if (!introOverlay.classList.contains("hidden")) {
+          // 인트로 화면이 아직 활성화되어 있다면 스크롤 이동 방지
+          // (DOMContentLoaded에서 초기 호출될 때 스크롤되는 것을 막기 위함)
+        } else {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      }
 
-    window.addEventListener("DOMContentLoaded", () => {
-      navLinks.forEach(a => {
-        if (!a.hasAttribute("data-target")) {
-          a.setAttribute("data-target", a.getAttribute("href").replace("#", ""));
+      function getSectionFromHash() {
+        const hash = (location.hash || "#works").replace("#", "");
+        return sectionIds.includes(hash) ? hash : "works";
+      }
+
+      window.addEventListener("hashchange", () => {
+        // 인트로 화면 이후에만 섹션 활성화
+        if (introOverlay.classList.contains("hidden")) {
+          activateSection(getSectionFromHash());
         }
       });
-      activateSection(getSectionFromHash());
+
+      // DOMContentLoaded에서는 인트로 화면만 보여주고, 메인 콘텐츠는 숨김
+      // activateSection() 호출은 인트로 화면 클릭 이후로 이동
     });
   </script>
 </body>
