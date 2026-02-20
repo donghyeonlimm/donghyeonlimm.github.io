@@ -6,17 +6,18 @@
   <title>Donghyeon Lim</title>
 
   <style>
-    /* 기본 설정: 미니멀한 폰트 크기 유지 */
+    /* 기본 설정 */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Helvetica Neue', sans-serif;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
       background-color: #fff;
       color: #000;
       line-height: 1.6;
       padding: 0 20px 40px 20px;
-      font-size: 0.75rem;
+      /* 본문 기본 폰트 크기 상향 */
+      font-size: 0.95rem; 
     }
 
     /* Background */
@@ -61,6 +62,7 @@
     nav a {
       text-decoration: none;
       color: #000;
+      /* 상단 메뉴 폰트는 요청대로 기존 미니멀 크기 유지 */
       font-size: 0.7rem;
       font-weight: 500;
       letter-spacing: 0.05em;
@@ -74,7 +76,7 @@
       z-index: 1;
       max-width: 960px;
       margin: 0 auto;
-      padding: 100px 0 20px 0;
+      padding: 120px 0 40px 0; /* 본문이 커졌으므로 상단 여백 살짝 조정 */
     }
 
     /* Sections */
@@ -88,40 +90,49 @@
     section.is-active { display: block; }
     section.is-visible { opacity: 1; transform: translateY(0); }
 
+    /* 섹션 제목 크기 키움 */
     h2 {
-      font-size: 0.85rem;
+      font-size: 1.1rem;
       font-weight: bold;
       text-transform: uppercase;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
+      letter-spacing: 0.02em;
     }
 
-    /* Link list style */
+    /* 작품 리스트 폰트 크기 키움 */
     .text-links a {
       display: block;
       text-decoration: none;
       color: inherit;
-      font-size: 0.85rem;
-      margin-bottom: 5px;
+      font-size: 1.05rem; /* 시원하게 잘 보이도록 조정 */
+      margin-bottom: 10px; /* 리스트 사이 간격 확보 */
+      font-weight: 400;
     }
     .text-links a:hover {
       text-decoration: underline;
       color: #666;
     }
 
-    /* CV 내 세부 스타일 */
-    .cv-wrap { margin-top: 15px; text-align: left; font-size: 0.8rem; color: #545353; font-weight: normal; }
-    .cv-wrap p { margin: 0 0 8px 0; }
-    .cv-wrap .spacer { height: 15px; }
-    .cv-wrap strong { color: #111; font-weight: 600; }
+    /* CV 내 세부 스타일 폰트 크기 키움 */
+    .cv-wrap { 
+      margin-top: 20px; 
+      text-align: left; 
+      font-size: 1rem; /* CV 가독성 확보 */
+      color: #333; 
+      font-weight: normal; 
+    }
+    .cv-wrap p { margin: 0 0 12px 0; }
+    .cv-wrap .spacer { height: 20px; }
+    .cv-wrap strong { color: #000; font-weight: 600; }
     .cv-wrap em { font-style: italic; }
-    .cv-wrap hr { margin: 25px 0; border: none; border-top: 1px solid #ddd; }
+    .cv-wrap hr { margin: 30px 0; border: none; border-top: 1px solid #eee; }
 
     /* Fixed footer */
     .fixed-footer {
       position: fixed;
       bottom: 20px;
       right: 20px;
-      font-size: 0.7rem;
+      font-size: 0.8rem;
       color: #888;
       z-index: 20;
       pointer-events: none;
@@ -131,7 +142,9 @@
     @media (max-width: 768px) {
       header { padding: 15px 15px 10px 15px; }
       nav a { font-size: 0.65rem; }
-      main { padding-top: 80px; }
+      main { padding-top: 100px; }
+      .text-links a { font-size: 0.95rem; }
+      .cv-wrap { font-size: 0.9rem; }
     }
   </style>
 </head>
