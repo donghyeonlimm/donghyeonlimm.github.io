@@ -29,7 +29,6 @@
       background-size: cover;
       z-index: -1;
       pointer-events: none;
-
       opacity: 0;
       transform: scale(1.05);
       transition: opacity 2s ease-out, transform 2.5s ease-out;
@@ -47,33 +46,41 @@
       background-color: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(3px);
       z-index: 10;
-      padding: 20px;
+      padding: 40px 20px 20px 20px; /* 위쪽 여백 소폭 증가 */
       transition: background-color 0.3s, backdrop-filter 0.3s;
     }
 
-    nav { margin-top: 10px; }
+    /* 상단 메뉴 정렬 핵심 코드 */
+    nav { 
+      max-width: 960px; /* 본문 main과 동일한 너비 */
+      margin: 0 auto;   /* 중앙 정렬 */
+      display: flex;    /* 가로 배치 */
+      justify-content: space-between; /* 5개 메뉴를 균등하게 좌우 끝까지 분할 */
+    }
+
     nav a {
-      display: inline-block;
       text-decoration: none;
       color: #000;
-      margin-right: 15px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
     }
-    nav a.is-active {opacity: 0.5;}
+    nav a.is-active { opacity: 0.3; }
+    nav a:hover { opacity: 0.5; }
 
     /* Main */
     main {
       position: relative;
       z-index: 1;
-      max-width: 960px;
+      max-width: 960px; /* nav와 동일한 너비 기준점 */
       margin: 0 auto;
-      padding: 120px 20px 20px 20px;
+      padding: 150px 0 20px 0; /* 헤더 공간 확보 */
     }
 
-    /* Sections (toggle + enter animation) */
+    /* Sections */
     section {
-      display: none;              /* 기본 숨김 */
+      display: none;
       margin-bottom: 120px;
-      scroll-margin-top: 80px;
       opacity: 0;
       transform: translateY(30px);
       transition: all 0.8s ease;
@@ -85,16 +92,16 @@
       font-size: 1rem;
       font-weight: bold;
       text-transform: uppercase;
-      margin-bottom: 10px;
+      margin-bottom: 25px; /* 타이틀과 리스트 사이 간격 */
     }
 
-    /* Link list style (WORK/DOC/MEDIA/PORTFOLIO 공통) */
+    /* Link list style */
     .text-links a {
       display: block;
       text-decoration: none;
       color: inherit;
       font-size: 1rem;
-      margin-bottom: 3px;
+      margin-bottom: 6px; /* 줄간격 소폭 조정 */
     }
     .text-links a:hover {
       text-decoration: underline;
@@ -106,11 +113,21 @@
       position: fixed;
       bottom: 20px;
       right: 20px;
-      font-size: 0.9rem;
+      font-size: 0.75rem;
       color: #888;
       z-index: 20;
       pointer-events: none;
       opacity: 0.7;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      nav a {
+        font-size: 0.7rem;
+      }
     }
   </style>
 </head>
@@ -129,7 +146,6 @@
   </header>
 
   <main>
-    <!-- WORK -->
     <section id="works">
       <h2>work</h2>
       <div class="text-links">
@@ -155,7 +171,6 @@
       </div>
     </section>
 
-    <!-- DOCUMENT -->
     <section id="document">
       <h2>Document</h2>
       <div class="text-links">
@@ -164,122 +179,37 @@
       </div>
     </section>
 
-    <!-- CV -->
     <section id="cv">
-  <h2>CV</h2>
+      <h2>CV</h2>
+      <style>
+        .cv-wrap{ margin-top: 20px; text-align: left; font-size: 0.9rem; color: #545353; font-weight: normal; }
+        .cv-wrap p { margin: 0 0 10px 0; }
+        .cv-wrap .spacer { height: 18px; }
+        .cv-wrap strong{ color: #111; font-weight: 600; }
+        .cv-wrap em{ font-style: italic; }
+        .cv-wrap hr{ margin: 26px 0; border: none; border-top: 1px solid #ddd; }
+      </style>
+      <div class="cv-wrap">
+        <p><strong>출생</strong><br>1999</p>
+        <div class="spacer"></div>
+        <p><strong>학력</strong><br>2024 경희대학교 미술대학 조소과 졸업<br>2024–현재 경희대학교 일반대학원 미술학과 석·박사 통합과정 재학</p>
+        <div class="spacer"></div>
+        <p><strong>주요 전시</strong></p>
+        <p><strong>2026</strong><br>〈몸은 기억을 닮는다〉, 갤러리인, 서울, 한국</p>
+        <p><strong>2025</strong><br>〈IBK THE ART PLAZA: 을지폴리〉, IBK 기업은행 지하, 서울, 한국<br>〈서울 빛섬 축제: 빛의 스펙트라〉, 뚝섬 한강공원 일대, 서울, 한국<br>〈Paradox〉, 아트리움 모리, 성주, 한국<br>〈Resonant Chamber〉, 공간형, 서울, 한국</p>
+        <p><strong>2024</strong><br>〈Your Office 2024〉, 아트스페이스 아름, 수원, 한국<br>〈지구를 구하는 멋진 이야기들〉, 경포해변, 강릉, 한국</p>
+        <p><strong>2023</strong><br>〈금이 간 계란과 잘 꼬인 밧줄〉, 피어 컨템포러리, 서울, 한국<br>〈Defamiliarization〉, 헬로우 뮤지움, 서울, 한국</p>
+        <hr>
+        <p><strong>Born</strong><br>1999</p>
+        <div class="spacer"></div>
+        <p><strong>Education</strong><br>2024 BFA in Sculpture, College of Fine Arts, Kyung Hee University, Seoul, Korea<br>2024–Present Integrated M.A./Ph.D. Program in Fine Arts, Graduate School, Kyung Hee University, Seoul, Korea</p>
+        <div class="spacer"></div>
+        <p><strong>Selected Exhibitions</strong></p>
+        <p><strong>2026</strong><br><em>Body Resembles Memory</em>, Gallery IN, Seoul, Korea</p>
+        <p><strong>2025</strong><br><em>2025 IBK THE ART PLAZA: Eulji Poly</em>, IBK Industrial Bank of Korea (B1), Seoul, Korea<br><em>Seoul Light : Spectra of Light</em>, Ttukseom Hangang Park, Seoul, Korea<br><em>Paradox</em>, Atrium Mori, Seoul, Korea<br><em>Resonant Chamber</em>, Space Hyeong, Seoul, Korea</p>
+      </div>
+    </section>
 
-  <style>
-    /* CV 전용 스타일 (기존 디자인 유지 + 줄간격 정리) */
-    .cv-wrap{
-      margin-top: 20px;
-      text-align: left;
-      font-size: 0.9rem;
-      color: #545353;
-      font-weight: normal;
-    }
-
-    .cv-wrap p { 
-      margin: 0 0 10px 0;       /* 문단 간격 */
-    }
-
-    .cv-wrap .spacer {
-      height: 18px;            /* 섹션 간 간격 */
-    }
-
-    .cv-wrap strong{
-      color: #111;
-      font-weight: 600;
-    }
-
-    .cv-wrap em{
-      font-style: italic;
-    }
-
-    .cv-wrap hr{
-      margin: 26px 0;
-      border: none;
-      border-top: 1px solid #ddd;
-    }
-  </style>
-
-  <div class="cv-wrap">
-
-    <!-- KOREAN -->
-    <p><strong>출생</strong><br>1999</p>
-
-    <div class="spacer"></div>
-
-    <p><strong>학력</strong><br>
-      2024 경희대학교 미술대학 조소과 졸업<br>
-      2024–현재 경희대학교 일반대학원 미술학과 석·박사 통합과정 재학
-    </p>
-
-    <div class="spacer"></div>
-
-    <p><strong>주요 전시</strong></p>
-
-    <p><strong>2026</strong><br>
-      〈몸은 기억을 닮는다〉, 갤러리인, 서울, 한국
-    </p>
-
-    <p><strong>2025</strong><br>
-      〈IBK THE ART PLAZA: 을지폴리〉, IBK 기업은행 지하, 서울, 한국<br>
-      〈서울 빛섬 축제: 빛의 스펙트라〉, 뚝섬 한강공원 일대, 서울, 한국<br>
-      〈Paradox〉, 아트리움 모리, 성주, 한국<br>
-      〈Resonant Chamber〉, 공간형, 서울, 한국
-    </p>
-
-    <p><strong>2024</strong><br>
-      〈Your Office 2024〉, 아트스페이스 아름, 수원, 한국<br>
-      〈지구를 구하는 멋진 이야기들〉, 경포해변, 강릉, 한국
-    </p>
-
-    <p><strong>2023</strong><br>
-      〈금이 간 계란과 잘 꼬인 밧줄〉, 피어 컨템포러리, 서울, 한국<br>
-      〈Defamiliarization〉, 헬로우 뮤지움, 서울, 한국
-    </p>
-
-    <hr>
-
-    <!-- ENGLISH -->
-    <p><strong>Born</strong><br>1999</p>
-
-    <div class="spacer"></div>
-
-    <p><strong>Education</strong><br>
-      2024 BFA in Sculpture, College of Fine Arts, Kyung Hee University, Seoul, Korea<br>
-      2024–Present Integrated M.A./Ph.D. Program in Fine Arts, Graduate School, Kyung Hee University, Seoul, Korea
-    </p>
-
-    <div class="spacer"></div>
-
-    <p><strong>Selected Exhibitions</strong></p>
-
-    <p><strong>2026</strong><br>
-      <em>Body Resembles Memory</em>, Gallery IN, Seoul, Korea
-    </p>
-
-    <p><strong>2025</strong><br>
-      <em>2025 IBK THE ART PLAZA: Eulji Poly</em>, IBK Industrial Bank of Korea (B1), Seoul, Korea<br>
-      <em>Seoul Light : Spectra of Light</em>, Ttukseom Hangang Park, Seoul, Korea<br>
-      <em>Paradox</em>, Atrium Mori, Seongju, Korea<br>
-      <em>Resonant Chamber</em>, Space Hyeong, Seoul, Korea
-    </p>
-
-    <p><strong>2024</strong><br>
-      <em>Your Office 2024</em>, Art Space Areum, Suwon, Korea<br>
-      <em>Wonderful Stories to Save the Earth</em>, Gyeongpo Beach, Gangneung, Korea
-    </p>
-
-    <p><strong>2023</strong><br>
-      <em>Cracked Egg and Tightly Twisted Rope</em>, Pier Contemporary, Seoul, Korea<br>
-      <em>Defamiliarization</em>, Hello Museum, Seoul, Korea
-    </p>
-
-  </div>
-</section>
-
-    <!-- MEDIA (✅ text-links 적용) -->
     <section id="media">
       <h2>MEDIA</h2>
       <div class="text-links" style="margin-top: 20px;">
@@ -290,7 +220,6 @@
       </div>
     </section>
 
-    <!-- PORTFOLIO (✅ text-links 적용) -->
     <section id="portfolio">
       <h2>PORTFOLIO</h2>
       <div class="text-links" style="margin-top: 20px;">
@@ -299,19 +228,16 @@
     </section>
   </main>
 
-  <!-- Fixed footer -->
   <div class="fixed-footer">
     © 2026 dong hyeon lim. All rights reserved.
   </div>
 
   <script>
-    // 배경 이미지 등장
     window.addEventListener('DOMContentLoaded', () => {
       const bg = document.querySelector('.background-image');
       bg.classList.add('is-visible');
     });
 
-    // 헤더 스크롤 효과
     window.addEventListener('scroll', () => {
       const header = document.querySelector('header');
       if (window.scrollY > 50) {
@@ -323,7 +249,6 @@
       }
     });
 
-    // 섹션 토글 (hash 기반)
     const sectionIds = ["works", "document", "cv", "media", "portfolio"];
     const sections = sectionIds.map(id => document.getElementById(id));
     const navLinks = Array.from(document.querySelectorAll("header nav a"));
@@ -332,19 +257,16 @@
       sections.forEach(sec => {
         const isActive = sec && sec.id === id;
         sec.classList.toggle("is-active", isActive);
-
         if (isActive) {
           requestAnimationFrame(() => sec.classList.add("is-visible"));
         } else {
           sec.classList.remove("is-visible");
         }
       });
-
       navLinks.forEach(a => {
         const target = a.getAttribute("data-target") || a.getAttribute("href")?.replace("#", "");
         a.classList.toggle("is-active", target === id);
       });
-
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
 
@@ -358,13 +280,11 @@
     });
 
     window.addEventListener("DOMContentLoaded", () => {
-      // data-target 안전장치
       navLinks.forEach(a => {
         if (!a.hasAttribute("data-target")) {
           a.setAttribute("data-target", a.getAttribute("href").replace("#", ""));
         }
       });
-
       activateSection(getSectionFromHash());
     });
   </script>
