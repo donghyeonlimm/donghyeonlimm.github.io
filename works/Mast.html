@@ -7,21 +7,22 @@
 
 <style>
 :root {
-  --gap: 20px;       /* 사진과 썸네일 사이 간격 */
-  --thumb-width: 90px; /* 썸네일 크기 살짝 키움 */
+  --gap: 30px;         /* 사진과 정보 사이의 여백을 넓힘 */
+  --thumb-width: 80px;  /* 썸네일 너비 */
   --muted: #555;
 }
 
 body {
   font-family: "Helvetica Neue", Arial, sans-serif;
-  margin: 0;           /* 기본 여백 제거 */
-  padding: 40px 60px;  /* 페이지 상하좌우 여백 */
+  margin: 0;
+  padding: 50px;       /* 전체적인 여백 */
   background: #fff;
   color: #000;
 }
 
 .work-page {
-  max-width: 100%;     /* 1800px 제한 해제하여 더 크게 확장 */
+  width: 100%;         /* 전체 너비 사용 */
+  max-width: 2200px;   /* 초대형 모니터에서도 너무 퍼지지 않게 제한 */
   margin: 0 auto;
 }
 
@@ -29,58 +30,54 @@ body {
   display: flex;
   align-items: flex-start;
   gap: var(--gap);
-  justify-content: center; /* 중앙 정렬 유지 */
 }
 
-/* 1. 메인 컨텐츠 영역 - 비는 느낌을 없애기 위해 더 확장 */
+/* 1. 메인 컨텐츠 영역: 너비를 최대한 확보 */
 .main-frame {
-  flex: 3;             /* 비율을 더 높여서 사진 영역을 극대화 */
+  flex: 1;             /* 가능한 모든 공간 차지 */
   position: relative;
   background: #fff;
-  aspect-ratio: 16 / 9;
-  overflow: hidden;
+  min-height: 500px;   /* 최소 높이 확보 */
 }
 
 .main-frame img {
   width: 100%;
-  height: 100%;
-  border: none;
+  height: auto;        /* 비율 고정이 아닌, 이미지 원본 비율에 맞춤 */
   display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  object-fit: contain; /* 찌그러짐 방지 */
-  object-position: center;
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }
 
+/* 비디오일 경우만 16:9 비율 유지 */
 .main-frame iframe {
   width: 100%;
-  height: 100%;
+  aspect-ratio: 16 / 9; 
   border: none;
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
+  display: none;       /* 기본적으로 숨김 */
 }
 
-/* 페이드 효과 */
-.content-item {
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 1;
-}
+/* 활성화 상태 제어 */
 .content-item.active {
+  display: block;
   opacity: 1;
-  z-index: 2;
 }
 
-/* 2. 썸네일 스택 */
+.main-frame img.is-fading {
+  opacity: 0;
+}
+
+/* 2. 썸네일 + 정보 영역을 한 그룹으로 묶음 */
+.side-container {
+  display: flex;
+  gap: var(--gap);
+  flex-shrink: 0;
+}
+
 .side-stack {
   display: flex;
   flex-direction: column;
   gap: 10px;
   width: var(--thumb-width);
-  flex-shrink: 0;
 }
 
 .thumb, .video-thumb {
@@ -90,7 +87,6 @@ body {
   overflow: hidden;
   border: 1px solid #eee;
   position: relative;
-  background: #f9f9f9;
 }
 
 .thumb img, .video-thumb img {
@@ -105,35 +101,35 @@ body {
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   color: white;
-  font-size: 18px;
+  font-size: 16px;
   text-shadow: 0 0 5px rgba(0,0,0,0.5);
-  pointer-events: none;
 }
 
 /* 3. 정보 영역 */
 .side-info {
-  width: 320px;       /* 가독성을 위해 정보창 너비 소폭 조정 */
-  margin-left: 10px;
-  flex-shrink: 0;
+  width: 260px;
 }
 
-.side-info h1 { font-size: 2rem; font-weight: 500; margin: 0 0 15px 0; }
+.side-info h1 { 
+  font-size: 1.8rem; 
+  font-weight: 500; 
+  margin: 0 0 10px 0; 
+  line-height: 1.1;
+}
 .side-info .meta { 
-  font-size: 0.9rem; 
+  font-size: 0.85rem; 
   color: var(--muted); 
   white-space: pre-line; 
-  line-height: 1.7;
+  line-height: 1.6;
 }
-.return { margin-top: 40px; }
-.return a { color: var(--muted); text-decoration: none; font-size: 0.95rem; border-bottom: 1px solid #ccc; }
+.return { margin-top: 30px; }
+.return a { color: var(--muted); text-decoration: none; font-size: 0.9rem; border-bottom: 1px solid #eee; }
 
-/* 반응형 */
+/* 반응형: 화면이 좁아지면 아래로 배치 */
 @media (max-width: 1200px) {
   body { padding: 20px; }
-  .hero { flex-direction: column; align-items: center; }
-  .main-frame { width: 100%; }
-  .side-stack { flex-direction: row; width: 100%; justify-content: center; }
-  .side-info { width: 100%; margin-left: 0; text-align: left; }
+  .hero { flex-direction: column; }
+  .side-container { width: 100%; }
 }
 </style>
 </head>
@@ -146,28 +142,30 @@ body {
       <iframe id="mainVideo" class="content-item" src="" allowfullscreen></iframe>
     </div>
 
-    <div class="side-stack">
-      <div class="thumb" data-type="image" data-src="../images/img_m1.png">
-        <img src="../images/img_m1.png" alt="thumb 1">
+    <div class="side-container">
+      <div class="side-stack">
+        <div class="thumb" data-type="image" data-src="../images/img_m1.png">
+          <img src="../images/img_m1.png" alt="thumb 1">
+        </div>
+        <div class="thumb" data-type="image" data-src="../images/img_m2.png">
+          <img src="../images/img_m2.png" alt="thumb 2">
+        </div>
+        <div class="thumb" data-type="image" data-src="../images/img_m3.png">
+          <img src="../images/img_m3.png" alt="thumb 3">
+        </div>
+        <div class="thumb video-thumb" data-type="video" data-src="https://www.youtube.com/embed/AgcC2_O8L0E?autoplay=1">
+          <img src="https://img.youtube.com/vi/AgcC2_O8L0E/0.jpg" alt="video thumb">
+        </div>
       </div>
-      <div class="thumb" data-type="image" data-src="../images/img_m2.png">
-        <img src="../images/img_m2.png" alt="thumb 2">
-      </div>
-      <div class="thumb" data-type="image" data-src="../images/img_m3.png">
-        <img src="../images/img_m3.png" alt="thumb 3">
-      </div>
-      <div class="thumb video-thumb" data-type="video" data-src="https://www.youtube.com/embed/AgcC2_O8L0E?autoplay=1">
-        <img src="https://img.youtube.com/vi/AgcC2_O8L0E/0.jpg" alt="video thumb">
-      </div>
-    </div>
 
-    <aside class="side-info">
-      <h1>Mast</h1>
-      <p class="meta">2025
-      aluminium, motor, pipe, wire, sound controller
-      300×60×60cm</p>
-      <div class="return"><a href="../index.html">← return</a></div>
-    </aside>
+      <aside class="side-info">
+        <h1>Mast</h1>
+        <p class="meta">2025
+        aluminium, motor, pipe, wire, sound controller
+        300×60×60cm</p>
+        <div class="return"><a href="../index.html">← return</a></div>
+      </aside>
+    </div>
   </section>
 </div>
 
@@ -181,19 +179,18 @@ thumbs.forEach(t => {
     const type = t.getAttribute("data-type");
     const src = t.getAttribute("data-src");
 
-    mainImage.classList.remove("active");
-    mainVideo.classList.remove("active");
+    // 초기 상태로 숨기기
+    mainImage.style.display = "none";
+    mainVideo.style.display = "none";
     mainVideo.src = "";
 
-    setTimeout(() => {
-      if (type === "image") {
-        mainImage.src = src;
-        mainImage.classList.add("active");
-      } else if (type === "video") {
-        mainVideo.src = src;
-        mainVideo.classList.add("active");
-      }
-    }, 50);
+    if (type === "image") {
+      mainImage.src = src;
+      mainImage.style.display = "block";
+    } else if (type === "video") {
+      mainVideo.src = src;
+      mainVideo.style.display = "block";
+    }
   });
 });
 </script>
