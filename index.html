@@ -29,6 +29,7 @@
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       background: #ffffff;
       color: #000000;
+      font-size: 13px;
     }
 
     a {
@@ -44,9 +45,7 @@
     .site {
       width: 100vw;
       height: 100vh;
-
       background: #ffffff;
-
       overflow: hidden;
     }
 
@@ -57,7 +56,7 @@
 
     header {
       width: 100%;
-      height: 48px;
+      height: 44px;
 
       display: flex;
       align-items: center;
@@ -71,11 +70,11 @@
     }
 
 
-    /* 왼쪽 검정 사각형 */
+    /* HOME BUTTON */
 
     .home-button {
-      width: 24px;
-      height: 24px;
+      width: 22px;
+      height: 22px;
 
       background: #000000;
 
@@ -88,15 +87,14 @@
     }
 
 
-    /* 메뉴 */
+    /* NAVIGATION */
 
     nav {
       margin-left: auto;
 
-      width: 48%;
+      width: 47%;
 
       display: grid;
-
       grid-template-columns: repeat(4, 1fr);
 
       align-items: center;
@@ -106,9 +104,8 @@
 
 
     nav a {
-      font-size: 18px;
+      font-size: 14px;
       font-weight: 400;
-
       line-height: 1;
 
       cursor: pointer;
@@ -135,16 +132,12 @@
     #home {
       width: 100%;
 
-      height: calc(100vh - 48px);
+      height: calc(100vh - 44px);
 
       display: grid;
 
-      /*
-        이미지 80%
-        흰 공간 20%
-      */
-
-      grid-template-columns: 80.25% 19.75%;
+      /* 이미지 85% / 흰 공간 15% */
+      grid-template-columns: 85% 15%;
     }
 
 
@@ -153,6 +146,8 @@
       height: 100%;
 
       overflow: hidden;
+
+      background: #ffffff;
     }
 
 
@@ -163,11 +158,6 @@
       display: block;
 
       object-fit: cover;
-
-      /*
-        사진 위치 조절
-        center / left / right 등 변경 가능
-      */
 
       object-position: center center;
     }
@@ -183,14 +173,14 @@
 
 
     /* ========================================
-       CONTENT PAGE
+       CONTENT
     ======================================== */
 
     #content {
       display: none;
 
       width: 100%;
-      height: calc(100vh - 48px);
+      height: calc(100vh - 44px);
 
       overflow-y: auto;
 
@@ -205,7 +195,7 @@
 
       margin: 0 auto;
 
-      padding: 70px 0 120px 0;
+      padding: 60px 0 120px 0;
     }
 
 
@@ -217,7 +207,7 @@
     section.active {
       display: block;
 
-      animation: fadeIn 0.35s ease;
+      animation: fadeIn 0.3s ease;
     }
 
 
@@ -225,7 +215,7 @@
 
       from {
         opacity: 0;
-        transform: translateY(6px);
+        transform: translateY(5px);
       }
 
       to {
@@ -238,15 +228,14 @@
 
 
     /* ========================================
-       CONTENT TYPOGRAPHY
+       TYPOGRAPHY
     ======================================== */
 
     h1 {
-      font-size: 18px;
-
+      font-size: 14px;
       font-weight: 500;
 
-      margin-bottom: 40px;
+      margin-bottom: 32px;
     }
 
 
@@ -260,17 +249,16 @@
 
       width: fit-content;
 
-      font-size: 16px;
+      font-size: 13px;
 
-      line-height: 1.55;
+      line-height: 1.5;
 
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
 
     .text-links a:hover {
       text-decoration: underline;
-
       text-underline-offset: 3px;
     }
 
@@ -283,14 +271,14 @@
     .cv-wrap {
       max-width: 900px;
 
-      font-size: 15px;
+      font-size: 13px;
 
-      line-height: 1.7;
+      line-height: 1.65;
     }
 
 
     .cv-wrap p {
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
 
 
@@ -300,7 +288,7 @@
 
 
     .cv-wrap .spacer {
-      height: 14px;
+      height: 12px;
     }
 
 
@@ -309,7 +297,7 @@
 
       border-top: 1px solid #dddddd;
 
-      margin: 40px 0;
+      margin: 36px 0;
     }
 
 
@@ -321,15 +309,15 @@
     @media (max-width: 768px) {
 
       header {
-        height: 52px;
+        height: 44px;
 
-        padding: 0 15px;
+        padding: 0 14px;
       }
 
 
       .home-button {
-        width: 20px;
-        height: 20px;
+        width: 18px;
+        height: 18px;
       }
 
 
@@ -338,17 +326,17 @@
 
         display: flex;
 
-        gap: 20px;
+        gap: 18px;
       }
 
 
       nav a {
-        font-size: 13px;
+        font-size: 12px;
       }
 
 
       #home {
-        height: calc(100vh - 52px);
+        height: calc(100vh - 44px);
 
         grid-template-columns: 100%;
       }
@@ -360,24 +348,34 @@
 
 
       #content {
-        height: calc(100vh - 52px);
+        height: calc(100vh - 44px);
       }
 
 
       .content-inner {
-        width: calc(100% - 40px);
+        width: calc(100% - 34px);
 
-        padding-top: 45px;
+        padding-top: 40px;
+      }
+
+
+      h1 {
+        font-size: 13px;
+      }
+
+
+      .text-links a,
+      .cv-wrap {
+        font-size: 12px;
       }
 
     }
 
 
-
     @media (max-width: 480px) {
 
       nav {
-        gap: 13px;
+        gap: 12px;
       }
 
 
@@ -413,23 +411,19 @@
 
     <nav>
 
-      <a href="#works"
-         data-target="works">
+      <a href="#works" data-target="works">
         Work
       </a>
 
-      <a href="#document"
-         data-target="document">
+      <a href="#document" data-target="document">
         Document
       </a>
 
-      <a href="#cv"
-         data-target="cv">
+      <a href="#cv" data-target="cv">
         CV
       </a>
 
-      <a href="#contact"
-         data-target="contact">
+      <a href="#contact" data-target="contact">
         Contact
       </a>
 
@@ -448,10 +442,7 @@
 
     <div class="main-image">
 
-      <!--
-        ★ 여기 메인사진 경로만 맞추면 됨
-      -->
-
+      <!-- 메인 이미지 -->
       <img
         src="images/bg.png"
         alt="Donghyeon Lim Exhibition View">
@@ -477,7 +468,9 @@
 
 
 
-      <!-- WORK -->
+      <!-- ==================================
+           WORK
+      =================================== -->
 
       <section id="works">
 
@@ -572,7 +565,9 @@
 
 
 
-      <!-- DOCUMENT -->
+      <!-- ==================================
+           DOCUMENT
+      =================================== -->
 
       <section id="document">
 
@@ -585,8 +580,7 @@
             href="texts/rp2.pdf"
             target="_blank">
 
-            Research Presentation 2026,
-            Edit Donghyeon Lim
+            Research Presentation 2026, Edit Donghyeon Lim
 
           </a>
 
@@ -595,8 +589,7 @@
             href="texts/rp.pdf"
             target="_blank">
 
-            Research Presentation 2025,
-            Edit Donghyeon Lim
+            Research Presentation 2025, Edit Donghyeon Lim
 
           </a>
 
@@ -605,8 +598,7 @@
             href="texts/ResonantChamber.pdf"
             target="_blank">
 
-            Touchless Yet Touched,
-            2025 - Eunhee Kim
+            Touchless Yet Touched, 2025 - Eunhee Kim
 
           </a>
 
@@ -616,7 +608,9 @@
 
 
 
-      <!-- CV -->
+      <!-- ==================================
+           CV
+      =================================== -->
 
       <section id="cv">
 
@@ -627,13 +621,9 @@
 
 
           <p>
-
             <strong>출생</strong>
-
             <br>
-
             1999
-
           </p>
 
 
@@ -650,8 +640,7 @@
 
             <br>
 
-            2024–현재
-            경희대학교 일반대학원 미술학과
+            2024–현재 경희대학교 일반대학원 미술학과
             석·박사 통합과정 재학
 
           </p>
@@ -665,30 +654,22 @@
           </p>
 
 
+
           <p>
 
             <strong>2026</strong>
 
             <br>
 
-            〈몸은 기억을 닮는다〉,
-            갤러리인,
-            서울,
-            한국
+            〈몸은 기억을 닮는다〉, 갤러리인, 서울, 한국
 
             <br>
 
-            〈2026 천만아트포영〉,
-            노들갤러리,
-            서울,
-            한국
+            〈2026 천만아트포영〉, 노들갤러리, 서울, 한국
 
             <br>
 
-            〈아주 얇은 막〉,
-            C-SQUARE,
-            서울,
-            한국
+            〈아주 얇은 막〉, C-SQUARE, 서울, 한국
 
           </p>
 
@@ -701,30 +682,22 @@
             <br>
 
             〈IBK THE ART PLAZA: 을지폴리〉,
-            IBK 기업은행 지하,
-            서울,
-            한국
+            IBK 기업은행 지하, 서울, 한국
 
             <br>
 
             〈서울 빛섬 축제: 빛의 스펙트라〉,
-            뚝섬 한강공원 일대,
-            서울,
-            한국
+            뚝섬 한강공원 일대, 서울, 한국
 
             <br>
 
             〈Paradox〉,
-            아트리움 모리,
-            성주,
-            한국
+            아트리움 모리, 성주, 한국
 
             <br>
 
             〈Resonant Chamber〉,
-            공간형,
-            서울,
-            한국
+            공간형, 서울, 한국
 
           </p>
 
@@ -737,16 +710,12 @@
             <br>
 
             〈Your Office 2024〉,
-            아트스페이스 아름,
-            수원,
-            한국
+            아트스페이스 아름, 수원, 한국
 
             <br>
 
             〈지구를 구하는 멋진 이야기들〉,
-            경포해변,
-            강릉,
-            한국
+            경포해변, 강릉, 한국
 
           </p>
 
@@ -759,16 +728,12 @@
             <br>
 
             〈금이 간 계란과 잘 꼬인 밧줄〉,
-            피어 컨템포러리,
-            서울,
-            한국
+            피어 컨템포러리, 서울, 한국
 
             <br>
 
             〈Defamiliarization〉,
-            헬로우 뮤지움,
-            서울,
-            한국
+            헬로우 뮤지움, 서울, 한국
 
           </p>
 
@@ -792,6 +757,7 @@
           <div class="spacer"></div>
 
 
+
           <p>
 
             <strong>Education</strong>
@@ -801,30 +767,27 @@
             2024 BFA in Sculpture,
             College of Fine Arts,
             Kyung Hee University,
-            Seoul,
-            Korea
+            Seoul, Korea
 
             <br>
 
-            2024–Present
-            Integrated M.A./Ph.D. Program
-            in Fine Arts,
+            2024–Present Integrated M.A./Ph.D. Program in Fine Arts,
             Graduate School,
             Kyung Hee University,
-            Seoul,
-            Korea
+            Seoul, Korea
 
           </p>
+
 
 
           <div class="spacer"></div>
 
 
+
           <p>
-            <strong>
-              Selected Exhibitions
-            </strong>
+            <strong>Selected Exhibitions</strong>
           </p>
+
 
 
           <p>
@@ -833,28 +796,102 @@
 
             <br>
 
-            <em>
-              Body Resembles Memory
-            </em>,
+            <em>Body Resembles Memory</em>,
             Gallery IN,
             Seoul,
             Korea
 
             <br>
 
-            <em>
-              2026 Chunman Art for Young
-            </em>,
+            <em>2026 Chunman Art for Young</em>,
             Nodeul Gallery,
             Seoul,
             Korea
 
             <br>
 
-            <em>
-              A Very Thin Membrane
-            </em>,
+            <em>A Very Thin Membrane</em>,
             C-SQUARE,
+            Seoul,
+            Korea
+
+          </p>
+
+
+
+          <p>
+
+            <strong>2025</strong>
+
+            <br>
+
+            <em>2025 IBK THE ART PLAZA: Eulji Poly</em>,
+            IBK Industrial Bank of Korea (B1),
+            Seoul,
+            Korea
+
+            <br>
+
+            <em>Seoul Light: Spectra of Light</em>,
+            Ttukseom Hangang Park,
+            Seoul,
+            Korea
+
+            <br>
+
+            <em>Paradox</em>,
+            Atrium Mori,
+            Seongju,
+            Korea
+
+            <br>
+
+            <em>Resonant Chamber</em>,
+            Space Hyeong,
+            Seoul,
+            Korea
+
+          </p>
+
+
+
+          <p>
+
+            <strong>2024</strong>
+
+            <br>
+
+            <em>Your Office 2024</em>,
+            Art Space Areum,
+            Suwon,
+            Korea
+
+            <br>
+
+            <em>Wonderful Stories to Save the Earth</em>,
+            Gyeongpo Beach,
+            Gangneung,
+            Korea
+
+          </p>
+
+
+
+          <p>
+
+            <strong>2023</strong>
+
+            <br>
+
+            <em>Cracked Egg and Tightly Twisted Rope</em>,
+            Pier Contemporary,
+            Seoul,
+            Korea
+
+            <br>
+
+            <em>Defamiliarization</em>,
+            Hello Museum,
             Seoul,
             Korea
 
@@ -867,7 +904,9 @@
 
 
 
-      <!-- CONTACT -->
+      <!-- ==================================
+           CONTACT
+      =================================== -->
 
       <section id="contact">
 
@@ -884,7 +923,8 @@
 
           <a
             href="https://www.instagram.com/limeastring/"
-            target="_blank">
+            target="_blank"
+            rel="noopener noreferrer">
 
             Instagram
 
@@ -893,7 +933,8 @@
 
           <a
             href="https://youtube.com/@DonghyeonLim"
-            target="_blank">
+            target="_blank"
+            rel="noopener noreferrer">
 
             YouTube
 
@@ -902,7 +943,8 @@
 
           <a
             href="https://soundcloud.com/limeastring"
-            target="_blank">
+            target="_blank"
+            rel="noopener noreferrer">
 
             SoundCloud
 
@@ -935,224 +977,188 @@
 
 <script>
 
-  document.addEventListener(
-    "DOMContentLoaded",
-    function () {
+  document.addEventListener("DOMContentLoaded", function () {
 
 
-      const home =
-        document.getElementById("home");
+    const home =
+      document.getElementById("home");
 
 
-      const content =
-        document.getElementById("content");
+    const content =
+      document.getElementById("content");
 
 
-      const homeButton =
-        document.getElementById("homeButton");
+    const homeButton =
+      document.getElementById("homeButton");
 
 
-      const navLinks =
-        document.querySelectorAll("nav a");
+    const navLinks =
+      document.querySelectorAll("nav a");
 
 
-      const sections =
-        document.querySelectorAll("section");
+    const sections =
+      document.querySelectorAll("section");
 
 
 
-      /*
-        HOME
-      */
+    /* ========================================
+       HOME
+    ======================================== */
 
-      function showHome() {
+    function showHome() {
 
 
-        home.style.display = "grid";
+      home.style.display = "grid";
 
 
-        content.style.display = "none";
+      content.style.display = "none";
 
 
-        sections.forEach(function (section) {
+      sections.forEach(function (section) {
 
-          section.classList.remove("active");
+        section.classList.remove("active");
 
-        });
+      });
 
-
-        navLinks.forEach(function (link) {
-
-          link.classList.remove("active");
-
-        });
-
-      }
-
-
-
-      /*
-        SECTION
-      */
-
-      function showSection(id) {
-
-
-        home.style.display = "none";
-
-
-        content.style.display = "block";
-
-
-        content.scrollTop = 0;
-
-
-        sections.forEach(function (section) {
-
-
-          if (section.id === id) {
-
-            section.classList.add("active");
-
-          }
-
-          else {
-
-            section.classList.remove("active");
-
-          }
-
-
-        });
-
-
-
-        navLinks.forEach(function (link) {
-
-
-          if (link.dataset.target === id) {
-
-            link.classList.add("active");
-
-          }
-
-          else {
-
-            link.classList.remove("active");
-
-          }
-
-
-        });
-
-
-      }
-
-
-
-      /*
-        NAV CLICK
-      */
 
       navLinks.forEach(function (link) {
 
+        link.classList.remove("active");
 
-        link.addEventListener(
-          "click",
-          function (event) {
+      });
 
-
-            event.preventDefault();
+    }
 
 
-            const target =
-              this.dataset.target;
+
+    /* ========================================
+       SHOW SECTION
+    ======================================== */
+
+    function showSection(id) {
 
 
-            history.pushState(
-              null,
-              "",
-              "#" + target
-            );
+      home.style.display = "none";
 
 
-            showSection(target);
+      content.style.display = "block";
 
 
-          }
-        );
+      content.scrollTop = 0;
+
+
+      sections.forEach(function (section) {
+
+
+        if (section.id === id) {
+
+          section.classList.add("active");
+
+        }
+
+        else {
+
+          section.classList.remove("active");
+
+        }
 
 
       });
 
 
 
-      /*
-        BLACK SQUARE = HOME
-      */
-
-      homeButton.addEventListener(
-        "click",
-        function () {
+      navLinks.forEach(function (link) {
 
 
-          history.pushState(
-            null,
-            "",
-            window.location.pathname
-          );
+        if (link.dataset.target === id) {
 
-
-          showHome();
-
+          link.classList.add("active");
 
         }
+
+        else {
+
+          link.classList.remove("active");
+
+        }
+
+
+      });
+
+
+    }
+
+
+
+    /* ========================================
+       NAV CLICK
+    ======================================== */
+
+    navLinks.forEach(function (link) {
+
+
+      link.addEventListener("click", function (event) {
+
+
+        event.preventDefault();
+
+
+        const target =
+          this.dataset.target;
+
+
+        history.pushState(
+          null,
+          "",
+          "#" + target
+        );
+
+
+        showSection(target);
+
+
+      });
+
+
+    });
+
+
+
+    /* ========================================
+       HOME BUTTON
+    ======================================== */
+
+    homeButton.addEventListener("click", function () {
+
+
+      history.pushState(
+        null,
+        "",
+        window.location.pathname
       );
 
 
-
-      /*
-        BACK BUTTON
-      */
-
-      window.addEventListener(
-        "popstate",
-        function () {
+      showHome();
 
 
-          const id =
-            window.location.hash.substring(1);
-
-
-          if (id) {
-
-            showSection(id);
-
-          }
-
-          else {
-
-            showHome();
-
-          }
-
-
-        }
-      );
+    });
 
 
 
-      /*
-        PAGE LOAD
-      */
+    /* ========================================
+       BROWSER BACK / FORWARD
+    ======================================== */
 
-      const initialSection =
+    window.addEventListener("popstate", function () {
+
+
+      const id =
         window.location.hash.substring(1);
 
 
-      if (initialSection) {
+      if (id) {
 
-        showSection(initialSection);
+        showSection(id);
 
       }
 
@@ -1163,8 +1169,32 @@
       }
 
 
+    });
+
+
+
+    /* ========================================
+       INITIAL LOAD
+    ======================================== */
+
+    const initialSection =
+      window.location.hash.substring(1);
+
+
+    if (initialSection) {
+
+      showSection(initialSection);
+
     }
-  );
+
+    else {
+
+      showHome();
+
+    }
+
+
+  });
 
 </script>
 
