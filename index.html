@@ -27,6 +27,7 @@
 
     body {
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
       background: #ffffff;
       color: #000000;
 
@@ -152,7 +153,7 @@
 
       display: grid;
 
-      /* 이미지 85% / 오른쪽 여백 15% */
+      /* 사진 85% / 오른쪽 흰 공간 15% */
       grid-template-columns: 85% 15%;
 
       background: #ffffff;
@@ -181,14 +182,16 @@
       object-fit: cover;
       object-position: center center;
 
-      /* 등장 효과 전 상태 */
       opacity: 0;
 
       transform: scale(1.025);
     }
 
 
-    /* 메인 이미지 등장 */
+    /*
+      메인 이미지 등장 효과
+      페이드인 + 미세 줌아웃
+    */
 
     .main-image img.image-enter {
       animation:
@@ -214,7 +217,7 @@
     }
 
 
-    /* 오른쪽 흰 여백 */
+    /* 오른쪽 흰 공간 */
 
     .white-space {
       width: 100%;
@@ -331,14 +334,6 @@
 
     .cv-wrap .spacer {
       height: 12px;
-    }
-
-    .cv-wrap hr {
-      border: none;
-
-      border-top: 1px solid #dddddd;
-
-      margin: 36px 0;
     }
 
 
@@ -666,13 +661,6 @@
 
           </a>
 
-             <a
-            href="texts/portfolio2.pdf"
-            target="_blank">
-
-            Portfolio KR
-
-
 
         </div>
 
@@ -692,7 +680,6 @@
 
 
         <div class="cv-wrap">
-
 
 
           <p>
@@ -735,9 +722,7 @@
 
           <p>
 
-            <strong>
-              Selected Exhibitions
-            </strong>
+            <strong>Selected Exhibitions</strong>
 
           </p>
 
@@ -902,7 +887,12 @@
           </a>
 
 
-       
+          <a
+            href="texts/portfolio2.pdf"
+            target="_blank">
+
+            Portfolio KR
+
           </a>
 
 
@@ -924,84 +914,195 @@
 
 <script>
 
-  document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
 
 
-    const home =
-      document.getElementById("home");
+  /* ========================================
+     ELEMENTS
+  ======================================== */
+
+  const home =
+    document.getElementById("home");
 
 
-    const content =
-      document.getElementById("content");
+  const content =
+    document.getElementById("content");
 
 
-    const homeButton =
-      document.getElementById("homeButton");
+  const homeButton =
+    document.getElementById("homeButton");
 
 
-    const navLinks =
-      document.querySelectorAll("nav a");
+  const navLinks =
+    document.querySelectorAll("nav a");
 
 
-    const sections =
-      document.querySelectorAll("section");
+  const sections =
+    document.querySelectorAll("section");
 
 
-    const mainImage =
-      document.querySelector(".main-image img");
+  const mainImage =
+    document.querySelector(".main-image img");
 
 
 
-    /* ========================================
-       IMAGE ANIMATION
-    ======================================== */
-
-    function playImageAnimation() {
+  /* ========================================
+     SLIDESHOW
+  ======================================== */
 
 
-      mainImage.classList.remove("image-enter");
+  /*
+    사용할 메인 이미지들
+
+    images 폴더 안에 아래 이름으로 넣으면 됨.
+  */
+
+  const slideshowImages = [
+
+    "images/bg.jpg",
+
+    "images/bg2.jpg",
+
+    "images/bg3.jpg",
+
+    "images/bg4.jpg",
+
+    "images/bg5.jpg"
+
+  ];
 
 
-      /*
-        브라우저가 애니메이션 초기화를
-        인식하도록 강제로 reflow
-      */
-
-      void mainImage.offsetWidth;
+  let currentImageIndex = 0;
 
 
-      mainImage.classList.add("image-enter");
+  let slideshowTimer = null;
 
+
+
+  /* ========================================
+     PRELOAD IMAGES
+  ======================================== */
+
+
+  /*
+    다음 이미지가 바뀔 때
+    로딩 때문에 깜빡이는 것을 줄이기 위해
+    처음부터 사진들을 미리 불러옴.
+  */
+
+  slideshowImages.forEach(function (src) {
+
+
+    const image =
+      new Image();
+
+
+    image.src =
+      src;
+
+
+  });
+
+
+
+  /* ========================================
+     IMAGE ANIMATION
+  ======================================== */
+
+  function playImageAnimation() {
+
+
+    mainImage.classList.remove(
+      "image-enter"
+    );
+
+
+    /*
+      애니메이션을 다시 처음부터
+      실행시키기 위한 reflow
+    */
+
+    void mainImage.offsetWidth;
+
+
+    mainImage.classList.add(
+      "image-enter"
+    );
+
+
+  }
+
+
+
+  /* ========================================
+     CHANGE IMAGE
+  ======================================== */
+
+  function changeImage() {
+
+
+    currentImageIndex++;
+
+
+    /*
+      마지막 이미지까지 갔으면
+      다시 첫 번째 bg.jpg로 돌아감
+    */
+
+    if (
+      currentImageIndex >=
+      slideshowImages.length
+    ) {
+
+      currentImageIndex = 0;
 
     }
 
 
 
-    /* ========================================
-       HOME
-    ======================================== */
-
-    function showHome() {
-
-
-      home.style.display = "grid";
+    const nextImage =
+      slideshowImages[
+        currentImageIndex
+      ];
 
 
-      content.style.display = "none";
+
+    /*
+      기존 애니메이션 제거
+    */
+
+    mainImage.classList.remove(
+      "image-enter"
+    );
 
 
-      sections.forEach(function (section) {
 
-        section.classList.remove("active");
+    /*
+      사진을 잠시 숨긴 상태로 변경
+    */
 
-      });
+    mainImage.style.opacity = "0";
 
 
-      navLinks.forEach(function (link) {
 
-        link.classList.remove("active");
+    /*
+      다음 사진으로 변경
+    */
 
-      });
+    mainImage.src =
+      nextImage;
+
+
+
+    /*
+      이미지가 준비되면
+      기존 fade + zoom 효과 실행
+    */
+
+    if (mainImage.complete) {
+
+
+      mainImage.style.opacity = "";
 
 
       playImageAnimation();
@@ -1009,118 +1110,289 @@
 
     }
 
+    else {
 
 
-    /* ========================================
-       SHOW SECTION
-    ======================================== */
-
-    function showSection(id) {
+      mainImage.onload =
+        function () {
 
 
-      const targetSection =
-        document.getElementById(id);
+          mainImage.style.opacity = "";
 
 
-      if (!targetSection) {
-
-        showHome();
-
-        return;
-
-      }
+          playImageAnimation();
 
 
-      home.style.display = "none";
-
-
-      content.style.display = "block";
-
-
-      content.scrollTop = 0;
-
-
-      sections.forEach(function (section) {
-
-
-        if (section.id === id) {
-
-          section.classList.add("active");
-
-        }
-
-        else {
-
-          section.classList.remove("active");
-
-        }
-
-
-      });
-
-
-      navLinks.forEach(function (link) {
-
-
-        if (link.dataset.target === id) {
-
-          link.classList.add("active");
-
-        }
-
-        else {
-
-          link.classList.remove("active");
-
-        }
-
-
-      });
+        };
 
 
     }
 
 
-
-    /* ========================================
-       NAVIGATION CLICK
-    ======================================== */
-
-    navLinks.forEach(function (link) {
+  }
 
 
-      link.addEventListener("click", function (event) {
+
+  /* ========================================
+     START SLIDESHOW
+  ======================================== */
+
+  function startSlideshow() {
 
 
-        event.preventDefault();
+    /*
+      혹시 기존 타이머가 있으면 제거
+    */
+
+    clearInterval(
+      slideshowTimer
+    );
 
 
-        const target =
-          this.dataset.target;
+    /*
+      6000 = 6초
+
+      8000 = 8초
+      10000 = 10초
+    */
+
+    slideshowTimer =
+      setInterval(
+        function () {
 
 
-        history.pushState(
-          null,
-          "",
-          "#" + target
+          /*
+            메인 화면이 열려 있을 때만
+            사진을 넘김
+          */
+
+          if (
+            home.style.display !== "none"
+          ) {
+
+
+            changeImage();
+
+
+          }
+
+
+        },
+
+        6000
+
+      );
+
+
+  }
+
+
+
+  /* ========================================
+     HOME
+  ======================================== */
+
+  function showHome() {
+
+
+    home.style.display =
+      "grid";
+
+
+    content.style.display =
+      "none";
+
+
+    sections.forEach(
+      function (section) {
+
+
+        section.classList.remove(
+          "active"
         );
 
 
-        showSection(target);
+      }
+    );
 
 
-      });
+    navLinks.forEach(
+      function (link) {
 
 
-    });
+        link.classList.remove(
+          "active"
+        );
+
+
+      }
+    );
+
+
+    /*
+      Work / CV 등에서
+      메인으로 돌아왔을 때도
+      현재 사진 애니메이션 실행
+    */
+
+    playImageAnimation();
+
+
+  }
 
 
 
-    /* ========================================
-       HOME BUTTON
-    ======================================== */
+  /* ========================================
+     SHOW SECTION
+  ======================================== */
 
-    homeButton.addEventListener("click", function () {
+  function showSection(id) {
+
+
+    const targetSection =
+      document.getElementById(id);
+
+
+    if (!targetSection) {
+
+
+      showHome();
+
+
+      return;
+
+
+    }
+
+
+    home.style.display =
+      "none";
+
+
+    content.style.display =
+      "block";
+
+
+    content.scrollTop =
+      0;
+
+
+
+    sections.forEach(
+      function (section) {
+
+
+        if (
+          section.id === id
+        ) {
+
+
+          section.classList.add(
+            "active"
+          );
+
+
+        }
+
+        else {
+
+
+          section.classList.remove(
+            "active"
+          );
+
+
+        }
+
+
+      }
+    );
+
+
+
+    navLinks.forEach(
+      function (link) {
+
+
+        if (
+          link.dataset.target === id
+        ) {
+
+
+          link.classList.add(
+            "active"
+          );
+
+
+        }
+
+        else {
+
+
+          link.classList.remove(
+            "active"
+          );
+
+
+        }
+
+
+      }
+    );
+
+
+  }
+
+
+
+  /* ========================================
+     NAVIGATION CLICK
+  ======================================== */
+
+  navLinks.forEach(
+    function (link) {
+
+
+      link.addEventListener(
+        "click",
+        function (event) {
+
+
+          event.preventDefault();
+
+
+          const target =
+            this.dataset.target;
+
+
+          history.pushState(
+            null,
+            "",
+            "#" + target
+          );
+
+
+          showSection(
+            target
+          );
+
+
+        }
+      );
+
+
+    }
+  );
+
+
+
+  /* ========================================
+     HOME BUTTON
+  ======================================== */
+
+  homeButton.addEventListener(
+    "click",
+    function () {
 
 
       history.pushState(
@@ -1133,15 +1405,18 @@
       showHome();
 
 
-    });
+    }
+  );
 
 
 
-    /* ========================================
-       BROWSER BACK / FORWARD
-    ======================================== */
+  /* ========================================
+     BROWSER BACK / FORWARD
+  ======================================== */
 
-    window.addEventListener("popstate", function () {
+  window.addEventListener(
+    "popstate",
+    function () {
 
 
       const id =
@@ -1150,43 +1425,63 @@
 
       if (id) {
 
+
         showSection(id);
+
 
       }
 
       else {
 
+
         showHome();
+
 
       }
 
 
-    });
-
-
-
-    /* ========================================
-       INITIAL LOAD
-    ======================================== */
-
-    const initialSection =
-      window.location.hash.substring(1);
-
-
-    if (initialSection) {
-
-      showSection(initialSection);
-
     }
-
-    else {
-
-      showHome();
-
-    }
+  );
 
 
-  });
+
+  /* ========================================
+     INITIAL LOAD
+  ======================================== */
+
+  const initialSection =
+    window.location.hash.substring(1);
+
+
+
+  if (initialSection) {
+
+
+    showSection(
+      initialSection
+    );
+
+
+  }
+
+  else {
+
+
+    showHome();
+
+
+  }
+
+
+
+  /* ========================================
+     START
+  ======================================== */
+
+  startSlideshow();
+
+
+});
 
 </script>
 
