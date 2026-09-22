@@ -1,368 +1,1174 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Donghyeon Lim</title>
 
   <style>
-    /* 기본 레이아웃 및 폰트 설정 */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
 
+    /* ========================================
+       BASIC
+    ======================================== */
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html,
     body {
-      font-family: 'Helvetica Neue', Arial, sans-serif;
-      background-color: #fff;
-      color: #000;
-      line-height: 1.6;
-      padding: 0 20px 40px 20px;
-      font-size: 0.95rem; 
-      overflow: hidden; /* 인트로 전까지 스크롤 방지 */
-    }
-
-    /* 메인 배경 이미지 */
-    .background-image {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background-image: url('images/bg.png'); 
-      background-repeat: no-repeat;
-      background-position: center center;
-      background-size: cover;
-      z-index: -1;
-      pointer-events: none;
-      opacity: 0;
-      transform: scale(1.05);
-      transition: opacity 2s ease-out, transform 2.5s ease-out;
-    }
-    .background-image.is-visible {
-      opacity: 0.4;
-      transform: scale(1);
-    }
-
-    /* 인트로 오버레이 컨테이너 */
-    #intro-overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background-color: #fff;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end; 
-      align-items: center;
-      z-index: 9999;
-      cursor: pointer;
-      opacity: 1;
-      transition: opacity 1.2s ease-in-out;
-      overflow: hidden;
-      padding-bottom: 80px; 
-    }
-
-    #intro-overlay.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    /* 인트로 이미지 꽉 채우기 */
-    #intro-overlay img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      position: absolute;
-      top: 0; left: 0;
-      z-index: -1; 
-      pointer-events: none; 
-      animation: fadeIn 2s ease-out forwards;
     }
 
-    /* 안내 문구: 검정색 & 하단 배치 */
-    .click-guide {
-      position: relative;
-      z-index: 10;
-      font-size: 0.65rem;
-      letter-spacing: 0.2em;
-      color: #000; 
-      text-transform: uppercase;
-      opacity: 0;
-      pointer-events: none; 
-      animation: fadeIn 2s ease-out 1s forwards;
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background: #ffffff;
+      color: #000000;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
-    /* 메인 콘텐츠 숨김/표시 제어 */
-    header, main, .fixed-footer {
-      visibility: hidden; 
-      opacity: 0;
-      transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
+
+    /* ========================================
+       SITE
+    ======================================== */
+
+    .site {
+      width: 100vw;
+      height: 100vh;
+
+      background: #ffffff;
+
+      overflow: hidden;
     }
-    header.is-visible, main.is-visible, .fixed-footer.is-visible {
-      visibility: visible;
-      opacity: 1;
-    }
+
+
+    /* ========================================
+       HEADER
+    ======================================== */
 
     header {
-      position: fixed;
-      top: 0; left: 0;
       width: 100%;
-      background-color: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(3px);
-      z-index: 10;
-      padding: 20px 20px 15px 20px;
+      height: 48px;
+
+      display: flex;
+      align-items: center;
+
+      background: #ffffff;
+
+      padding: 0 22px;
+
+      position: relative;
+      z-index: 100;
     }
 
-    nav { 
-      max-width: 960px;
-      margin: 0 auto;
-      display: flex;
-      justify-content: space-between;
+
+    /* 왼쪽 검정 사각형 */
+
+    .home-button {
+      width: 24px;
+      height: 24px;
+
+      background: #000000;
+
+      border: none;
+      outline: none;
+
+      cursor: pointer;
+
+      flex-shrink: 0;
     }
+
+
+    /* 메뉴 */
+
+    nav {
+      margin-left: auto;
+
+      width: 48%;
+
+      display: grid;
+
+      grid-template-columns: repeat(4, 1fr);
+
+      align-items: center;
+
+      text-align: center;
+    }
+
 
     nav a {
-      text-decoration: none;
-      color: #000;
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.05em;
-    }
-    nav a.is-active { opacity: 0.3; }
-    nav a:hover { opacity: 0.5; }
+      font-size: 18px;
+      font-weight: 400;
 
-    main {
-      position: relative;
-      z-index: 1;
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 120px 0 40px 0;
+      line-height: 1;
+
+      cursor: pointer;
+
+      transition: opacity 0.2s ease;
     }
+
+
+    nav a:hover {
+      opacity: 0.45;
+    }
+
+
+    nav a.active {
+      opacity: 0.35;
+    }
+
+
+
+    /* ========================================
+       HOME
+    ======================================== */
+
+    #home {
+      width: 100%;
+
+      height: calc(100vh - 48px);
+
+      display: grid;
+
+      /*
+        이미지 80%
+        흰 공간 20%
+      */
+
+      grid-template-columns: 80.25% 19.75%;
+    }
+
+
+    .main-image {
+      width: 100%;
+      height: 100%;
+
+      overflow: hidden;
+    }
+
+
+    .main-image img {
+      width: 100%;
+      height: 100%;
+
+      display: block;
+
+      object-fit: cover;
+
+      /*
+        사진 위치 조절
+        center / left / right 등 변경 가능
+      */
+
+      object-position: center center;
+    }
+
+
+    .white-space {
+      width: 100%;
+      height: 100%;
+
+      background: #ffffff;
+    }
+
+
+
+    /* ========================================
+       CONTENT PAGE
+    ======================================== */
+
+    #content {
+      display: none;
+
+      width: 100%;
+      height: calc(100vh - 48px);
+
+      overflow-y: auto;
+
+      background: #ffffff;
+    }
+
+
+    .content-inner {
+      width: calc(100% - 90px);
+
+      max-width: 1200px;
+
+      margin: 0 auto;
+
+      padding: 70px 0 120px 0;
+    }
+
 
     section {
       display: none;
-      margin-bottom: 100px;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.8s ease;
     }
-    section.is-active { display: block; }
-    section.is-visible { opacity: 1; transform: translateY(0); }
 
-    h2 {
-      font-size: 1.1rem;
-      font-weight: bold;
-      text-transform: uppercase;
-      margin-bottom: 30px;
-      letter-spacing: 0.02em;
+
+    section.active {
+      display: block;
+
+      animation: fadeIn 0.35s ease;
     }
+
+
+    @keyframes fadeIn {
+
+      from {
+        opacity: 0;
+        transform: translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+    }
+
+
+
+    /* ========================================
+       CONTENT TYPOGRAPHY
+    ======================================== */
+
+    h1 {
+      font-size: 18px;
+
+      font-weight: 500;
+
+      margin-bottom: 40px;
+    }
+
+
+    .text-links {
+      max-width: 800px;
+    }
+
 
     .text-links a {
       display: block;
-      text-decoration: none;
-      color: inherit;
-      font-size: 1.05rem; 
-      margin-bottom: 10px; 
-      font-weight: 400;
-    }
-    .text-links a:hover { text-decoration: underline; color: #666; }
 
-    /* CV 상세 스타일 */
-    .cv-wrap { 
-      margin-top: 20px; 
-      text-align: left; 
-      font-size: 1rem; 
-      color: #333; 
-    }
-    .cv-wrap p { margin: 0 0 12px 0; }
-    .cv-wrap .spacer { height: 20px; }
-    .cv-wrap strong { color: #000; font-weight: 600; }
-    .cv-wrap hr { margin: 30px 0; border: none; border-top: 1px solid #eee; }
+      width: fit-content;
 
-    .fixed-footer {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      font-size: 0.8rem;
-      color: #888;
-      z-index: 20;
+      font-size: 16px;
+
+      line-height: 1.55;
+
+      margin-bottom: 8px;
     }
+
+
+    .text-links a:hover {
+      text-decoration: underline;
+
+      text-underline-offset: 3px;
+    }
+
+
+
+    /* ========================================
+       CV
+    ======================================== */
+
+    .cv-wrap {
+      max-width: 900px;
+
+      font-size: 15px;
+
+      line-height: 1.7;
+    }
+
+
+    .cv-wrap p {
+      margin-bottom: 16px;
+    }
+
+
+    .cv-wrap strong {
+      font-weight: 600;
+    }
+
+
+    .cv-wrap .spacer {
+      height: 14px;
+    }
+
+
+    .cv-wrap hr {
+      border: none;
+
+      border-top: 1px solid #dddddd;
+
+      margin: 40px 0;
+    }
+
+
+
+    /* ========================================
+       MOBILE
+    ======================================== */
 
     @media (max-width: 768px) {
-      header { padding: 15px 15px 10px 15px; }
-      nav a { font-size: 0.65rem; }
-      main { padding-top: 100px; }
-      .text-links a { font-size: 0.95rem; }
-      .cv-wrap { font-size: 0.9rem; }
+
+      header {
+        height: 52px;
+
+        padding: 0 15px;
+      }
+
+
+      .home-button {
+        width: 20px;
+        height: 20px;
+      }
+
+
+      nav {
+        width: auto;
+
+        display: flex;
+
+        gap: 20px;
+      }
+
+
+      nav a {
+        font-size: 13px;
+      }
+
+
+      #home {
+        height: calc(100vh - 52px);
+
+        grid-template-columns: 100%;
+      }
+
+
+      .white-space {
+        display: none;
+      }
+
+
+      #content {
+        height: calc(100vh - 52px);
+      }
+
+
+      .content-inner {
+        width: calc(100% - 40px);
+
+        padding-top: 45px;
+      }
+
     }
+
+
+
+    @media (max-width: 480px) {
+
+      nav {
+        gap: 13px;
+      }
+
+
+      nav a {
+        font-size: 11px;
+      }
+
+    }
+
   </style>
+
 </head>
 
-<body>
-  
-  <div id="intro-overlay">
-    <img src="../images/draw3.png" alt="Intro Drawing"> 
-    <div class="click-guide">Click to enter</div>
-  </div>
 
-  <div class="background-image"></div>
+<body>
+
+
+<div class="site">
+
+
+  <!-- ======================================
+       HEADER
+  ======================================= -->
 
   <header>
+
+    <button
+      class="home-button"
+      id="homeButton"
+      aria-label="Home">
+    </button>
+
+
     <nav>
-      <a href="#works" data-target="works">WORK</a>
-      <a href="#document" data-target="document">DOCUMENT</a>
-      <a href="#cv" data-target="cv">CV</a>
-      <a href="#media" data-target="media">MEDIA</a>
-      <a href="#portfolio" data-target="portfolio">PORTFOLIO</a>
+
+      <a href="#works"
+         data-target="works">
+        Work
+      </a>
+
+      <a href="#document"
+         data-target="document">
+        Document
+      </a>
+
+      <a href="#cv"
+         data-target="cv">
+        CV
+      </a>
+
+      <a href="#contact"
+         data-target="contact">
+        Contact
+      </a>
+
     </nav>
+
   </header>
 
-  <main>
-    <section id="works">
-      <h2>work</h2>
-      <div class="text-links">
-        <a href="works/I2.html">I2</a>
-        <a href="works/PillarBeamSlab.html">Pillar, Beam, Slab</a>
-        <a href="works/Mast.html">Mast</a>
-        <a href="works/PlumblingSystem.html">Plumbling System</a>
-        <a href="works/InstrumentsForSatellite.html">Instruments For Satellite</a>
-        <a href="works/InstrumentsForWheels.html">Instruments For wheels</a>
-        <a href="works/InstrumentsForLine.html">Instruments For line</a>
-        <a href="works/AuditoryStudiesInNoise.html">Auditory Studies In Noise</a>
-        <a href="works/Gong.html">Gong</a>
-        <a href="works/PreludeInAMonsoonSeason.html">Prelude In A Monsoon Season</a>
-        <a href="works/T••ck.html">T••ck</a>
-        <a href="works/Ossicle-N:1.html">Ossicle - N : 1</a>
-        <a href="works/SoundScenery-Wind,Sea,Wave.html">Sound Scenery - Wind, Sea, Wave</a>
-        <a href="works/WhenYourWordsAreVertical.html">When Your Words Are Vertical</a>
-        <a href="works/SoundScenery-Layerd.html">Sound Scenery - Layered</a>
-        <a href="works/SoundScenery-EnergyFlow.html">Sound Scenery - Energy Flow</a>
-        <a href="works/AtThePointThatDoesNotCrossTheLine.html">At The Point That Does Not Cross The Line</a>
-        <a href="works/V.V.V.html">V.V.V</a>
-        <a href="works/PillarOfVibration.html">Pillar Of Vibration</a>
-        <a href="works/Drawing.html">Drawing</a>
-      </div>
-    </section>
 
-    <section id="document">
-      <h2>Document</h2>
-      <div class="text-links">
-        <a href="texts/rp2.pdf">Research Presentation 2026, Edit Donghyeon Lim</a>
-        <a href="texts/rp.pdf">Research Presentation 2025, Edit Donghyeon Lim</a>
-        <a href="texts/ResonantChamber.pdf">Touchless Yet Touched, 2025 - Eunhee Kim</a>
-      </div>
-    </section>
 
-    <section id="cv">
-      <h2>CV</h2>
-      <div class="cv-wrap">
-        <p><strong>출생</strong><br>1999</p>
-        <div class="spacer"></div>
-        <p><strong>학력</strong><br>2024 경희대학교 미술대학 조소과 졸업<br>2024–현재 경희대학교 일반대학원 미술학과 석·박사 통합과정 재학</p>
-        <div class="spacer"></div>
-        <p><strong>주요 전시</strong></p>
-        <p><strong>2026</strong><br>〈몸은 기억을 닮는다〉, 갤러리인, 서울, 한국<br>〈2026 천만아트포영, 노들갤러리, 서울, 한국</p>
-        <p><strong>2025</strong><br>〈IBK THE ART PLAZA: 을지폴리〉, IBK 기업은행 지하, 서울, 한국<br>〈서울 빛섬 축제: 빛의 스펙트라〉, 뚝섬 한강공원 일대, 서울, 한국<br>〈Paradox〉, 아트리움 모리, 성주, 한국<br>〈Resonant Chamber〉, 공간형, 서울, 한국</p>
-        <p><strong>2024</strong><br>〈Your Office 2024〉, 아트스페이스 아름, 수원, 한국<br>〈지구를 구하는 멋진 이야기들〉, 경포해변, 강릉, 한국</p>
-        <p><strong>2023</strong><br>〈금이 간 계란과 잘 꼬인 밧줄〉, 피어 컨템포러리, 서울, 한국<br>〈Defamiliarization〉, 헬로우 뮤지움, 서울, 한국</p>
-        <hr>
-        <p><strong>Born</strong><br>1999</p>
-        <div class="spacer"></div>
-        <p><strong>Education</strong><br>2024 BFA in Sculpture, College of Fine Arts, Kyung Hee University, Seoul, Korea<br>2024–Present Integrated M.A./Ph.D. Program in Fine Arts, Graduate School, Kyung Hee University, Seoul, Korea</p>
-        <div class="spacer"></div>
-        <p><strong>Selected Exhibitions</strong></p>
-        <p><strong>2026</strong><br><em>Body Resembles Memory</em>, Gallery IN, Seoul, Korea</p>
-        <p><strong>2025</strong><br><em>2025 IBK THE ART PLAZA: Eulji Poly</em>, IBK Industrial Bank of Korea (B1), Seoul, Korea<br><em>Seoul Light : Spectra of Light</em>, Ttukseom Hangang Park, Seoul, Korea<br><em>Paradox</em>, Atrium Mori, Seongju, Korea<br><em>Resonant Chamber</em>, Space Hyeong, Seoul, Korea</p>
-        <p><strong>2024</strong><br><em>Your Office 2024</em>, Art Space Areum, Suwon, Korea<br><em>Wonderful Stories to Save the Earth</em>, Gyeongpo Beach, Gangneung, Korea</p>
-        <p><strong>2023</strong><br><em>Cracked Egg and Tightly Twisted Rope</em>, Pier Contemporary, Seoul, Korea<br><em>Defamiliarization</em>, Hello Museum, Seoul, Korea</p>
-      </div>
-    </section>
+  <!-- ======================================
+       HOME
+  ======================================= -->
 
-    <section id="media">
-      <h2>MEDIA</h2>
-      <div class="text-links" style="margin-top: 15px;">
-        <a href="mailto:tecuhn@gmail.com">E-mail</a>
-        <a href="https://www.instagram.com/limeastring/" target="_blank">Instagram</a>
-        <a href="https://youtube.com/@DonghyeonLim" target="_blank">YouTube</a>
-        <a href="https://soundcloud.com/limeastring" target="_blank">SoundCloud</a>
-      </div>
-    </section>
+  <main id="home">
 
-    <section id="portfolio">
-      <h2>PORTFOLIO</h2>
-      <div class="text-links" style="margin-top: 15px;">
-        <a href="texts/portfolio2.pdf" target="_blank">KR</a>
-      </div>
-    </section>
+
+    <div class="main-image">
+
+      <!--
+        ★ 여기 메인사진 경로만 맞추면 됨
+      -->
+
+      <img
+        src="images/bg.png"
+        alt="Donghyeon Lim Exhibition View">
+
+    </div>
+
+
+    <div class="white-space"></div>
+
+
   </main>
 
-  <div class="fixed-footer">
-    © 2026 dong hyeon lim. All rights reserved.
-  </div>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const introOverlay = document.getElementById("intro-overlay");
-      const mainElements = [
-        document.querySelector("header"),
-        document.querySelector("main"),
-        document.querySelector(".fixed-footer")
-      ];
-      const bgImage = document.querySelector('.background-image');
-      const sectionIds = ["works", "document", "cv", "media", "portfolio"];
-      const sections = sectionIds.map(id => document.getElementById(id));
-      const navLinks = Array.from(document.querySelectorAll("header nav a"));
 
-      function activateSection(id) {
-        sections.forEach(sec => {
-          if (!sec) return;
-          const isActive = sec.id === id;
-          sec.classList.toggle("is-active", isActive);
-          if (isActive) {
-            requestAnimationFrame(() => sec.classList.add("is-visible"));
-          } else {
-            sec.classList.remove("is-visible");
+  <!-- ======================================
+       CONTENT
+  ======================================= -->
+
+  <main id="content">
+
+
+    <div class="content-inner">
+
+
+
+      <!-- WORK -->
+
+      <section id="works">
+
+        <h1>Work</h1>
+
+
+        <div class="text-links">
+
+          <a href="works/I2.html">
+            I2
+          </a>
+
+          <a href="works/PillarBeamSlab.html">
+            Pillar, Beam, Slab
+          </a>
+
+          <a href="works/Mast.html">
+            Mast
+          </a>
+
+          <a href="works/PlumblingSystem.html">
+            Plumbling System
+          </a>
+
+          <a href="works/InstrumentsForSatellite.html">
+            Instruments For Satellite
+          </a>
+
+          <a href="works/InstrumentsForWheels.html">
+            Instruments For Wheels
+          </a>
+
+          <a href="works/InstrumentsForLine.html">
+            Instruments For Line
+          </a>
+
+          <a href="works/AuditoryStudiesInNoise.html">
+            Auditory Studies In Noise
+          </a>
+
+          <a href="works/Gong.html">
+            Gong
+          </a>
+
+          <a href="works/PreludeInAMonsoonSeason.html">
+            Prelude In A Monsoon Season
+          </a>
+
+          <a href="works/T••ck.html">
+            T••ck
+          </a>
+
+          <a href="works/Ossicle-N:1.html">
+            Ossicle - N : 1
+          </a>
+
+          <a href="works/SoundScenery-Wind,Sea,Wave.html">
+            Sound Scenery - Wind, Sea, Wave
+          </a>
+
+          <a href="works/WhenYourWordsAreVertical.html">
+            When Your Words Are Vertical
+          </a>
+
+          <a href="works/SoundScenery-Layerd.html">
+            Sound Scenery - Layered
+          </a>
+
+          <a href="works/SoundScenery-EnergyFlow.html">
+            Sound Scenery - Energy Flow
+          </a>
+
+          <a href="works/AtThePointThatDoesNotCrossTheLine.html">
+            At The Point That Does Not Cross The Line
+          </a>
+
+          <a href="works/V.V.V.html">
+            V.V.V
+          </a>
+
+          <a href="works/PillarOfVibration.html">
+            Pillar Of Vibration
+          </a>
+
+          <a href="works/Drawing.html">
+            Drawing
+          </a>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- DOCUMENT -->
+
+      <section id="document">
+
+        <h1>Document</h1>
+
+
+        <div class="text-links">
+
+          <a
+            href="texts/rp2.pdf"
+            target="_blank">
+
+            Research Presentation 2026,
+            Edit Donghyeon Lim
+
+          </a>
+
+
+          <a
+            href="texts/rp.pdf"
+            target="_blank">
+
+            Research Presentation 2025,
+            Edit Donghyeon Lim
+
+          </a>
+
+
+          <a
+            href="texts/ResonantChamber.pdf"
+            target="_blank">
+
+            Touchless Yet Touched,
+            2025 - Eunhee Kim
+
+          </a>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- CV -->
+
+      <section id="cv">
+
+        <h1>CV</h1>
+
+
+        <div class="cv-wrap">
+
+
+          <p>
+
+            <strong>출생</strong>
+
+            <br>
+
+            1999
+
+          </p>
+
+
+          <div class="spacer"></div>
+
+
+          <p>
+
+            <strong>학력</strong>
+
+            <br>
+
+            2024 경희대학교 미술대학 조소과 졸업
+
+            <br>
+
+            2024–현재
+            경희대학교 일반대학원 미술학과
+            석·박사 통합과정 재학
+
+          </p>
+
+
+          <div class="spacer"></div>
+
+
+          <p>
+            <strong>주요 전시</strong>
+          </p>
+
+
+          <p>
+
+            <strong>2026</strong>
+
+            <br>
+
+            〈몸은 기억을 닮는다〉,
+            갤러리인,
+            서울,
+            한국
+
+            <br>
+
+            〈2026 천만아트포영〉,
+            노들갤러리,
+            서울,
+            한국
+
+            <br>
+
+            〈아주 얇은 막〉,
+            C-SQUARE,
+            서울,
+            한국
+
+          </p>
+
+
+
+          <p>
+
+            <strong>2025</strong>
+
+            <br>
+
+            〈IBK THE ART PLAZA: 을지폴리〉,
+            IBK 기업은행 지하,
+            서울,
+            한국
+
+            <br>
+
+            〈서울 빛섬 축제: 빛의 스펙트라〉,
+            뚝섬 한강공원 일대,
+            서울,
+            한국
+
+            <br>
+
+            〈Paradox〉,
+            아트리움 모리,
+            성주,
+            한국
+
+            <br>
+
+            〈Resonant Chamber〉,
+            공간형,
+            서울,
+            한국
+
+          </p>
+
+
+
+          <p>
+
+            <strong>2024</strong>
+
+            <br>
+
+            〈Your Office 2024〉,
+            아트스페이스 아름,
+            수원,
+            한국
+
+            <br>
+
+            〈지구를 구하는 멋진 이야기들〉,
+            경포해변,
+            강릉,
+            한국
+
+          </p>
+
+
+
+          <p>
+
+            <strong>2023</strong>
+
+            <br>
+
+            〈금이 간 계란과 잘 꼬인 밧줄〉,
+            피어 컨템포러리,
+            서울,
+            한국
+
+            <br>
+
+            〈Defamiliarization〉,
+            헬로우 뮤지움,
+            서울,
+            한국
+
+          </p>
+
+
+
+          <hr>
+
+
+
+          <p>
+
+            <strong>Born</strong>
+
+            <br>
+
+            1999
+
+          </p>
+
+
+          <div class="spacer"></div>
+
+
+          <p>
+
+            <strong>Education</strong>
+
+            <br>
+
+            2024 BFA in Sculpture,
+            College of Fine Arts,
+            Kyung Hee University,
+            Seoul,
+            Korea
+
+            <br>
+
+            2024–Present
+            Integrated M.A./Ph.D. Program
+            in Fine Arts,
+            Graduate School,
+            Kyung Hee University,
+            Seoul,
+            Korea
+
+          </p>
+
+
+          <div class="spacer"></div>
+
+
+          <p>
+            <strong>
+              Selected Exhibitions
+            </strong>
+          </p>
+
+
+          <p>
+
+            <strong>2026</strong>
+
+            <br>
+
+            <em>
+              Body Resembles Memory
+            </em>,
+            Gallery IN,
+            Seoul,
+            Korea
+
+            <br>
+
+            <em>
+              2026 Chunman Art for Young
+            </em>,
+            Nodeul Gallery,
+            Seoul,
+            Korea
+
+            <br>
+
+            <em>
+              A Very Thin Membrane
+            </em>,
+            C-SQUARE,
+            Seoul,
+            Korea
+
+          </p>
+
+
+        </div>
+
+      </section>
+
+
+
+      <!-- CONTACT -->
+
+      <section id="contact">
+
+        <h1>Contact</h1>
+
+
+        <div class="text-links">
+
+
+          <a href="mailto:tecuhn@gmail.com">
+            E-mail
+          </a>
+
+
+          <a
+            href="https://www.instagram.com/limeastring/"
+            target="_blank">
+
+            Instagram
+
+          </a>
+
+
+          <a
+            href="https://youtube.com/@DonghyeonLim"
+            target="_blank">
+
+            YouTube
+
+          </a>
+
+
+          <a
+            href="https://soundcloud.com/limeastring"
+            target="_blank">
+
+            SoundCloud
+
+          </a>
+
+
+          <a
+            href="texts/portfolio2.pdf"
+            target="_blank">
+
+            Portfolio KR
+
+          </a>
+
+
+        </div>
+
+      </section>
+
+
+    </div>
+
+
+  </main>
+
+
+</div>
+
+
+
+<script>
+
+  document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+
+      const home =
+        document.getElementById("home");
+
+
+      const content =
+        document.getElementById("content");
+
+
+      const homeButton =
+        document.getElementById("homeButton");
+
+
+      const navLinks =
+        document.querySelectorAll("nav a");
+
+
+      const sections =
+        document.querySelectorAll("section");
+
+
+
+      /*
+        HOME
+      */
+
+      function showHome() {
+
+
+        home.style.display = "grid";
+
+
+        content.style.display = "none";
+
+
+        sections.forEach(function (section) {
+
+          section.classList.remove("active");
+
+        });
+
+
+        navLinks.forEach(function (link) {
+
+          link.classList.remove("active");
+
+        });
+
+      }
+
+
+
+      /*
+        SECTION
+      */
+
+      function showSection(id) {
+
+
+        home.style.display = "none";
+
+
+        content.style.display = "block";
+
+
+        content.scrollTop = 0;
+
+
+        sections.forEach(function (section) {
+
+
+          if (section.id === id) {
+
+            section.classList.add("active");
+
           }
+
+          else {
+
+            section.classList.remove("active");
+
+          }
+
+
         });
-        navLinks.forEach(a => {
-          const target = a.getAttribute("data-target") || a.getAttribute("href")?.replace("#", "");
-          a.classList.toggle("is-active", target === id);
+
+
+
+        navLinks.forEach(function (link) {
+
+
+          if (link.dataset.target === id) {
+
+            link.classList.add("active");
+
+          }
+
+          else {
+
+            link.classList.remove("active");
+
+          }
+
+
         });
+
+
       }
 
-      function getSectionFromHash() {
-        const hash = (location.hash || "#works").replace("#", "");
-        return sectionIds.includes(hash) ? hash : "works";
-      }
 
-      const showMainContent = () => {
-        document.body.style.overflow = 'auto'; 
-        bgImage.classList.add('is-visible'); 
-        mainElements.forEach(el => el.classList.add("is-visible"));
-        activateSection(getSectionFromHash());
-      };
 
-      const hasSeenIntro = sessionStorage.getItem("hasSeenIntro");
+      /*
+        NAV CLICK
+      */
 
-      if (hasSeenIntro) {
-        introOverlay.style.display = "none";
-        showMainContent();
-      } else {
-        introOverlay.addEventListener("click", () => {
-          sessionStorage.setItem("hasSeenIntro", "true");
-          introOverlay.classList.add("hidden"); 
-          setTimeout(() => {
-            showMainContent();
-            introOverlay.style.display = "none";
-          }, 1200);
-        });
-      }
+      navLinks.forEach(function (link) {
 
-      window.addEventListener("hashchange", () => {
-        activateSection(getSectionFromHash());
-        window.scrollTo({ top: 0, behavior: "smooth" });
+
+        link.addEventListener(
+          "click",
+          function (event) {
+
+
+            event.preventDefault();
+
+
+            const target =
+              this.dataset.target;
+
+
+            history.pushState(
+              null,
+              "",
+              "#" + target
+            );
+
+
+            showSection(target);
+
+
+          }
+        );
+
+
       });
-    });
-  </script>
+
+
+
+      /*
+        BLACK SQUARE = HOME
+      */
+
+      homeButton.addEventListener(
+        "click",
+        function () {
+
+
+          history.pushState(
+            null,
+            "",
+            window.location.pathname
+          );
+
+
+          showHome();
+
+
+        }
+      );
+
+
+
+      /*
+        BACK BUTTON
+      */
+
+      window.addEventListener(
+        "popstate",
+        function () {
+
+
+          const id =
+            window.location.hash.substring(1);
+
+
+          if (id) {
+
+            showSection(id);
+
+          }
+
+          else {
+
+            showHome();
+
+          }
+
+
+        }
+      );
+
+
+
+      /*
+        PAGE LOAD
+      */
+
+      const initialSection =
+        window.location.hash.substring(1);
+
+
+      if (initialSection) {
+
+        showSection(initialSection);
+
+      }
+
+      else {
+
+        showHome();
+
+      }
+
+
+    }
+  );
+
+</script>
+
+
 </body>
+
 </html>
