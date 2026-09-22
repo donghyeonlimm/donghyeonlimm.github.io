@@ -152,7 +152,11 @@
 
       display: grid;
 
-      /* 사진 85% / 오른쪽 흰 공간 15% */
+      /*
+        메인 이미지 85%
+        오른쪽 흰 공간 15%
+      */
+
       grid-template-columns: 85% 15%;
 
       background: #ffffff;
@@ -178,12 +182,7 @@
 
       display: block;
 
-      /*
-        사진들을 같은 비율로 맞춰 놓는 것을 전제로
-        영역 전체를 채움
-      */
       object-fit: cover;
-
       object-position: center center;
 
       opacity: 0;
@@ -357,9 +356,7 @@
 
       nav {
         width: auto;
-
         display: flex;
-
         gap: 18px;
       }
 
@@ -500,8 +497,8 @@
     <div class="main-image">
 
       <!--
-        HTML에는 첫 이미지 하나만 넣음.
-        나머지는 JavaScript가 자동으로 교체함.
+        첫 번째 이미지만 HTML에서 직접 표시.
+        나머지는 JavaScript가 자동 교체.
       -->
 
       <img
@@ -641,9 +638,24 @@
         <div class="text-links">
 
 
+          <!-- PORTFOLIO -->
+
+          <a
+            href="texts/portfolio2.pdf"
+            target="_blank"
+            rel="noopener noreferrer">
+
+            Portfolio KR
+
+          </a>
+
+
+          <!-- DOCUMENTS -->
+
           <a
             href="texts/rp2.pdf"
-            target="_blank">
+            target="_blank"
+            rel="noopener noreferrer">
 
             Research Presentation 2026, Edit Donghyeon Lim
 
@@ -652,7 +664,8 @@
 
           <a
             href="texts/rp.pdf"
-            target="_blank">
+            target="_blank"
+            rel="noopener noreferrer">
 
             Research Presentation 2025, Edit Donghyeon Lim
 
@@ -661,7 +674,8 @@
 
           <a
             href="texts/ResonantChamber.pdf"
-            target="_blank">
+            target="_blank"
+            rel="noopener noreferrer">
 
             Touchless Yet Touched, 2025 - Eunhee Kim
 
@@ -689,9 +703,13 @@
 
 
           <p>
+
             <strong>Born</strong>
+
             <br>
+
             1999
+
           </p>
 
 
@@ -723,7 +741,9 @@
 
 
           <p>
+
             <strong>Selected Exhibitions</strong>
+
           </p>
 
 
@@ -887,15 +907,6 @@
           </a>
 
 
-          <a
-            href="texts/portfolio2.pdf"
-            target="_blank">
-
-            Portfolio KR
-
-          </a>
-
-
         </div>
 
 
@@ -924,17 +935,22 @@ document.addEventListener("DOMContentLoaded", function () {
   const home =
     document.getElementById("home");
 
+
   const content =
     document.getElementById("content");
+
 
   const homeButton =
     document.getElementById("homeButton");
 
+
   const navLinks =
     document.querySelectorAll("nav a");
 
+
   const sections =
     document.querySelectorAll("section");
+
 
   const mainImage =
     document.querySelector(".main-image img");
@@ -944,17 +960,6 @@ document.addEventListener("DOMContentLoaded", function () {
   /* ========================================
      SLIDESHOW IMAGE LIST
   ======================================== */
-
-  /*
-    실제 파일 구조:
-
-    images/bg.png
-    images/bg1.png
-    images/bg2.png
-    images/bg3.png
-    images/bg4.png
-    images/bg5.png
-  */
 
   const slideshowImages = [
 
@@ -975,21 +980,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let currentImageIndex = 0;
 
+
   let slideshowTimer = null;
 
 
 
   /* ========================================
-     PRELOAD ALL IMAGES
+     PRELOAD IMAGES
   ======================================== */
 
   slideshowImages.forEach(function (src) {
 
+
     const image =
       new Image();
 
+
     image.src =
       src;
+
 
   });
 
@@ -1008,8 +1017,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /*
-      애니메이션을 처음부터
-      다시 실행하기 위한 reflow
+      애니메이션을 다시 시작하기 위한
+      브라우저 reflow
     */
 
     void mainImage.offsetWidth;
@@ -1042,11 +1051,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /*
-      다음 이미지를 먼저 로딩함.
+      다음 이미지를 먼저 로드.
 
-      로딩 성공하기 전에는
-      현재 사진을 건드리지 않기 때문에
-      흰 화면이 발생하지 않음.
+      정상적으로 로드된 뒤에만
+      화면의 이미지를 교체함.
     */
 
     const preloadImage =
@@ -1062,27 +1070,14 @@ document.addEventListener("DOMContentLoaded", function () {
           nextIndex;
 
 
-        /*
-          기존 애니메이션 제거
-        */
-
         mainImage.classList.remove(
           "image-enter"
         );
 
 
-        /*
-          다음 이미지로 변경
-        */
-
         mainImage.src =
           nextSrc;
 
-
-        /*
-          새 이미지에 기존의
-          Fade + Zoom 효과 적용
-        */
 
         requestAnimationFrame(
           function () {
@@ -1100,11 +1095,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /*
-      파일을 못 찾았을 경우
-      현재 사진은 그대로 유지.
-
-      다음 순번으로 넘어가도록
-      index만 변경.
+      파일을 찾지 못하면
+      현재 사진 유지.
     */
 
     preloadImage.onerror =
@@ -1144,7 +1136,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /*
-      6000 = 6초마다 변경
+      6000 = 6초
     */
 
     slideshowTimer =
@@ -1234,7 +1226,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /*
-      메인화면이 나타날 때
+      메인으로 돌아오면
       현재 이미지 효과 재실행
     */
 
@@ -1242,8 +1234,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /*
-      메인으로 돌아온 시점부터
-      다시 6초 카운트
+      슬라이드쇼 다시 시작
     */
 
     startSlideshow();
@@ -1277,8 +1268,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /*
-      Work / Document / CV / Contact에서는
-      슬라이드쇼 정지
+      메뉴 페이지에서는
+      슬라이드쇼 일시정지
     */
 
     stopSlideshow();
@@ -1365,7 +1356,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* ========================================
-     NAVIGATION CLICK
+     NAV CLICK
   ======================================== */
 
   navLinks.forEach(
