@@ -29,12 +29,19 @@
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       background: #ffffff;
       color: #000000;
+
       font-size: 13px;
+
+      overflow: hidden;
     }
 
     a {
       color: inherit;
       text-decoration: none;
+    }
+
+    button {
+      font-family: inherit;
     }
 
 
@@ -45,7 +52,9 @@
     .site {
       width: 100vw;
       height: 100vh;
+
       background: #ffffff;
+
       overflow: hidden;
     }
 
@@ -61,20 +70,24 @@
       display: flex;
       align-items: center;
 
-      background: #ffffff;
-
       padding: 0 22px;
+
+      background: #ffffff;
 
       position: relative;
       z-index: 100;
     }
 
 
-    /* HOME BUTTON */
+    /* ========================================
+       HOME BUTTON
+    ======================================== */
 
     .home-button {
       width: 22px;
       height: 22px;
+
+      flex-shrink: 0;
 
       background: #000000;
 
@@ -83,11 +96,17 @@
 
       cursor: pointer;
 
-      flex-shrink: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .home-button:hover {
+      opacity: 0.55;
     }
 
 
-    /* NAVIGATION */
+    /* ========================================
+       NAVIGATION
+    ======================================== */
 
     nav {
       margin-left: auto;
@@ -102,10 +121,10 @@
       text-align: center;
     }
 
-
     nav a {
       font-size: 14px;
       font-weight: 400;
+
       line-height: 1;
 
       cursor: pointer;
@@ -113,16 +132,13 @@
       transition: opacity 0.2s ease;
     }
 
-
     nav a:hover {
       opacity: 0.45;
     }
 
-
     nav a.active {
       opacity: 0.35;
     }
-
 
 
     /* ========================================
@@ -136,10 +152,16 @@
 
       display: grid;
 
-      /* 이미지 85% / 흰 공간 15% */
+      /* 이미지 85% / 오른쪽 여백 15% */
       grid-template-columns: 85% 15%;
+
+      background: #ffffff;
     }
 
+
+    /* ========================================
+       MAIN IMAGE
+    ======================================== */
 
     .main-image {
       width: 100%;
@@ -150,7 +172,6 @@
       background: #ffffff;
     }
 
-
     .main-image img {
       width: 100%;
       height: 100%;
@@ -158,10 +179,42 @@
       display: block;
 
       object-fit: cover;
-
       object-position: center center;
+
+      /* 등장 효과 전 상태 */
+      opacity: 0;
+
+      transform: scale(1.025);
     }
 
+
+    /* 메인 이미지 등장 */
+
+    .main-image img.image-enter {
+      animation:
+        imageEnter
+        1.8s
+        cubic-bezier(0.22, 1, 0.36, 1)
+        forwards;
+    }
+
+
+    @keyframes imageEnter {
+
+      0% {
+        opacity: 0;
+        transform: scale(1.025);
+      }
+
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+    }
+
+
+    /* 오른쪽 흰 여백 */
 
     .white-space {
       width: 100%;
@@ -169,7 +222,6 @@
 
       background: #ffffff;
     }
-
 
 
     /* ========================================
@@ -187,7 +239,6 @@
       background: #ffffff;
     }
 
-
     .content-inner {
       width: calc(100% - 90px);
 
@@ -198,20 +249,18 @@
       padding: 60px 0 120px 0;
     }
 
-
     section {
       display: none;
     }
 
-
     section.active {
       display: block;
 
-      animation: fadeIn 0.3s ease;
+      animation: contentFade 0.3s ease;
     }
 
 
-    @keyframes fadeIn {
+    @keyframes contentFade {
 
       from {
         opacity: 0;
@@ -226,9 +275,8 @@
     }
 
 
-
     /* ========================================
-       TYPOGRAPHY
+       CONTENT TYPOGRAPHY
     ======================================== */
 
     h1 {
@@ -238,11 +286,9 @@
       margin-bottom: 32px;
     }
 
-
     .text-links {
       max-width: 800px;
     }
-
 
     .text-links a {
       display: block;
@@ -256,12 +302,11 @@
       margin-bottom: 6px;
     }
 
-
     .text-links a:hover {
       text-decoration: underline;
+
       text-underline-offset: 3px;
     }
-
 
 
     /* ========================================
@@ -276,21 +321,17 @@
       line-height: 1.65;
     }
 
-
     .cv-wrap p {
       margin-bottom: 14px;
     }
-
 
     .cv-wrap strong {
       font-weight: 600;
     }
 
-
     .cv-wrap .spacer {
       height: 12px;
     }
-
 
     .cv-wrap hr {
       border: none;
@@ -301,9 +342,8 @@
     }
 
 
-
     /* ========================================
-       MOBILE
+       TABLET / MOBILE
     ======================================== */
 
     @media (max-width: 768px) {
@@ -314,12 +354,10 @@
         padding: 0 14px;
       }
 
-
       .home-button {
         width: 18px;
         height: 18px;
       }
-
 
       nav {
         width: auto;
@@ -329,11 +367,9 @@
         gap: 18px;
       }
 
-
       nav a {
         font-size: 12px;
       }
-
 
       #home {
         height: calc(100vh - 44px);
@@ -341,16 +377,13 @@
         grid-template-columns: 100%;
       }
 
-
       .white-space {
         display: none;
       }
 
-
       #content {
         height: calc(100vh - 44px);
       }
-
 
       .content-inner {
         width: calc(100% - 34px);
@@ -358,11 +391,9 @@
         padding-top: 40px;
       }
 
-
       h1 {
         font-size: 13px;
       }
-
 
       .text-links a,
       .cv-wrap {
@@ -378,9 +409,29 @@
         gap: 12px;
       }
 
-
       nav a {
         font-size: 11px;
+      }
+
+    }
+
+
+    /* ========================================
+       REDUCED MOTION
+    ======================================== */
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .main-image img.image-enter {
+        animation: none;
+
+        opacity: 1;
+
+        transform: none;
+      }
+
+      section.active {
+        animation: none;
       }
 
     }
@@ -402,6 +453,7 @@
 
   <header>
 
+
     <button
       class="home-button"
       id="homeButton"
@@ -411,23 +463,32 @@
 
     <nav>
 
-      <a href="#works" data-target="works">
+      <a
+        href="#works"
+        data-target="works">
         Work
       </a>
 
-      <a href="#document" data-target="document">
+      <a
+        href="#document"
+        data-target="document">
         Document
       </a>
 
-      <a href="#cv" data-target="cv">
+      <a
+        href="#cv"
+        data-target="cv">
         CV
       </a>
 
-      <a href="#contact" data-target="contact">
+      <a
+        href="#contact"
+        data-target="contact">
         Contact
       </a>
 
     </nav>
+
 
   </header>
 
@@ -442,7 +503,6 @@
 
     <div class="main-image">
 
-      <!-- 메인 이미지 -->
       <img
         src="images/bg.jpg"
         alt="Donghyeon Lim Exhibition View">
@@ -473,6 +533,7 @@
       =================================== -->
 
       <section id="works">
+
 
         <h1>Work</h1>
 
@@ -561,6 +622,7 @@
 
         </div>
 
+
       </section>
 
 
@@ -571,10 +633,12 @@
 
       <section id="document">
 
+
         <h1>Document</h1>
 
 
         <div class="text-links">
+
 
           <a
             href="texts/rp2.pdf"
@@ -602,7 +666,9 @@
 
           </a>
 
+
         </div>
+
 
       </section>
 
@@ -614,6 +680,7 @@
 
       <section id="cv">
 
+
         <h1>CV</h1>
 
 
@@ -621,9 +688,13 @@
 
 
           <p>
+
             <strong>출생</strong>
+
             <br>
+
             1999
+
           </p>
 
 
@@ -654,7 +725,6 @@
           </p>
 
 
-
           <p>
 
             <strong>2026</strong>
@@ -672,7 +742,6 @@
             〈아주 얇은 막〉, C-SQUARE, 서울, 한국
 
           </p>
-
 
 
           <p>
@@ -702,7 +771,6 @@
           </p>
 
 
-
           <p>
 
             <strong>2024</strong>
@@ -718,7 +786,6 @@
             경포해변, 강릉, 한국
 
           </p>
-
 
 
           <p>
@@ -757,7 +824,6 @@
           <div class="spacer"></div>
 
 
-
           <p>
 
             <strong>Education</strong>
@@ -779,15 +845,16 @@
           </p>
 
 
-
           <div class="spacer"></div>
 
 
-
           <p>
-            <strong>Selected Exhibitions</strong>
-          </p>
 
+            <strong>
+              Selected Exhibitions
+            </strong>
+
+          </p>
 
 
           <p>
@@ -816,7 +883,6 @@
             Korea
 
           </p>
-
 
 
           <p>
@@ -854,7 +920,6 @@
           </p>
 
 
-
           <p>
 
             <strong>2024</strong>
@@ -874,7 +939,6 @@
             Korea
 
           </p>
-
 
 
           <p>
@@ -900,6 +964,7 @@
 
         </div>
 
+
       </section>
 
 
@@ -909,6 +974,7 @@
       =================================== -->
 
       <section id="contact">
+
 
         <h1>Contact</h1>
 
@@ -962,6 +1028,7 @@
 
         </div>
 
+
       </section>
 
 
@@ -1000,6 +1067,35 @@
       document.querySelectorAll("section");
 
 
+    const mainImage =
+      document.querySelector(".main-image img");
+
+
+
+    /* ========================================
+       IMAGE ANIMATION
+    ======================================== */
+
+    function playImageAnimation() {
+
+
+      mainImage.classList.remove("image-enter");
+
+
+      /*
+        브라우저가 애니메이션 초기화를
+        인식하도록 강제로 reflow
+      */
+
+      void mainImage.offsetWidth;
+
+
+      mainImage.classList.add("image-enter");
+
+
+    }
+
+
 
     /* ========================================
        HOME
@@ -1027,6 +1123,10 @@
 
       });
 
+
+      playImageAnimation();
+
+
     }
 
 
@@ -1036,6 +1136,19 @@
     ======================================== */
 
     function showSection(id) {
+
+
+      const targetSection =
+        document.getElementById(id);
+
+
+      if (!targetSection) {
+
+        showHome();
+
+        return;
+
+      }
 
 
       home.style.display = "none";
@@ -1066,7 +1179,6 @@
       });
 
 
-
       navLinks.forEach(function (link) {
 
 
@@ -1091,7 +1203,7 @@
 
 
     /* ========================================
-       NAV CLICK
+       NAVIGATION CLICK
     ======================================== */
 
     navLinks.forEach(function (link) {
