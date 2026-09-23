@@ -27,12 +27,9 @@
 
     body {
       font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-
       background: #ffffff;
       color: #000000;
-
       font-size: 13px;
-
       overflow: hidden;
     }
 
@@ -53,9 +50,7 @@
     .site {
       width: 100vw;
       height: 100vh;
-
       background: #ffffff;
-
       overflow: hidden;
     }
 
@@ -148,7 +143,6 @@
 
     #home {
       width: 100%;
-
       height: calc(100vh - 44px);
 
       display: grid;
@@ -221,7 +215,6 @@
     .white-space {
       width: 100%;
       height: 100%;
-
       background: #ffffff;
     }
 
@@ -243,7 +236,6 @@
 
     .content-inner {
       width: calc(100% - 90px);
-
       max-width: 1200px;
 
       margin: 0 auto;
@@ -344,7 +336,6 @@
 
       header {
         height: 44px;
-
         padding: 0 14px;
       }
 
@@ -526,9 +517,7 @@
 
       <section id="works">
 
-
         <h1>Work</h1>
-
 
         <div class="text-links">
 
@@ -614,7 +603,6 @@
 
         </div>
 
-
       </section>
 
 
@@ -625,9 +613,7 @@
 
       <section id="document">
 
-
         <h1>Document</h1>
-
 
         <div class="text-links">
 
@@ -674,7 +660,6 @@
 
         </div>
 
-
       </section>
 
 
@@ -685,9 +670,7 @@
 
       <section id="cv">
 
-
         <h1>CV</h1>
-
 
         <div class="cv-wrap">
 
@@ -728,6 +711,7 @@
           </p>
 
 
+
           <div class="cv-section-space"></div>
 
 
@@ -744,11 +728,11 @@
             <strong>2026</strong>
 
             <br>
-            <em>A Very Thin Membrane</em>,
-            C-SQUARE,
+
+            <em>Body Resembles Memory</em>,
+            Gallery IN,
             Seoul,
             Korea
-            
 
             <br>
 
@@ -759,9 +743,8 @@
 
             <br>
 
-          
-            <em>Body Resembles Memory</em>,
-            Gallery IN,
+            <em>A Very Thin Membrane</em>,
+            C-SQUARE,
             Seoul,
             Korea
 
@@ -816,7 +799,7 @@
 
             <br>
 
-            <em>The Fabulous Stories to Save The Green playImageAnimation</em>,
+            <em>Wonderful Stories to Save the Earth</em>,
             Gyeongpo Beach,
             Gangneung,
             Korea
@@ -850,10 +833,34 @@
 
 
 
+          <!-- AWARDS & SELECTIONS -->
+
+          <p>
+            <strong>Awards &amp; Selections</strong>
+          </p>
+
+
+          <p>
+
+            <strong>2026</strong>
+
+            <br>
+
+            Second Prize &amp; Selected Artist,
+            <em>2026 Chunman Art for Young</em>
+
+          </p>
+
+
+
+          <div class="cv-section-space"></div>
+
+
+
           <!-- PERFORMANCE & LIVE SESSIONS -->
 
           <p>
-            <strong>Performance & Live Sessions</strong>
+            <strong>Performance &amp; Live Sessions</strong>
           </p>
 
 
@@ -901,7 +908,6 @@
 
         </div>
 
-
       </section>
 
 
@@ -912,9 +918,7 @@
 
       <section id="contact">
 
-
         <h1>Contact</h1>
-
 
         <div class="text-links">
 
@@ -955,7 +959,6 @@
 
 
         </div>
-
 
       </section>
 
@@ -1005,7 +1008,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* ========================================
-     SLIDESHOW IMAGE LIST
+     SLIDESHOW IMAGES
   ======================================== */
 
   const slideshowImages = [
@@ -1027,7 +1030,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let currentImageIndex = 0;
 
-
   let slideshowTimer = null;
 
 
@@ -1038,14 +1040,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
   slideshowImages.forEach(function (src) {
 
-
     const image =
       new Image();
 
-
     image.src =
       src;
-
 
   });
 
